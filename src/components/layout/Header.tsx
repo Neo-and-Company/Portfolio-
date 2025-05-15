@@ -1,13 +1,12 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Briefcase, FolderGit2, UserCircle2, Wand2, Mail } from 'lucide-react';
+import { Menu, Briefcase, FolderGit2, UserCircle2, Mail } from 'lucide-react';
 
 const navItems = [
   { label: 'About', href: '#about', icon: <UserCircle2 className="h-4 w-4 mr-2" /> },
   { label: 'Experience', href: '#experience', icon: <Briefcase className="h-4 w-4 mr-2" /> },
   { label: 'Projects', href: '#projects', icon: <FolderGit2 className="h-4 w-4 mr-2" /> },
-  { label: 'Profile Improver', href: '#improver', icon: <Wand2 className="h-4 w-4 mr-2" /> },
   { label: 'Contact', href: '#contact', icon: <Mail className="h-4 w-4 mr-2" /> },
 ];
 
