@@ -47,24 +47,24 @@ body {
   }
 
   .dark {
-    --background: 210 10% 12%; /* Dark Gray (e.g. #1A1C1E) */
+    --background: 220 10% 10%; /* Darker Grey for background */
     --foreground: 210 15% 88%; /* Light Gray Text */
-    --card: 210 10% 18%; /* Slightly Lighter Dark Gray for Cards (e.g. #26292B) */
+    --card: 220 10% 15%; /* Slightly Lighter Dark Grey for Cards */
     --card-foreground: var(--foreground);
     --popover: var(--background);
     --popover-foreground: var(--foreground);
-    --primary: 187 50% 53%; /* Blue Dianne 400 (#4CB9C4) - Bright Teal for Dark Mode Primary */
+    --primary: 187 50% 53%; /* Blue Dianne 400 - Bright Teal for Dark Mode Primary */
     --primary-foreground: 210 10% 10%; /* Very Dark Gray/Black for text on Dark Mode Primary */
-    --secondary: 181 48% 68%; /* Blue Dianne 300 (#87D2D4) - Brighter Teal for Dark Mode Secondary */
+    --secondary: 181 48% 68%; /* Blue Dianne 300 - Brighter Teal for Dark Mode Secondary */
     --secondary-foreground: var(--primary-foreground);
-    --muted: 210 10% 25%; /* Darker Muted Gray */
+    --muted: 220 10% 20%; /* Darker Muted Grey */
     --muted-foreground: 210 10% 60%; /* Medium Light Gray for muted text */
-    --accent: 183 48% 81%; /* Blue Dianne 200 (#B7E8EA) - Very Bright Teal for Dark Mode Accent */
+    --accent: 183 48% 81%; /* Blue Dianne 200 - Very Bright Teal for Dark Mode Accent */
     --accent-foreground: var(--primary-foreground);
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 210 10% 25%; /* Dark Gray Border */
-    --input: 210 10% 22%; /* Dark Gray Input Background */
+    --border: 220 10% 25%; /* Dark Grey Border */
+    --input: 220 10% 22%; /* Dark Grey Input Background */
     --ring: 181 48% 60%; /* Ring based on Dark Mode Secondary/Accent */
 
     --chart-1: 187 50% 53%; /* Blue Dianne 400 */
@@ -73,13 +73,13 @@ body {
     --chart-4: 189 55% 43%; /* Blue Dianne 500 */
     --chart-5: 187 50% 31%; /* Blue Dianne 700 - darker, for variety in dark mode */
     
-    --sidebar-background: 210 10% 10%; /* Even darker for sidebar */
+    --sidebar-background: 220 10% 8%; /* Even darker for sidebar */
     --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--primary);
     --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: 210 10% 20%; /* Dark hover bg */
+    --sidebar-accent: 220 10% 18%; /* Dark hover bg */
     --sidebar-accent-foreground: 183 48% 85%; /* Bright teal text on dark hover */
-    --sidebar-border: 210 10% 25%;
+    --sidebar-border: 220 10% 25%;
     --sidebar-ring: var(--ring);
   }
 }
@@ -111,7 +111,7 @@ body {
     content: '';
     display: block;
     width: 4rem; /* Width of the divider */
-    height: 2px; /* Thickness of the divider */
+    height: 3px; /* Thickness of the divider - Increased from 2px */
     background-color: hsl(var(--accent)); /* Color of the divider */
     position: absolute;
     bottom: 0.5rem; /* Distance from the bottom of the h-tag's padding box */
