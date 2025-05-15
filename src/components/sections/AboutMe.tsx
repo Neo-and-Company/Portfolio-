@@ -21,21 +21,19 @@ const AboutMe = () => {
         <div className="grid gap-10 md:grid-cols-3 items-center">
           <div className="md:col-span-1 flex justify-center">
             <Image
-              src="/components/public/DSC02786.jpg"
+              src="/DSC02786.jpg"
               alt="Gabriel Elohi Mancillas Gallardo"
-              width={720}
+              width={240}
               height={240}
-              className="rounded-lg shadow-lg"
+              className="rounded-lg shadow-lg aspect-square object-cover"
               data-ai-hint="professional headshot"
             />
           </div>
           <div className="md:col-span-2 space-y-6">
             <div className="space-y-3">
               <Badge variant="secondary" className="text-sm">Hello, I'm Gabriel Elohi Mancillas Gallardo</Badge>
-              <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl flex items-center justify-center flex-wrap text-center header-divider">
-                <span>Innovative Data Scientist</span>
-                <Separator orientation="vertical" className="h-8 sm:h-10 mx-3 bg-primary/30" />
-                <span>& Engineer</span>
+              <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl text-center header-divider">
+                Innovative Data Scientist & Engineer
               </h1>
               <p className="text-lg text-foreground">
                 Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling. Adept at transforming complex data sets into actionable strategic insights, leveraging SQL, Tableau, Python, and AWS cloud services. Proven ability to develop and implement analytical frameworks to optimize marketing performance, enhance audience engagement, and deliver impactful business results.
