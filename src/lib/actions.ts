@@ -23,6 +23,9 @@ export type ContactFormState = {
   }
 };
 
+// Define the recipient email address
+const RECIPIENT_EMAIL = process.env.CONTACT_FORM_RECIPIENT_EMAIL || "gabrielmancillas1034@icloud.com";
+
 export async function submitContactForm(
   prevState: ContactFormState,
   formData: FormData
@@ -47,8 +50,8 @@ export async function submitContactForm(
   }
 
   // In a real application, you would send an email or save to a database here.
-  // For this example, we'll just log it and simulate success.
   console.log("Contact form submission received:");
+  console.log("Recipient Email:", RECIPIENT_EMAIL);
   console.log("Name:", validatedFields.data.name);
   console.log("Email:", validatedFields.data.email);
   console.log("Message:", validatedFields.data.message);
@@ -57,7 +60,21 @@ export async function submitContactForm(
   await new Promise(resolve => setTimeout(resolve, 1000));
 
   try {
-    // Example: await sendEmail(validatedFields.data);
+    // TODO: Implement actual email sending logic here
+    // Example using a hypothetical sendEmail function:
+    // await sendEmail({
+    //   to: RECIPIENT_EMAIL,
+    //   from: validatedFields.data.email, // Or a "no-reply" address from your domain
+    //   subject: `New Contact Form Submission from ${validatedFields.data.name}`,
+    //   text: validatedFields.data.message,
+    //   html: `<p><strong>Name:</strong> ${validatedFields.data.name}</p>
+    //          <p><strong>Email:</strong> ${validatedFields.data.email}</p>
+    //          <p><strong>Message:</strong></p>
+    //          <p>${validatedFields.data.message}</p>`,
+    // });
+
+    console.log(`Simulating email send to ${RECIPIENT_EMAIL}`);
+
     return {
       message: "Thank you for your message! We'll get back to you soon.",
       success: true,
