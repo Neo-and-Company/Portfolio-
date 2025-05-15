@@ -1,6 +1,8 @@
+
 "use server";
 
 import { z } from "zod";
+// import nodemailer from 'nodemailer'; // Temporarily commented out - install nodemailer package
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -23,8 +25,9 @@ export type ContactFormState = {
   }
 };
 
-// Define the recipient email address
 const RECIPIENT_EMAIL = process.env.CONTACT_FORM_RECIPIENT_EMAIL || "gabrielmancillas1034@icloud.com";
+const SENDER_EMAIL = process.env.GMAIL_EMAIL; // Your Gmail address
+const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD; // Your Gmail App Password
 
 export async function submitContactForm(
   prevState: ContactFormState,
@@ -49,41 +52,58 @@ export async function submitContactForm(
     };
   }
 
-  // In a real application, you would send an email or save to a database here.
-  console.log("Contact form submission received:");
-  console.log("Recipient Email:", RECIPIENT_EMAIL);
-  console.log("Name:", validatedFields.data.name);
-  console.log("Email:", validatedFields.data.email);
-  console.log("Message:", validatedFields.data.message);
+  // Temporarily commented out email sending logic.
+  // Please install nodemailer and uncomment the following block.
+  /*
+  if (!SENDER_EMAIL || !GMAIL_APP_PASSWORD) {
+    console.error("Gmail credentials are not set in environment variables.");
+    return {
+      message: "Server configuration error: Email credentials not set. Please contact the administrator.",
+      success: false,
+      fieldValues: { name, email, message }
+    };
+  }
 
-  // Simulate an API call or email sending process
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: SENDER_EMAIL,
+      pass: GMAIL_APP_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: `"${validatedFields.data.name}" <${SENDER_EMAIL}>`, // Send from your Gmail, but show sender's name
+    to: RECIPIENT_EMAIL,
+    replyTo: validatedFields.data.email, // So you can reply directly to the user
+    subject: `New Contact Form Submission from ${validatedFields.data.name}`,
+    text: `You have received a new message from your website contact form:\n\n
+           Name: ${validatedFields.data.name}\n
+           Email: ${validatedFields.data.email}\n
+           Message:\n${validatedFields.data.message}`,
+    html: `<p>You have received a new message from your website contact form:</p>
+           <p><strong>Name:</strong> ${validatedFields.data.name}</p>
+           <p><strong>Email:</strong> ${validatedFields.data.email}</p>
+           <p><strong>Message:</strong></p>
+           <p>${validatedFields.data.message.replace(/\n/g, '<br>')}</p>`,
+  };
+  */
 
   try {
-    // TODO: Implement actual email sending logic here
-    // Example using a hypothetical sendEmail function:
-    // await sendEmail({
-    //   to: RECIPIENT_EMAIL,
-    //   from: validatedFields.data.email, // Or a "no-reply" address from your domain
-    //   subject: `New Contact Form Submission from ${validatedFields.data.name}`,
-    //   text: validatedFields.data.message,
-    //   html: `<p><strong>Name:</strong> ${validatedFields.data.name}</p>
-    //          <p><strong>Email:</strong> ${validatedFields.data.email}</p>
-    //          <p><strong>Message:</strong></p>
-    //          <p>${validatedFields.data.message}</p>`,
-    // });
-
-    console.log(`Simulating email send to ${RECIPIENT_EMAIL}`);
-
+    // Temporarily commented out email sending logic.
+    // await transporter.sendMail(mailOptions);
+    // console.log("Contact form email sent successfully to:", RECIPIENT_EMAIL);
+    console.log("Form data processed. Email sending is temporarily commented out. Recipient:", RECIPIENT_EMAIL, "Data:", validatedFields.data);
     return {
-      message: "Thank you for your message! We'll get back to you soon.",
+      // Adjust message to reflect that email sending is not yet active
+      message: "Thank you for your message! It has been received. (Email sending is pending setup).",
       success: true,
-      fieldValues: { name: "", email: "", message: "" } // Clear fields on success
+      fieldValues: { name: "", email: "", message: "" }
     };
   } catch (error) {
-    console.error("Error submitting contact form:", error);
+    console.error("Error processing contact form (email sending part is commented out):", error);
     return {
-      message: "An unexpected error occurred while sending your message. Please try again later.",
+      message: "An unexpected error occurred while processing your message. Please try again later or contact support.",
       success: false,
       fieldValues: { name, email, message }
     };
