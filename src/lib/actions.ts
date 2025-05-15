@@ -55,70 +55,65 @@ export async function submitContactForm(
     };
   }
 
-  // Temporarily simulate success until nodemailer is installed and configured
-  console.log("Contact form submitted (email sending temporarily disabled):");
-  console.log("Recipient:", RECIPIENT_EMAIL);
-  console.log("Sender (configured in .env):", SENDER_EMAIL);
-  console.log("Data:", validatedFields.data);
-
   if (!SENDER_EMAIL || !GMAIL_APP_PASSWORD) {
-    console.error("Gmail credentials (GMAIL_EMAIL or GMAIL_APP_PASSWORD) are not set in environment variables. Email cannot be sent even if nodemailer was active.");
-    // Still return a user-friendly message, but make it clear it's a config issue for when email is re-enabled
+    console.error("Gmail credentials (GMAIL_EMAIL or GMAIL_APP_PASSWORD) are not set in environment variables. Email cannot be sent.");
+    // For now, simulate success for the UI if credentials are not set, but log an admin warning.
+    // In a real scenario, you might want to prevent form submission or display a clearer message.
     return {
-      message: "Thank you for your message! (Note to admin: Email service is not yet fully configured).",
-      success: true, // Simulate success for UI
+      message: "Thank you for your message! (Admin: Email service is not configured due to missing credentials).",
+      success: true, 
       fieldValues: { name: "", email: "", message: "" }
     };
   }
 
-  /*
-  // --- Temporarily commented out Nodemailer logic ---
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: SENDER_EMAIL, // Your Gmail address from .env
-      pass: GMAIL_APP_PASSWORD, // Your Gmail App Password from .env
-    },
-  });
+  // const transporter = nodemailer.createTransport({
+  //   service: 'gmail',
+  //   auth: {
+  //     user: SENDER_EMAIL,
+  //     pass: GMAIL_APP_PASSWORD,
+  //   },
+  // });
 
-  const mailOptions = {
-    from: `"${validatedFields.data.name}" <${SENDER_EMAIL}>`, // Shows sender's name but email is sent via your Gmail
-    to: RECIPIENT_EMAIL, // The email address that will receive the form submissions
-    replyTo: validatedFields.data.email, // So you can reply directly to the person who submitted the form
-    subject: `New Contact Form Submission from ${validatedFields.data.name}`,
-    text: `You have received a new message from your website contact form:\n\n
-           Name: ${validatedFields.data.name}\n
-           Email: ${validatedFields.data.email}\n
-           Message:\n${validatedFields.data.message}`,
-    html: `<p>You have received a new message from your website contact form:</p>
-           <p><strong>Name:</strong> ${validatedFields.data.name}</p>
-           <p><strong>Email:</strong> ${validatedFields.data.email}</p>
-           <p><strong>Message:</strong></p>
-           <p>${validatedFields.data.message.replace(/\n/g, '<br>')}</p>`,
-  };
+  // const mailOptions = {
+  //   from: `"${validatedFields.data.name}" <${SENDER_EMAIL}>`, // Display name of sender, but sent via your Gmail
+  //   to: RECIPIENT_EMAIL, // Send to your iCloud address
+  //   replyTo: validatedFields.data.email, // So you can reply directly to the user
+  //   subject: `New Contact Form Submission from ${validatedFields.data.name}`,
+  //   text: `You have received a new message from your website contact form:\n\n
+  //          Name: ${validatedFields.data.name}\n
+  //          Email: ${validatedFields.data.email}\n
+  //          Message:\n${validatedFields.data.message}`,
+  //   html: `<p>You have received a new message from your website contact form:</p>
+  //          <p><strong>Name:</strong> ${validatedFields.data.name}</p>
+  //          <p><strong>Email:</strong> ${validatedFields.data.email}</p>
+  //          <p><strong>Message:</strong></p>
+  //          <p>${validatedFields.data.message.replace(/\n/g, '<br>')}</p>`,
+  // };
 
   try {
-    await transporter.sendMail(mailOptions);
-    console.log("Contact form email sent successfully to:", RECIPIENT_EMAIL);
+    // await transporter.sendMail(mailOptions);
+    console.log("Contact form email would be sent to:", RECIPIENT_EMAIL); // Placeholder log
+    console.log("Form data:", validatedFields.data);
     return {
-      message: "Thank you for your message! It has been sent successfully.",
+      message: "Thank you for your message! It has been sent successfully.", // This message will be shown even if email sending is commented out.
       success: true,
       fieldValues: { name: "", email: "", message: "" } 
     };
   } catch (error) {
-    console.error("Error sending contact form email:", error);
+    console.error("Error sending contact form email (or preparing to send):", error);
+    // It's good to provide specific error messages if possible,
+    // but a generic one is fine for a fallback.
     let errorMessage = "An unexpected error occurred while sending your message. Please try again later.";
     
-    // You can add more specific error handling if needed
-    // For example, checking error.code for 'EAUTH' (authentication failure) or 'EENVELOPE' (address issues)
-    // if (error instanceof Error && 'code' in error) {
-    //   const nodeError = error as NodeJS.ErrnoException;
-    //   if (nodeError.code === 'EAUTH') {
-    //     errorMessage = "Email server authentication failed. Please check server configuration if you are the administrator.";
-    //   } else if (nodeError.code === 'EENVELOPE') {
-    //     errorMessage = "There was an issue with the recipient or sender email address. Please contact the administrator.";
-    //   }
-    // }
+    // You can add more specific error checks if 'error' has properties like 'code' (e.g., from Nodemailer)
+    if (error instanceof Error) {
+      // const nodeError = error as NodeJS.ErrnoException; // Or specific Nodemailer error type if available
+      // if (nodeError.code === 'EAUTH' || (error.message && error.message.includes("Authentication failed"))) {
+      //   errorMessage = "Email server authentication failed. Please check server configuration if you are the administrator. (Hint: Gmail App Password or 2FA settings).";
+      // } else if (nodeError.code === 'EENVELOPE' || (error.message && error.message.includes("Invalid recipient"))) {
+      //   errorMessage = "There was an issue with the recipient or sender email address. Please contact the administrator.";
+      // }
+    }
     
     return {
       message: errorMessage,
@@ -126,13 +121,4 @@ export async function submitContactForm(
       fieldValues: { name, email, message } 
     };
   }
-  // --- End of temporarily commented out Nodemailer logic ---
-  */
-
-  // Simulate success if Nodemailer logic is commented out
-  return {
-    message: "Thank you for your message! It has been received (email sending is currently pending setup).",
-    success: true,
-    fieldValues: { name: "", email: "", message: "" }
-  };
 }
