@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { UserCircle2, Briefcase, Zap, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 
 const AboutMe = () => {
   const skills = ["Data Science", "Machine Learning", "Software Engineering", "Python", "Next.js", "Cloud Computing"];
@@ -22,8 +23,10 @@ const AboutMe = () => {
           <div className="md:col-span-2 space-y-6">
             <div className="space-y-3">
               <Badge variant="secondary" className="text-sm">Hello, I'm LinkPro User</Badge>
-              <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl">
-                Innovative Data Scientist & Engineer
+              <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl flex items-center justify-center flex-wrap text-center">
+                <span>Innovative Data Scientist</span>
+                <Separator orientation="vertical" className="h-8 sm:h-10 mx-3 bg-primary/30" />
+                <span>& Engineer</span>
               </h1>
               <p className="text-lg text-foreground">
                 Passionate about leveraging data to drive impactful solutions and build cutting-edge applications. With a strong foundation in machine learning, software development, and cloud technologies, I thrive on transforming complex challenges into actionable insights and robust products.
