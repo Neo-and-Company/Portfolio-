@@ -61,7 +61,7 @@ const AboutMe = () => {
                 Security Clearance
               </h3>
               <p className="text-destructive">
-                Holds an active Secret clearance with the government, valid through October 2026.
+                Holds an active Secret clearance with the government, valid through <strong>October 2026</strong>.
               </p>
             </div>
           </div>
