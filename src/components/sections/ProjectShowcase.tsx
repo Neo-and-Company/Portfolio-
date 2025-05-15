@@ -35,6 +35,16 @@ const projects: Project[] = [
     imageHint: 'database schema diagram',
     repoUrl: 'https://github.com', // Placeholder
   },
+  {
+    id: 'proj4',
+    title: 'EM3 Wedding Services: Data-Driven Insights Platform',
+    description: "Engineered a sophisticated ETL pipeline and data analytics framework for EM3 Wedding Services, a premier provider in the wedding industry. This platform ingests, transforms, and models heterogeneous data sources encompassing client engagement, service utilization, and market dynamics. Leveraged advanced data science techniques for predictive analytics, customer segmentation, and operational optimization. The robust data engineering backbone ensures data quality, scalability, and facilitates comprehensive business intelligence, empowering EM3 to enhance service personalization and strategic decision-making.",
+    technologies: ['Python', 'SQL', 'ETL Pipelines', 'Data Modeling', 'Data Warehousing', 'Business Intelligence', 'Predictive Analytics', 'Cloud Data Platforms'],
+    imageUrl: 'https://placehold.co/600x400.png',
+    imageHint: 'data analytics wedding',
+    repoUrl: 'https://github.com/Neo-and-Company/Dove',
+    demoUrl: '#', // Placeholder, can be removed if no demo link
+  },
 ];
 
 const ProjectShowcase = () => {
