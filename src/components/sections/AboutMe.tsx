@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 
 const AboutMe = () => {
   const skills = [
-    "Python", "SQL", "AWS", "Tableau", "Scikit-learn", 
+    "Python", "SQL", "AWS", "Tableau", "Scikit-learn",
     "Statistical Modeling", "ETL Pipelines", "Data Wrangling", "R", "Java"
   ];
 
@@ -21,7 +21,7 @@ const AboutMe = () => {
         <div className="grid gap-10 md:grid-cols-3 items-center">
           <div className="md:col-span-1 flex justify-center">
             <Image
-              src="/DSC02786.JPG" 
+              src="/DSC02786.jpg"
               alt="Gabriel Elohi Mancillas Gallardo"
               width={240}
               height={240}
@@ -41,7 +41,7 @@ const AboutMe = () => {
                 Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling. Adept at transforming complex data sets into actionable strategic insights, leveraging SQL, Tableau, Python, and AWS cloud services. Proven ability to develop and implement analytical frameworks to optimize marketing performance, enhance audience engagement, and deliver impactful business results.
               </p>
             </div>
-            
+
             <div className="space-y-3">
               <h3 className="text-xl font-semibold text-primary flex items-center">
                 <Zap className="mr-2 h-5 w-5 text-accent" />
