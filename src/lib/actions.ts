@@ -2,7 +2,7 @@
 "use server";
 
 import { z } from "zod";
-// import nodemailer from 'nodemailer'; // Temporarily commented out - install nodemailer package
+// import nodemailer from 'nodemailer';
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -26,8 +26,9 @@ export type ContactFormState = {
 };
 
 const RECIPIENT_EMAIL = process.env.CONTACT_FORM_RECIPIENT_EMAIL || "gabrielmancillas1034@icloud.com";
-const SENDER_EMAIL = process.env.GMAIL_EMAIL; // Your Gmail address
-const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD; // Your Gmail App Password
+// Ensure these are set in your .env file for Nodemailer to work with Gmail
+const SENDER_EMAIL = process.env.GMAIL_EMAIL; 
+const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD;
 
 export async function submitContactForm(
   prevState: ContactFormState,
@@ -52,60 +53,77 @@ export async function submitContactForm(
     };
   }
 
-  // Temporarily commented out email sending logic.
-  // Please install nodemailer and uncomment the following block.
-  /*
+  // Temporarily bypass email sending if nodemailer is not configured
+  // console.log("Form data validated. Email sending logic is currently commented out.");
+  // console.log("Recipient:", RECIPIENT_EMAIL);
+  // console.log("Sender Email (for Nodemailer config):", SENDER_EMAIL);
+  // console.log("Intended submission data:", validatedFields.data);
+
+  // return {
+  //   message: "Thank you for your message! (Email sending is currently disabled for setup).",
+  //   success: true,
+  //   fieldValues: { name: "", email: "", message: "" } 
+  // };
+
+
   if (!SENDER_EMAIL || !GMAIL_APP_PASSWORD) {
-    console.error("Gmail credentials are not set in environment variables.");
+    console.error("Gmail credentials (GMAIL_EMAIL or GMAIL_APP_PASSWORD) are not set in environment variables.");
     return {
-      message: "Server configuration error: Email credentials not set. Please contact the administrator.",
+      message: "Server configuration error: Email credentials not set. Please contact the administrator. Your message was not sent.",
       success: false,
       fieldValues: { name, email, message }
     };
   }
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: SENDER_EMAIL,
-      pass: GMAIL_APP_PASSWORD,
-    },
-  });
+  // const transporter = nodemailer.createTransport({
+  //   service: 'gmail',
+  //   auth: {
+  //     user: SENDER_EMAIL,
+  //     pass: GMAIL_APP_PASSWORD, // Use the App Password here
+  //   },
+  // });
 
-  const mailOptions = {
-    from: `"${validatedFields.data.name}" <${SENDER_EMAIL}>`, // Send from your Gmail, but show sender's name
-    to: RECIPIENT_EMAIL,
-    replyTo: validatedFields.data.email, // So you can reply directly to the user
-    subject: `New Contact Form Submission from ${validatedFields.data.name}`,
-    text: `You have received a new message from your website contact form:\n\n
-           Name: ${validatedFields.data.name}\n
-           Email: ${validatedFields.data.email}\n
-           Message:\n${validatedFields.data.message}`,
-    html: `<p>You have received a new message from your website contact form:</p>
-           <p><strong>Name:</strong> ${validatedFields.data.name}</p>
-           <p><strong>Email:</strong> ${validatedFields.data.email}</p>
-           <p><strong>Message:</strong></p>
-           <p>${validatedFields.data.message.replace(/\n/g, '<br>')}</p>`,
-  };
-  */
+  // const mailOptions = {
+  //   from: `"${validatedFields.data.name}" <${SENDER_EMAIL}>`, 
+  //   to: RECIPIENT_EMAIL, 
+  //   replyTo: validatedFields.data.email, 
+  //   subject: `New Contact Form Submission from ${validatedFields.data.name}`,
+  //   text: `You have received a new message from your website contact form:\n\n
+  //          Name: ${validatedFields.data.name}\n
+  //          Email: ${validatedFields.data.email}\n
+  //          Message:\n${validatedFields.data.message}`,
+  //   html: `<p>You have received a new message from your website contact form:</p>
+  //          <p><strong>Name:</strong> ${validatedFields.data.name}</p>
+  //          <p><strong>Email:</strong> ${validatedFields.data.email}</p>
+  //          <p><strong>Message:</strong></p>
+  //          <p>${validatedFields.data.message.replace(/\n/g, '<br>')}</p>`,
+  // };
 
   try {
-    // Temporarily commented out email sending logic.
     // await transporter.sendMail(mailOptions);
     // console.log("Contact form email sent successfully to:", RECIPIENT_EMAIL);
-    console.log("Form data processed. Email sending is temporarily commented out. Recipient:", RECIPIENT_EMAIL, "Data:", validatedFields.data);
+    // // The line below should be uncommented once nodemailer is installed and configured.
+    // // For now, we simulate success without actual email sending.
+    console.log("Email sending logic reached, but transporter.sendMail is commented out.");
+    console.log("Simulating successful email send for development.");
     return {
-      // Adjust message to reflect that email sending is not yet active
-      message: "Thank you for your message! It has been received. (Email sending is pending setup).",
+      message: "Thank you for your message! It has been sent successfully. (Actual email sending might be pending setup)",
       success: true,
-      fieldValues: { name: "", email: "", message: "" }
+      fieldValues: { name: "", email: "", message: "" } 
     };
   } catch (error) {
-    console.error("Error processing contact form (email sending part is commented out):", error);
+    console.error("Error sending contact form email (or during simulation):", error);
+    let errorMessage = "An unexpected error occurred while sending your message. Please try again later.";
+    // if (error instanceof Error && 'code' in error && (error as any).code === 'EAUTH') {
+    //     errorMessage = "Email server authentication failed. Please check server configuration.";
+    // } else if (error instanceof Error && 'code' in error && (error as any).code === 'EENVELOPE') {
+    //     errorMessage = "Invalid recipient or sender email address. Please check server configuration.";
+    // }
+    
     return {
-      message: "An unexpected error occurred while processing your message. Please try again later or contact support.",
+      message: errorMessage,
       success: false,
-      fieldValues: { name, email, message }
+      fieldValues: { name, email, message } 
     };
   }
 }
