@@ -1,16 +1,17 @@
 
 "use client";
 
-import { useEffect } from "react";
-import { useActionState } from "react"; // Changed from react-dom's useFormState
-import { useFormStatus } from "react-dom";
+import { useEffect, useTransition } from "react"; // Added useTransition
+import { useActionState } from "react";
+// useFormStatus is not the primary source of pending state if action isn't directly on form
+// import { useFormStatus } from "react-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { Label } from "@/components/ui/label"; // Label is not directly used here, FormLabel is
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { submitContactForm, type ContactFormState } from "@/lib/actions";
@@ -32,19 +33,20 @@ const initialState: ContactFormState = {
   fieldValues: { name: "", email: "", message: "" }
 };
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
+// Modified SubmitButton to take isLoading prop from useTransition
+function SubmitButton({ isLoading }: { isLoading: boolean }) {
   return (
-    <Button type="submit" disabled={pending} className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
-      {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
+    <Button type="submit" disabled={isLoading} className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
+      {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
       Send Message
     </Button>
   );
 }
 
 const ContactForm = () => {
-  const [state, formAction] = useActionState(submitContactForm, initialState); // Changed to useActionState
+  const [state, formAction] = useActionState(submitContactForm, initialState);
   const { toast } = useToast();
+  const [isTransitionPending, startTransition] = useTransition();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -63,23 +65,42 @@ const ContactForm = () => {
         variant: state.success ? "default" : "destructive",
         icon: state.success ? <CheckCircle className="h-5 w-5 text-green-500" /> : <AlertCircle className="h-5 w-5 text-red-500" />,
       });
-      if (state.success) {
-        form.reset({ name: "", email: "", message: ""});
-      }
     }
-    // Update form default values if server state changes (e.g. validation errors preserve input)
-    form.reset(state.fieldValues);
+
+    if (state.success) {
+      form.reset({ name: "", email: "", message: "" });
+      form.clearErrors(); // Clear any previous errors from RHF state
+    } else if (state.errors) {
+      // Populate server-side validation errors into react-hook-form
+      Object.entries(state.errors).forEach(([fieldName, fieldErrors]) => {
+        if (fieldErrors && fieldErrors.length > 0) {
+          form.setError(fieldName as keyof FormData, {
+            type: 'server',
+            message: fieldErrors[0],
+          });
+        }
+      });
+      // Repopulate fields to preserve user input, keeping the errors we just set
+      if (state.fieldValues) {
+        form.reset(state.fieldValues, { keepErrors: true });
+      }
+    } else if (state.fieldValues && !state.success && state.message) {
+      // Handle general server error message, preserve input
+      form.reset(state.fieldValues);
+    }
 
   }, [state, toast, form]);
 
 
-  // This function is needed to bridge react-hook-form with useActionState action
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const formData = new FormData();
     formData.append('name', data.name);
     formData.append('email', data.email);
     formData.append('message', data.message);
-    formAction(formData);
+    // Wrap the server action call in startTransition
+    startTransition(() => {
+      formAction(formData);
+    });
   };
 
 
@@ -100,7 +121,6 @@ const ContactForm = () => {
             </CardDescription>
           </CardHeader>
           <Form {...form}>
-             {/* We use form.handleSubmit to trigger client-side validation first */}
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-0">
               <CardContent className="space-y-6">
                 <FormField
@@ -112,7 +132,7 @@ const ContactForm = () => {
                       <FormControl>
                         <Input id="name" placeholder="John Doe" {...field} />
                       </FormControl>
-                      <FormMessage>{state.errors?.name?.[0]}</FormMessage>
+                      <FormMessage /> {/* Displays RHF client errors & server errors set via form.setError */}
                     </FormItem>
                   )}
                 />
@@ -125,7 +145,7 @@ const ContactForm = () => {
                       <FormControl>
                         <Input id="email" type="email" placeholder="john.doe@example.com" {...field} />
                       </FormControl>
-                      <FormMessage>{state.errors?.email?.[0]}</FormMessage>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -138,13 +158,13 @@ const ContactForm = () => {
                       <FormControl>
                         <Textarea id="message" placeholder="Hi there, I'd like to discuss..." className="min-h-[120px]" {...field} />
                       </FormControl>
-                      <FormMessage>{state.errors?.message?.[0]}</FormMessage>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
               </CardContent>
               <CardFooter className="flex flex-col items-start gap-4">
-                 <SubmitButton />
+                 <SubmitButton isLoading={isTransitionPending} /> {/* Pass the pending state from useTransition */}
               </CardFooter>
             </form>
           </Form>
