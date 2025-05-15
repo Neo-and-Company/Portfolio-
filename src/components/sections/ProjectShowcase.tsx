@@ -45,6 +45,25 @@ const projects: Project[] = [
     repoUrl: 'https://github.com/Neo-and-Company/Dove',
     demoUrl: '#', // Placeholder, can be removed if no demo link
   },
+  {
+    id: 'proj5',
+    title: 'Portfolio Optimization & Algorithmic Trading Engine',
+    description: "Developed a comprehensive financial modeling system focused on portfolio optimization using Modern Portfolio Theory and advanced quantitative techniques. Engineered an algorithmic trading engine capable of executing strategies based on real-time market data analysis and predictive modeling. Features include robust backtesting capabilities, risk management modules (VaR, CVaR), and performance attribution reporting. This project demonstrates deep understanding of financial markets, statistical modeling, and low-latency system design for automated trading.",
+    technologies: ['Python', 'Pandas', 'NumPy', 'SciPy', 'Matplotlib', 'Scikit-learn', 'TensorFlow', 'SQL', 'FIX Protocol', 'Quantitative Finance'],
+    imageUrl: 'https://placehold.co/600x400.png',
+    imageHint: 'algorithmic trading finance',
+    repoUrl: 'https://github.com', // Placeholder
+    demoUrl: '#', // Placeholder
+  },
+  {
+    id: 'proj6',
+    title: 'Automated Knowledge Discovery & Insight Platform',
+    description: "Architected and implemented an end-to-end platform for automated knowledge discovery from unstructured and semi-structured data sources. This system employs advanced NLP techniques for entity recognition, relation extraction, and sentiment analysis. It features a data augmentation pipeline to enrich datasets and a machine learning core to identify hidden patterns, anomalies, and predictive insights. The extracted knowledge is structured into a dynamic knowledge graph, enabling complex queries and visualizations for strategic decision support. Focus on scalability and real-time processing of diverse data streams.",
+    technologies: ['Python', 'spaCy', 'NLTK', 'Transformers (Hugging Face)', 'Elasticsearch', 'Neo4j', 'Airflow', 'LLM APIs', 'Knowledge Graphs', 'Information Retrieval'],
+    imageUrl: 'https://placehold.co/600x400.png',
+    imageHint: 'knowledge graph data',
+    repoUrl: 'https://github.com', // Placeholder
+  },
 ];
 
 const ProjectShowcase = () => {
