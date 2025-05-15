@@ -1,7 +1,9 @@
+
 "use client";
 
 import { useEffect } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react"; // Changed from react-dom's useFormState
+import { useFormStatus } from "react-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -41,7 +43,7 @@ function SubmitButton() {
 }
 
 const ContactForm = () => {
-  const [state, formAction] = useFormState(submitContactForm, initialState);
+  const [state, formAction] = useActionState(submitContactForm, initialState); // Changed to useActionState
   const { toast } = useToast();
 
   const form = useForm<FormData>({
@@ -71,7 +73,7 @@ const ContactForm = () => {
   }, [state, toast, form]);
 
 
-  // This function is needed to bridge react-hook-form with useFormState action
+  // This function is needed to bridge react-hook-form with useActionState action
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const formData = new FormData();
     formData.append('name', data.name);
