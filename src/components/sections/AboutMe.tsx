@@ -21,7 +21,7 @@ const AboutMe = () => {
         <div className="grid gap-10 md:grid-cols-3 items-center">
           <div className="md:col-span-1 flex justify-center">
             <Image
-              src="https://placehold.co/240x240.png"
+              src="/DSC02786.JPG" 
               alt="Gabriel Elohi Mancillas Gallardo"
               width={240}
               height={240}
