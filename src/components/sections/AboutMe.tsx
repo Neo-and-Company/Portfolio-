@@ -1,10 +1,19 @@
 import Image from 'next/image';
-import { UserCircle2, Briefcase, Zap, TrendingUp, ShieldCheck } from 'lucide-react';
+import { UserCircle2, Briefcase, Zap, TrendingUp, ShieldCheck, Award, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 
 const AboutMe = () => {
-  const skills = ["Data Science", "Machine Learning", "Software Engineering", "Python", "Next.js", "Cloud Computing"];
+  const skills = [
+    "Python", "SQL", "AWS", "Tableau", "Scikit-learn", 
+    "Statistical Modeling", "ETL Pipelines", "Data Wrangling", "R", "Java"
+  ];
+
+  const certifications = [
+    { name: "Google Ads Search Certification", institution: "Google", date: "Achieved: Aug 2023" },
+    { name: "HubSpot Email Marketing Certification", institution: "HubSpot", date: "Achieved: Aug 2023" },
+    { name: "AWS Certified Machine Learning - Specialty", institution: "Amazon Web Services", date: "In Progress" },
+  ];
 
   return (
     <section id="about" className="w-full py-16 md:py-24 lg:py-32 force-white-bg section-fade-in">
@@ -13,7 +22,7 @@ const AboutMe = () => {
           <div className="md:col-span-1 flex justify-center">
             <Image
               src="https://placehold.co/240x240.png"
-              alt="Professional Headshot"
+              alt="Gabriel Elohi Mancillas Gallardo"
               width={240}
               height={240}
               className="rounded-full shadow-lg"
@@ -22,14 +31,14 @@ const AboutMe = () => {
           </div>
           <div className="md:col-span-2 space-y-6">
             <div className="space-y-3">
-              <Badge variant="secondary" className="text-sm">Hello, I'm LinkPro User</Badge>
+              <Badge variant="secondary" className="text-sm">Hello, I'm Gabriel Elohi Mancillas Gallardo</Badge>
               <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl flex items-center justify-center flex-wrap text-center header-divider">
                 <span>Innovative Data Scientist</span>
                 <Separator orientation="vertical" className="h-8 sm:h-10 mx-3 bg-primary/30" />
                 <span>& Engineer</span>
               </h1>
               <p className="text-lg text-foreground">
-                Passionate about leveraging data to drive impactful solutions and build cutting-edge applications. With a strong foundation in machine learning, software development, and cloud technologies, I thrive on transforming complex challenges into actionable insights and robust products.
+                Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling. Adept at transforming complex data sets into actionable strategic insights, leveraging SQL, Tableau, Python, and AWS cloud services. Proven ability to develop and implement analytical frameworks to optimize marketing performance, enhance audience engagement, and deliver impactful business results.
               </p>
             </div>
             
@@ -47,11 +56,26 @@ const AboutMe = () => {
 
             <div className="space-y-3">
               <h3 className="text-xl font-semibold text-primary flex items-center">
+                <Award className="mr-2 h-5 w-5 text-accent" />
+                Certifications & Learning
+              </h3>
+              <ul className="space-y-1 text-foreground list-none pl-0">
+                {certifications.map((cert) => (
+                  <li key={cert.name} className="flex items-center">
+                    <Star className="mr-2 h-4 w-4 text-yellow-500 flex-shrink-0" />
+                    <span><strong>{cert.name}</strong> ({cert.institution}) - <em>{cert.date}</em></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-xl font-semibold text-primary flex items-center">
                 <TrendingUp className="mr-2 h-5 w-5 text-accent" />
                 Career Goals
               </h3>
               <p className="text-foreground">
-                Seeking to contribute to a dynamic team focused on innovation and growth, where I can apply my expertise in data science and engineering to solve real-world problems and drive technological advancement. Eager to explore leadership opportunities and mentor aspiring tech professionals.
+                Driven to apply expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling to contribute to a dynamic team focused on innovation and real-world problem-solving. Continuously advancing skills, currently pursuing a Master of Science in Applied Data Science (Expected May 2025) and holding certifications in Google Ads and HubSpot, with an AWS Machine Learning Specialty in progress. Eager to tackle complex challenges and explore leadership opportunities.
               </p>
             </div>
 

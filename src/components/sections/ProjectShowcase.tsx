@@ -9,32 +9,31 @@ import { Github, ExternalLink, FolderGit2 } from 'lucide-react';
 const projects: Project[] = [
   {
     id: 'proj1',
-    title: 'AI-Powered Recommendation Engine',
-    description: 'Developed a collaborative filtering based recommendation system for an e-commerce platform, improving user engagement by 20%.',
-    technologies: ['Python', 'Scikit-learn', 'Pandas', 'Flask', 'Docker'],
+    title: 'Financial Analysis of Transportation Trends (Capstone)',
+    description: 'Conducted a statistical analysis on the economic impact of Uber and rideshare platforms versus traditional taxis. Utilized R and Tableau to extract, clean, and visualize data, presenting findings on transportation disruption trends.',
+    technologies: ['R', 'Tableau', 'Statistical Analysis', 'Data Visualization'],
     imageUrl: 'https://placehold.co/600x400.png',
-    imageHint: 'abstract algorithm',
-    repoUrl: 'https://github.com',
-    demoUrl: '#',
+    imageHint: 'financial charts transportation',
+    repoUrl: 'https://github.com', // Placeholder
+    demoUrl: '#', // Placeholder
   },
   {
     id: 'proj2',
-    title: 'Real-time Anomaly Detection System',
-    description: 'Built a system using time-series analysis and machine learning to detect anomalies in server logs, reducing downtime by 10%.',
-    technologies: ['Go', 'Prometheus', 'Grafana', 'Kafka', 'Kubernetes'],
+    title: 'Stock Price Forecasting (NVIDIA)',
+    description: 'Designed and deployed a stock price forecasting model using Amazon SageMaker’s DeepAR. Leveraged historical market data and technical indicators for improved prediction accuracy, enabling real-time predictions for investment strategies. Achieved 94% F-1 Score with AWS Sagemaker.',
+    technologies: ['Python', 'AWS SageMaker', 'DeepAR', 'TensorFlow', 'Scikit-learn', 'Time Series Analysis'],
     imageUrl: 'https://placehold.co/600x400.png',
-    imageHint: 'server logs graph',
-    repoUrl: 'https://github.com',
+    imageHint: 'stock market graph',
+    repoUrl: 'https://github.com', // Placeholder
   },
   {
     id: 'proj3',
-    title: 'Portfolio Website Next.js',
-    description: 'This very portfolio website, built with Next.js, Tailwind CSS, and Shadcn/UI for a modern, responsive, and professional showcase.',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Shadcn/UI', 'Vercel'],
+    title: 'ETL Schema and Pipeline (AWS RDS)',
+    description: 'Built a robust ETL data pipeline using Python and AWS RDS/MySQL, featuring schema design, database optimization, and automated reporting. Implemented AWS security (IAM, RDS Proxy, Secrets Manager) for secure, scalable data handling.',
+    technologies: ['Python', 'AWS RDS', 'MySQL', 'ETL', 'IAM', 'AWS Secrets Manager', 'Database Optimization'],
     imageUrl: 'https://placehold.co/600x400.png',
-    imageHint: 'modern website design',
-    repoUrl: 'https://github.com',
-    demoUrl: '/',
+    imageHint: 'database schema diagram',
+    repoUrl: 'https://github.com', // Placeholder
   },
 ];
 

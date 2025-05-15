@@ -6,27 +6,29 @@ import { Badge } from '@/components/ui/badge';
 const experiences: Experience[] = [
   {
     id: 'exp1',
-    role: 'Senior Data Scientist',
-    company: 'Innovatech Solutions',
-    dates: 'Jan 2021 - Present',
+    role: 'Contract Specialist - Engineering Department',
+    company: 'Naval Information Warfare Center (NIWC) Pacific, San Diego, CA',
+    dates: 'October 2023 - October 2024',
     description: [
-      'Led a team of 5 data scientists in developing and deploying machine learning models for predictive analytics, resulting in a 15% increase in customer retention.',
-      'Architected and implemented a real-time data processing pipeline using Kafka and Spark, improving data availability for critical business decisions.',
-      'Published 3 research papers in top-tier AI conferences on novel deep learning architectures.',
+      'Led weekly discussions with a multidisciplinary team of over 35 professionals (Contracting Specialists, BFM, Technical experts, Project managers, Engineers) to drive policy implementation, ensure regulatory alignment, and promote interdepartmental collaboration.',
+      'Managed the full life-cycle of contract-based solutions (20 per month), including pre-award cost analysis, post-award financial review, and alignment with client/sponsor objectives.',
+      'Collaborated with financial analysts and departmental leads to produce financial reports, track expenditures, and proactively identify funding variances, improving budget forecasting.',
+      'Provided Contract Specialist/Officer support for 7 Government clients, overseeing >$500M in contracts and developing up to $17.5M in total contract value (29 Task Orders, 60 Modifications in FY24-FY25).',
     ],
-    skills: ['Python', 'TensorFlow', 'PyTorch', 'Spark', 'Kafka', 'AWS'],
+    skills: ['Contract Management', 'Financial Analysis', 'Regulatory Compliance', 'Budget Forecasting', 'Stakeholder Collaboration'],
   },
   {
     id: 'exp2',
-    role: 'Software Engineer II',
-    company: 'Tech Forward Inc.',
-    dates: 'Jun 2018 - Dec 2020',
+    role: 'Chargeback Fraud Analyst - Financial/Prevention Department',
+    company: 'BlueSnap, Boston, MA',
+    dates: 'March 2021 - August 2023',
     description: [
-      'Developed scalable microservices using Node.js and Docker, deployed on Kubernetes.',
-      'Contributed to the design and development of a new flagship product, serving over 1 million users.',
-      'Improved application performance by 25% through code optimization and database query tuning.',
+      'Led audit and investigation of >40k monthly high-risk transactions (>$10M value), using advanced analytics to uncover fraud patterns and support fund recovery.',
+      'Developed and presented tailored risk mitigation portfolios for >50 merchants (each >$1M monthly revenue), achieving a 25% reduction in chargeback incidents.',
+      'Strengthened internal controls by implementing advanced analytical methodologies, improving fraud-related financial exposure forecasting.',
+      'Managed complex international payment ecosystems (100+ currencies), ensuring adherence to PCI, GDPR, and CCPA standards.',
     ],
-    skills: ['Node.js', 'React', 'Docker', 'Kubernetes', 'PostgreSQL', 'MongoDB'],
+    skills: ['Fraud Detection', 'Risk Mitigation', 'Advanced Analytics', 'Payment Systems', 'PCI/GDPR/CCPA Compliance', 'Data Analysis'],
   },
 ];
 
