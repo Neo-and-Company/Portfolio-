@@ -60,7 +60,7 @@ const AboutMe = () => {
                 <ShieldCheck className="mr-2 h-5 w-5 text-accent" />
                 Security Clearance
               </h3>
-              <p className="text-foreground">
+              <p className="text-destructive">
                 Holds an active Secret clearance with the government, valid through October 2026.
               </p>
             </div>
