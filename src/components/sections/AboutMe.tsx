@@ -25,7 +25,7 @@ const AboutMe = () => {
               alt="Gabriel Elohi Mancillas Gallardo"
               width={240}
               height={240}
-              className="rounded-full shadow-lg"
+              className="rounded-lg shadow-lg"
               data-ai-hint="professional headshot"
             />
           </div>
