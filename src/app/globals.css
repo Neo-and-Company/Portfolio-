@@ -8,73 +8,79 @@ body {
 
 @layer base {
   :root {
-    --background: 220 20% 96%; /* Lighter, cool gray */
-    --foreground: 220 25% 10%; /* Very dark blue-gray */
-    --card: 0 0% 100%; /* White cards */
-    --card-foreground: 220 25% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 10%;
-    --primary: 207 100% 14%; /* Deep Blue #003049 */
-    --primary-foreground: 0 0% 98%; /* White */
-    --secondary: 207 80% 30%; /* Lighter shade of Deep Blue for secondary buttons or elements */
-    --secondary-foreground: 0 0% 98%; /* White */
-    --muted: 220 20% 90%; /* Muted gray */
-    --muted-foreground: 220 15% 45%; /* Muted text color */
-    --accent: 174 72% 56%; /* Teal #40E0D0 */
-    --accent-foreground: 220 25% 10%; /* Dark text for Teal */
+    --background: 210 20% 98%; /* Very Light Cool Gray, almost white */
+    --foreground: 210 10% 20%; /* Dark Gray (for text) */
+    --card: 0 0% 100%; /* White */
+    --card-foreground: var(--foreground);
+    --popover: var(--card);
+    --popover-foreground: var(--foreground);
+    --primary: 187 50% 31%; /* Blue Dianne 700 (#286F78) - Deep Teal */
+    --primary-foreground: 180 30% 96%; /* Off-White/Very Light Cyan for text on Primary */
+    --secondary: 189 55% 43%; /* Blue Dianne 500 (#309EAA) - Medium Teal */
+    --secondary-foreground: var(--primary-foreground);
+    --muted: 210 20% 94%; /* Lighter Gray */
+    --muted-foreground: 210 10% 45%; /* Medium Gray */
+    --accent: 187 50% 53%; /* Blue Dianne 400 (#4CB9C4) - Bright Teal */
+    --accent-foreground: 210 10% 10%; /* Very Dark Gray/Black for text on Accent */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 220 15% 85%; /* Border color */
-    --input: 220 15% 92%; /* Input background - slightly off-white/gray */
-    --ring: 174 72% 46%; /* Darker Teal for focus rings for better contrast */
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --border: 210 15% 88%; /* Light Gray Border */
+    --input: 210 20% 96%; /* Off-white Input */
+    --ring: 187 50% 45%; /* Slightly darker Accent for Ring */
+    
+    --chart-1: 187 50% 53%; /* Blue Dianne 400 */
+    --chart-2: 189 55% 43%; /* Blue Dianne 500 */
+    --chart-3: 187 50% 31%; /* Blue Dianne 700 */
+    --chart-4: 181 48% 68%; /* Blue Dianne 300 */
+    --chart-5: 183 48% 81%; /* Blue Dianne 200 */
+
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --sidebar-background: 210 20% 97%;
+    --sidebar-foreground: 210 10% 20%;
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: 187 50% 92%; /* Very Light Teal for hover */
+    --sidebar-accent-foreground: 187 50% 25%; /* Dark Teal text on light teal hover */
+    --sidebar-border: 210 15% 88%;
+    --sidebar-ring: var(--ring);
   }
+
   .dark {
-    --background: 220 25% 6%; /* Very dark cool gray */
-    --foreground: 220 20% 90%; /* Light cool gray for text */
-    --card: 220 25% 10%; /* Slightly lighter dark gray for cards */
-    --card-foreground: 220 20% 90%;
-    --popover: 220 25% 6%;
-    --popover-foreground: 220 20% 90%;
-    --primary: 174 72% 56%; /* Teal as primary */
-    --primary-foreground: 220 25% 10%; /* Dark text on Teal */
-    --secondary: 174 60% 40%; /* Darker Teal for secondary */
-    --secondary-foreground: 220 20% 90%;
-    --muted: 220 25% 15%;
-    --muted-foreground: 220 15% 55%;
-    --accent: 207 100% 60%; /* Bright Blue for accent */
-    --accent-foreground: 0 0% 98%; /* White text on Bright Blue */
-    --destructive: 0 62.8% 30.6%;
+    --background: 210 10% 12%; /* Dark Gray (e.g. #1A1C1E) */
+    --foreground: 210 15% 88%; /* Light Gray Text */
+    --card: 210 10% 18%; /* Slightly Lighter Dark Gray for Cards (e.g. #26292B) */
+    --card-foreground: var(--foreground);
+    --popover: var(--background);
+    --popover-foreground: var(--foreground);
+    --primary: 187 50% 53%; /* Blue Dianne 400 (#4CB9C4) - Bright Teal for Dark Mode Primary */
+    --primary-foreground: 210 10% 10%; /* Very Dark Gray/Black for text on Dark Mode Primary */
+    --secondary: 181 48% 68%; /* Blue Dianne 300 (#87D2D4) - Brighter Teal for Dark Mode Secondary */
+    --secondary-foreground: var(--primary-foreground);
+    --muted: 210 10% 25%; /* Darker Muted Gray */
+    --muted-foreground: 210 10% 60%; /* Medium Light Gray for muted text */
+    --accent: 183 48% 81%; /* Blue Dianne 200 (#B7E8EA) - Very Bright Teal for Dark Mode Accent */
+    --accent-foreground: var(--primary-foreground);
+    --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 220 25% 20%;
-    --input: 220 25% 18%;
-    --ring: 207 100% 70%; /* Lighter Bright Blue for focus rings */
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 210 10% 25%; /* Dark Gray Border */
+    --input: 210 10% 22%; /* Dark Gray Input Background */
+    --ring: 181 48% 60%; /* Ring based on Dark Mode Secondary/Accent */
+
+    --chart-1: 187 50% 53%; /* Blue Dianne 400 */
+    --chart-2: 181 48% 68%; /* Blue Dianne 300 */
+    --chart-3: 183 48% 81%; /* Blue Dianne 200 */
+    --chart-4: 189 55% 43%; /* Blue Dianne 500 */
+    --chart-5: 187 50% 31%; /* Blue Dianne 700 - darker, for variety in dark mode */
+    
+    --sidebar-background: 210 10% 10%; /* Even darker for sidebar */
+    --sidebar-foreground: var(--foreground);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: 210 10% 20%; /* Dark hover bg */
+    --sidebar-accent-foreground: 183 48% 85%; /* Bright teal text on dark hover */
+    --sidebar-border: 210 10% 25%;
+    --sidebar-ring: var(--ring);
   }
 }
 
