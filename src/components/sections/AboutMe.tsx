@@ -7,7 +7,7 @@ const AboutMe = () => {
   const skills = ["Data Science", "Machine Learning", "Software Engineering", "Python", "Next.js", "Cloud Computing"];
 
   return (
-    <section id="about" className="w-full py-16 md:py-24 lg:py-32 bg-card section-fade-in">
+    <section id="about" className="w-full py-16 md:py-24 lg:py-32 force-white-bg section-fade-in">
       <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
         <div className="grid gap-10 md:grid-cols-3 items-center">
           <div className="md:col-span-1 flex justify-center">

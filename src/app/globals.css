@@ -98,7 +98,7 @@ body {
     flex-grow: 1;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight; /* Removed relative and pb-5 */
+    @apply font-semibold tracking-tight;
   }
   h1 { @apply text-4xl md:text-5xl text-primary; }
   h2 { @apply text-3xl md:text-4xl text-primary; }
@@ -108,19 +108,25 @@ body {
   h6 { @apply text-base md:text-lg text-primary; }
 
   .header-divider {
-    @apply relative pb-5; /* For spacing and positioning context for the pseudo-element */
+    @apply relative pb-5; 
   }
 
   .header-divider::after {
     content: '';
     display: block;
-    width: 4rem; /* Width of the divider */
-    height: 3px; /* Thickness of the divider */
-    background-color: hsl(var(--accent)); /* Color of the divider */
+    width: 4rem; 
+    height: 3px; 
+    background-color: hsl(var(--accent)); 
     position: absolute;
-    bottom: 0.5rem; /* Distance from the bottom of the h-tag's padding box */
+    bottom: 0.5rem; 
     left: 50%;
-    transform: translateX(-50%); /* Centers the divider */
+    transform: translateX(-50%); 
+  }
+}
+
+@layer utilities {
+  .force-white-bg {
+    background-color: hsl(0 0% 100%); /* White */
   }
 }
 
