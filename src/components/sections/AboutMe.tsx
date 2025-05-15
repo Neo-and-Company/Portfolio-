@@ -23,7 +23,7 @@ const AboutMe = () => {
           <div className="md:col-span-2 space-y-6">
             <div className="space-y-3">
               <Badge variant="secondary" className="text-sm">Hello, I'm LinkPro User</Badge>
-              <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl flex items-center justify-center flex-wrap text-center">
+              <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl flex items-center justify-center flex-wrap text-center header-divider">
                 <span>Innovative Data Scientist</span>
                 <Separator orientation="vertical" className="h-8 sm:h-10 mx-3 bg-primary/30" />
                 <span>& Engineer</span>
