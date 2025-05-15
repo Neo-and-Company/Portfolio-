@@ -98,11 +98,26 @@ body {
     flex-grow: 1;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
+    @apply font-semibold tracking-tight relative pb-5; /* Added relative and pb-5 (1.25rem) */
   }
   h1 { @apply text-4xl md:text-5xl text-primary; }
   h2 { @apply text-3xl md:text-4xl text-primary; }
   h3 { @apply text-2xl md:text-3xl text-primary; }
+  h4 { @apply text-xl md:text-2xl text-primary; }
+  h5 { @apply text-lg md:text-xl text-primary; }
+  h6 { @apply text-base md:text-lg text-primary; }
+
+  h1::after, h2::after, h3::after, h4::after, h5::after, h6::after {
+    content: '';
+    display: block;
+    width: 4rem; /* Width of the divider */
+    height: 2px; /* Thickness of the divider */
+    background-color: hsl(var(--accent)); /* Color of the divider */
+    position: absolute;
+    bottom: 0.5rem; /* Distance from the bottom of the h-tag's padding box */
+    left: 50%;
+    transform: translateX(-50%); /* Centers the divider */
+  }
 }
 
 /* Subtle fade-in for sections - can be applied manually or with a wrapper */
