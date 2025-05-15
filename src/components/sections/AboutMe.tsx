@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { UserCircle2, Briefcase, Zap, TrendingUp } from 'lucide-react';
+import { UserCircle2, Briefcase, Zap, TrendingUp, ShieldCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 
@@ -52,6 +52,16 @@ const AboutMe = () => {
               </h3>
               <p className="text-foreground">
                 Seeking to contribute to a dynamic team focused on innovation and growth, where I can apply my expertise in data science and engineering to solve real-world problems and drive technological advancement. Eager to explore leadership opportunities and mentor aspiring tech professionals.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-xl font-semibold text-primary flex items-center">
+                <ShieldCheck className="mr-2 h-5 w-5 text-accent" />
+                Security Clearance
+              </h3>
+              <p className="text-foreground">
+                Holds an active Secret clearance with the government, valid through October 2026.
               </p>
             </div>
           </div>
