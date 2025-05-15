@@ -21,9 +21,9 @@ const AboutMe = () => {
         <div className="grid gap-10 md:grid-cols-3 items-center">
           <div className="md:col-span-1 flex justify-center">
             <Image
-              src="/DSC02786.jpg"
+              src="/components/public/DSC02786.jpg"
               alt="Gabriel Elohi Mancillas Gallardo"
-              width={240}
+              width={720}
               height={240}
               className="rounded-lg shadow-lg"
               data-ai-hint="professional headshot"
