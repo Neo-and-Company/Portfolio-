@@ -1,9 +1,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserCircle2, Briefcase, Zap, TrendingUp, ShieldCheck, Award, Star, ArrowRight } from 'lucide-react';
+import { UserCircle2, Briefcase, Zap, TrendingUp, ShieldCheck, Award, Star, ArrowRight, Home, FolderGit2, Mail } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
 const AboutMe = () => {
   const skills = [
@@ -25,14 +26,14 @@ const AboutMe = () => {
         aria-hidden="true"
       >
         <Image
-          src="/la.jpeg" // Updated path to use the image from the public folder
+          src="/SD.jpg" // Updated path to use the image from the public folder
           alt="Abstract background"
           fill
           className="object-cover"
-          data-ai-hint="abstract texture" // Updated hint
+          data-ai-hint="cityscape background" // Updated hint
           priority
         />
-        <div className="absolute inset-0 bg-black/90"></div> {/* Dark overlay for readability - changed from bg-black/60 */}
+        <div className="absolute inset-0 bg-black/90"></div> {/* Dark overlay for readability */}
       </div>
 
       {/* Hero Content */}
