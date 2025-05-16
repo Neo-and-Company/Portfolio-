@@ -63,7 +63,7 @@ const projects: Project[] = [
     technologies: ['Python', 'spaCy', 'NLTK', 'Transformers (Hugging Face)', 'Elasticsearch', 'Neo4j', 'Airflow', 'LLM APIs', 'Knowledge Graphs', 'Information Retrieval'],
     imageUrl: 'https://placehold.co/600x400.png',
     imageHint: 'knowledge graph data',
-    repoUrl: 'https://github.com', // Placeholder
+    repoUrl: 'https://github.com/Gabeleo24/Automated-Knowledge-Discovery-Insight-Platform',
   },
 ];
 
