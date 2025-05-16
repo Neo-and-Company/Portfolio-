@@ -32,7 +32,7 @@ const AboutMe = () => {
           data-ai-hint="abstract texture" // Updated hint
           priority
         />
-        <div className="absolute inset-0 bg-black/60"></div> {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/90"></div> {/* Dark overlay for readability - changed from bg-black/60 */}
       </div>
 
       {/* Hero Content */}
@@ -134,5 +134,3 @@ const AboutMe = () => {
 };
 
 export default AboutMe;
-
-    
