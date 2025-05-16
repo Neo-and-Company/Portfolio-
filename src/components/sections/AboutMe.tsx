@@ -25,11 +25,11 @@ const AboutMe = () => {
         aria-hidden="true"
       >
         <Image
-          src="https://placehold.co/1920x1080.png" // Replace this with the URL/path to your actual background image
+          src="/la.jpeg" // Updated path to use the image from the public folder
           alt="Abstract background"
           fill
           className="object-cover"
-          data-ai-hint="dark abstract" // Updated hint based on the image you provided
+          data-ai-hint="abstract texture" // Updated hint
           priority
         />
         <div className="absolute inset-0 bg-black/60"></div> {/* Dark overlay for readability */}
@@ -134,3 +134,5 @@ const AboutMe = () => {
 };
 
 export default AboutMe;
+
+    
