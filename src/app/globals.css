@@ -8,78 +8,96 @@ body {
 
 @layer base {
   :root {
-    --background: 210 20% 98%; /* Very Light Cool Gray, almost white */
-    --foreground: 210 10% 20%; /* Dark Gray (for text) */
+    /* PRD Palette: Primary #003049, Secondary #D3D3D3, Accent #40E0D0 */
+    --background: 0 0% 83%; /* Light Gray (#D3D3D3) */
+    --foreground: 207 15% 25%; /* Dark Gray for text on Light Gray bg */
+    
     --card: 0 0% 100%; /* White */
     --card-foreground: var(--foreground);
+    
     --popover: var(--card);
-    --popover-foreground: var(--foreground);
-    --primary: 187 50% 31%; /* Blue Dianne 700 (#286F78) - Deep Teal */
-    --primary-foreground: 180 30% 96%; /* Off-White/Very Light Cyan for text on Primary */
-    --secondary: 189 55% 43%; /* Blue Dianne 500 (#309EAA) - Medium Teal */
-    --secondary-foreground: var(--primary-foreground);
-    --muted: 210 20% 94%; /* Lighter Gray */
-    --muted-foreground: 210 10% 45%; /* Medium Gray */
-    --accent: 187 50% 53%; /* Blue Dianne 400 (#4CB9C4) - Bright Teal */
-    --accent-foreground: 210 10% 10%; /* Very Dark Gray/Black for text on Accent */
+    --popover-foreground: var(--card-foreground);
+    
+    --primary: 207 100% 14%; /* Deep Blue (#003049) */
+    --primary-foreground: 0 0% 100%; /* White text on Deep Blue */
+    
+    --secondary: 0 0% 83%; /* Light Gray (#D3D3D3) - For subtle contrasts or can be same as background */
+    --secondary-foreground: 207 15% 25%; /* Dark Gray text on Light Gray */
+    
+    --muted: 0 0% 90%; /* Slightly lighter gray than background for muted elements */
+    --muted-foreground: 0 0% 40%; /* Medium Gray for text on muted */
+    
+    --accent: 174 72% 56%; /* Teal (#40E0D0) */
+    --accent-foreground: 174 70% 15%; /* Dark Teal/Black for text on Teal accent */
+    
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 210 15% 88%; /* Light Gray Border */
-    --input: 210 20% 96%; /* Off-white Input */
-    --ring: 187 50% 45%; /* Slightly darker Accent for Ring */
     
-    --chart-1: 187 50% 53%; /* Blue Dianne 400 */
-    --chart-2: 189 55% 43%; /* Blue Dianne 500 */
-    --chart-3: 187 50% 31%; /* Blue Dianne 700 */
-    --chart-4: 181 48% 68%; /* Blue Dianne 300 */
-    --chart-5: 183 48% 81%; /* Blue Dianne 200 */
+    --border: 0 0% 75%; /* Gray border, works with light gray bg and white cards */
+    --input: 0 0% 96%; /* Off-white Input, slightly lighter than card bg or distinct */
+    --ring: 174 72% 45%; /* Slightly darker Teal for Ring, derived from Accent */
+    
+    --chart-1: 174 72% 56%; /* Teal */
+    --chart-2: 207 100% 25%; /* Brighter Deep Blue */
+    --chart-3: 174 60% 45%; /* Darker Teal */
+    --chart-4: 207 80% 35%; /* Medium Deep Blue */
+    --chart-5: 174 50% 35%; /* Even Darker Teal */
 
     --radius: 0.5rem;
 
-    --sidebar-background: 210 20% 97%;
-    --sidebar-foreground: 210 10% 20%;
+    --sidebar-background: 0 0% 95%; /* Light gray, slightly different from main bg */
+    --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--primary);
     --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: 187 50% 92%; /* Very Light Teal for hover */
-    --sidebar-accent-foreground: 187 50% 25%; /* Dark Teal text on light teal hover */
-    --sidebar-border: 210 15% 88%;
+    --sidebar-accent: 174 72% 88%; /* Very Light Teal for hover */
+    --sidebar-accent-foreground: 174 70% 20%; /* Dark Teal text on light teal hover */
+    --sidebar-border: 0 0% 80%;
     --sidebar-ring: var(--ring);
   }
 
   .dark {
-    --background: 220 10% 10%; /* Darker Grey for background */
-    --foreground: 210 15% 88%; /* Light Gray Text */
-    --card: 220 10% 15%; /* Slightly Lighter Dark Grey for Cards */
+    /* PRD Palette: Primary #003049, Accent #40E0D0. Secondary #D3D3D3 implies light mode focus */
+    --background: 207 30% 10%; /* Very Dark Blue/Gray */
+    --foreground: 0 0% 88%; /* Light Gray Text */
+    
+    --card: 207 30% 15%; /* Slightly Lighter Dark Blue/Gray for Cards */
     --card-foreground: var(--foreground);
+    
     --popover: var(--background);
     --popover-foreground: var(--foreground);
-    --primary: 187 50% 53%; /* Blue Dianne 400 - Bright Teal for Dark Mode Primary */
-    --primary-foreground: 210 10% 10%; /* Very Dark Gray/Black for text on Dark Mode Primary */
-    --secondary: 181 48% 68%; /* Blue Dianne 300 - Brighter Teal for Dark Mode Secondary */
-    --secondary-foreground: var(--primary-foreground);
-    --muted: 220 10% 20%; /* Darker Muted Grey */
-    --muted-foreground: 210 10% 60%; /* Medium Light Gray for muted text */
-    --accent: 183 48% 81%; /* Blue Dianne 200 - Very Bright Teal for Dark Mode Accent */
-    --accent-foreground: var(--primary-foreground);
+    
+    --primary: 174 65% 60%; /* Brighter Teal as primary in dark mode for better visibility */
+    --primary-foreground: 174 70% 10%; /* Very Dark Teal/Black for text on bright Teal */
+    
+    --secondary: 207 30% 20%; /* Darker version of card for secondary elements */
+    --secondary-foreground: var(--foreground);
+    
+    --muted: 207 25% 20%; /* Darker Muted Grey */
+    --muted-foreground: 0 0% 60%; /* Medium Light Gray for muted text */
+    
+    --accent: 207 90% 55%; /* Bright version of Deep Blue as accent in dark mode */
+    --accent-foreground: 0 0% 100%; /* White text on bright blue */
+    
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 220 10% 25%; /* Dark Grey Border */
-    --input: 220 10% 22%; /* Dark Grey Input Background */
-    --ring: 181 48% 60%; /* Ring based on Dark Mode Secondary/Accent */
-
-    --chart-1: 187 50% 53%; /* Blue Dianne 400 */
-    --chart-2: 181 48% 68%; /* Blue Dianne 300 */
-    --chart-3: 183 48% 81%; /* Blue Dianne 200 */
-    --chart-4: 189 55% 43%; /* Blue Dianne 500 */
-    --chart-5: 187 50% 31%; /* Blue Dianne 700 - darker, for variety in dark mode */
     
-    --sidebar-background: 220 10% 8%; /* Even darker for sidebar */
+    --border: 207 20% 25%; /* Dark Grey Border */
+    --input: 207 25% 18%; /* Dark Grey Input Background */
+    --ring: 207 80% 50%; /* Ring based on dark mode accent */
+
+    --chart-1: 174 65% 60%; /* Brighter Teal */
+    --chart-2: 207 90% 55%; /* Bright Deep Blue */
+    --chart-3: 174 55% 50%; 
+    --chart-4: 207 70% 45%;
+    --chart-5: 174 45% 40%;
+    
+    --sidebar-background: 207 30% 8%; /* Even darker for sidebar */
     --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--primary);
     --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: 220 10% 18%; /* Dark hover bg */
-    --sidebar-accent-foreground: 183 48% 85%; /* Bright teal text on dark hover */
-    --sidebar-border: 220 10% 25%;
+    --sidebar-accent: 207 30% 18%; /* Dark hover bg */
+    --sidebar-accent-foreground: 174 70% 70%; /* Brighter teal text on dark hover */
+    --sidebar-border: var(--border);
     --sidebar-ring: var(--ring);
   }
 }
@@ -115,7 +133,7 @@ body {
     content: '';
     display: block;
     width: 4rem; 
-    height: 3px; 
+    height: 3px; /* Kept the thicker divider */
     background-color: hsl(var(--accent)); 
     position: absolute;
     bottom: 0.5rem; 
