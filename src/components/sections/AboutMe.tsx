@@ -25,11 +25,11 @@ const AboutMe = () => {
         aria-hidden="true"
       >
         <Image
-          src="https://placehold.co/1920x1080.png"
+          src="https://placehold.co/1920x1080.png" // Replace this with the URL/path to your actual background image
           alt="Abstract background"
           fill
           className="object-cover"
-          data-ai-hint="abstract texture"
+          data-ai-hint="dark abstract" // Updated hint based on the image you provided
           priority
         />
         <div className="absolute inset-0 bg-black/60"></div> {/* Dark overlay for readability */}
@@ -62,7 +62,7 @@ const AboutMe = () => {
           <div className="flex justify-center md:items-start md:justify-end order-first md:order-last">
             <div className="relative w-[300px] h-[375px] sm:w-[360px] sm:h-[450px] ">
               <Image
-                src="/DSC02786.jpg"
+                src="/DSC02786.jpg" 
                 alt="Gabriel Elohi Mancillas Gallardo"
                 fill
                 className="rounded-xl shadow-2xl object-cover"
