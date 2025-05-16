@@ -19,9 +19,6 @@ const AboutMe = () => {
 
   return (
     <section id="about" className="w-full py-16 md:py-24 lg:py-32 bg-background section-fade-in relative overflow-hidden">
-      {/* Decorative Circle */}
-      <div className="absolute bottom-[-200px] left-1/2 transform -translate-x-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-accent/10 rounded-full -z-0 pointer-events-none" aria-hidden="true"></div>
-
       {/* New Hero Content */}
       <div className="container mx-auto px-4 md:px-6 z-10 relative">
         <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
