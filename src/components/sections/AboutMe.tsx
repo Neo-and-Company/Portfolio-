@@ -27,7 +27,7 @@ const AboutMe = () => {
               src="/DSC02786.jpg"
               alt="Gabriel Elohi Mancillas Gallardo"
               width={320} 
-              height={400} // More portrait-like for side layout
+              height={400} 
               className="rounded-lg shadow-lg object-cover"
               data-ai-hint="professional headshot"
             />
@@ -46,10 +46,10 @@ const AboutMe = () => {
         </div>
 
         {/* Subsequent Details: Centered and below the intro */}
-        <div className="space-y-10 max-w-3xl mx-auto">
+        <div className="space-y-10 max-w-3xl mx-auto text-center md:text-left"> {/* Ensure child text is aligned left on md+ */}
           {/* Skills Section */}
           <div className="space-y-3">
-            <h3 className="text-xl font-semibold text-primary flex items-center">
+            <h3 className="text-xl font-semibold text-primary flex items-center justify-center md:justify-start">
               <Zap className="mr-2 h-5 w-5 text-accent" />
               Core Skills
             </h3>
@@ -62,11 +62,11 @@ const AboutMe = () => {
 
           {/* Certifications Section */}
           <div className="space-y-3">
-            <h3 className="text-xl font-semibold text-primary flex items-center">
+            <h3 className="text-xl font-semibold text-primary flex items-center justify-center md:justify-start">
               <Award className="mr-2 h-5 w-5 text-accent" />
               Certifications & Learning
             </h3>
-            <ul className="space-y-1 text-foreground list-none pl-0">
+            <ul className="space-y-1 text-foreground list-none pl-0 text-left"> {/* Ensure list items are left aligned */}
               {certifications.map((cert) => (
                 <li key={cert.name} className="flex items-start sm:items-center">
                   <Star className="mr-2 h-4 w-4 text-yellow-500 flex-shrink-0 mt-1 sm:mt-0" />
@@ -78,22 +78,22 @@ const AboutMe = () => {
 
           {/* Career Goals Section */}
           <div className="space-y-3">
-            <h3 className="text-xl font-semibold text-primary flex items-center">
+            <h3 className="text-xl font-semibold text-primary flex items-center justify-center md:justify-start">
               <TrendingUp className="mr-2 h-5 w-5 text-accent" />
               Career Goals
             </h3>
-            <p className="text-foreground">
+            <p className="text-foreground text-left md:text-left"> {/* Ensure paragraph is left aligned */}
               Driven to apply expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling to contribute to a dynamic team focused on innovation and real-world problem-solving. Continuously advancing skills, currently pursuing a Master of Science in Applied Data Science (Expected May 2025) and holding certifications in Google Ads and HubSpot, with an AWS Machine Learning Specialty in progress. Eager to tackle complex challenges and explore leadership opportunities.
             </p>
           </div>
 
           {/* Security Clearance Section */}
           <div className="space-y-3">
-            <h3 className="text-xl font-semibold text-primary flex items-center">
+            <h3 className="text-xl font-semibold text-primary flex items-center justify-center md:justify-start">
               <ShieldCheck className="mr-2 h-5 w-5 text-accent" />
               Security Clearance
             </h3>
-            <p className="text-destructive">
+            <p className="text-destructive text-left md:text-left"> {/* Ensure paragraph is left aligned */}
               Holds an active Secret clearance with the government, valid through <strong>October 2026</strong>.
             </p>
           </div>
