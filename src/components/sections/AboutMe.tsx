@@ -19,8 +19,10 @@ const AboutMe = () => {
   return (
     <section id="about" className="w-full py-16 md:py-24 lg:py-32 force-white-bg section-fade-in">
       <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
-        <div className="grid gap-10 md:grid-cols-3 items-center">
-          <div className="md:col-span-1 flex justify-center">
+        {/* Main flex container: stacks image and content vertically, centers them horizontally */}
+        <div className="flex flex-col items-center gap-12">
+          {/* Image: Centered */}
+          <div className="flex justify-center">
             <Image
               src="/DSC02786.jpg"
               alt="Gabriel Elohi Mancillas Gallardo"
@@ -30,8 +32,11 @@ const AboutMe = () => {
               data-ai-hint="professional headshot"
             />
           </div>
-          <div className="md:col-span-2 space-y-6">
-            <div className="space-y-3 text-center">
+
+          {/* Text Content Area: Centered block with max-width for readability */}
+          <div className="w-full max-w-3xl space-y-8">
+            {/* Introductory Block: Centered text */}
+            <div className="space-y-4 text-center">
               <Badge variant="secondary" className="text-sm">Hello, I'm Gabriel Elohi Mancillas Gallardo</Badge>
               <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl header-divider inline-block">
                 Innovative Data Scientist & Engineer
@@ -41,6 +46,7 @@ const AboutMe = () => {
               </p>
             </div>
 
+            {/* Skills Section: Heading left-aligned, badges below */}
             <div className="space-y-3">
               <h3 className="text-xl font-semibold text-primary flex items-center">
                 <Zap className="mr-2 h-5 w-5 text-accent" />
@@ -53,6 +59,7 @@ const AboutMe = () => {
               </div>
             </div>
 
+            {/* Certifications Section: Heading left-aligned, list below */}
             <div className="space-y-3">
               <h3 className="text-xl font-semibold text-primary flex items-center">
                 <Award className="mr-2 h-5 w-5 text-accent" />
@@ -68,6 +75,7 @@ const AboutMe = () => {
               </ul>
             </div>
 
+            {/* Career Goals Section: Heading left-aligned, paragraph below */}
             <div className="space-y-3">
               <h3 className="text-xl font-semibold text-primary flex items-center">
                 <TrendingUp className="mr-2 h-5 w-5 text-accent" />
@@ -78,6 +86,7 @@ const AboutMe = () => {
               </p>
             </div>
 
+            {/* Security Clearance Section: Heading left-aligned, paragraph below */}
             <div className="space-y-3">
               <h3 className="text-xl font-semibold text-primary flex items-center">
                 <ShieldCheck className="mr-2 h-5 w-5 text-accent" />
