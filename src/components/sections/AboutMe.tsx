@@ -18,8 +18,24 @@ const AboutMe = () => {
   ];
 
   return (
-    <section id="about" className="w-full py-16 md:py-24 lg:py-32 bg-background section-fade-in relative overflow-hidden">
-      {/* New Hero Content */}
+    <section id="about" className="w-full py-16 md:py-24 lg:py-32 section-fade-in relative overflow-hidden">
+      {/* Background Image and Overlay */}
+      <div
+        className="absolute inset-0 -z-10"
+        aria-hidden="true"
+      >
+        <Image
+          src="https://placehold.co/1920x1080.png"
+          alt="Abstract background"
+          fill
+          className="object-cover"
+          data-ai-hint="abstract texture"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/60"></div> {/* Dark overlay for readability */}
+      </div>
+
+      {/* Hero Content */}
       <div className="container mx-auto px-4 md:px-6 z-10 relative">
         <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Text Content Area */}
@@ -59,7 +75,7 @@ const AboutMe = () => {
       </div>
 
       {/* Existing Details Content - This part remains from the old AboutMe */}
-      <div id="about-details" className="container mx-auto px-4 md:px-6 max-w-screen-lg mt-20 md:mt-28 lg:mt-32">
+      <div id="about-details" className="container mx-auto px-4 md:px-6 max-w-screen-lg mt-20 md:mt-28 lg:mt-32 relative z-10">
         <div className="space-y-12 max-w-3xl mx-auto ">
           {/* Skills Section */}
           <div className="space-y-4 text-center md:text-left">
