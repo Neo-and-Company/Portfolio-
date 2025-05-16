@@ -58,50 +58,50 @@ body {
   }
 
   .dark {
-    /* Dark Mode: Very dark blue bg, slightly lighter cards */
-    --background: 207 70% 8%; /* Very Dark Blue/Black */
-    --foreground: 207 20% 88%; /* Light Grayish Blue Text */
+    /* Dark Mode: "Dark Grayish Like Concrete" Theme */
+    --background: 0 0% 12%; /* Dark Concrete Gray */
+    --foreground: 0 0% 88%; /* Light Gray Text */
     
-    --card: 207 60% 12%; /* Dark blue, distinct from bg */
+    --card: 0 0% 16%; /* Slightly Lighter Concrete Gray for Cards */
     --card-foreground: var(--foreground);
     
-    --popover: 207 60% 10%; /* Dark popovers */
+    --popover: 0 0% 10%; /* Darker Popovers */
     --popover-foreground: var(--foreground);
     
-    /* Using Teal as primary in dark mode can provide good visibility */
-    --primary: 174 65% 60%; /* Brighter Teal as primary in dark mode */
-    --primary-foreground: 207 100% 10%; /* Very Dark blue/black for text on bright Teal */
+    --primary: 174 72% 56%; /* Teal (#40E0D0) - becomes primary interactive color in dark mode */
+    --primary-foreground: 207 100% 10%; /* Very Dark Blue/Black for text on Teal */
     
-    --secondary: 207 50% 18%; /* Darker grayish blue for secondary elements */
-    --secondary-foreground: var(--foreground);
+    --secondary: 0 0% 30%; /* Mid Concrete Gray */
+    --secondary-foreground: 0 0% 90%; /* Lighter gray text for secondary elements */
     
-    --muted: 207 40% 22%; /* Darker Muted */
-    --muted-foreground: 207 20% 65%; /* Medium Light Gray for muted text */
+    --muted: 0 0% 22%; /* Darker Muted Gray */
+    --muted-foreground: 0 0% 65%; /* Medium Light Gray for text on muted */
     
-    /* Using a bright version of the primary blue for accent in dark mode */
-    --accent: 207 90% 65%; /* Bright Deep Blue */
-    --accent-foreground: 0 0% 100%; /* White text on bright blue */
+    --accent: 207 80% 60%; /* Lighter Deep Blue (derived from #003049) - for accents */
+    --accent-foreground: 0 0% 100%; /* White text on this blue accent */
     
-    --destructive: 0 70% 50%;
+    --destructive: 0 60% 50%; /* Adjusted destructive for dark concrete */
     --destructive-foreground: 0 0% 98%;
     
-    --border: 207 50% 25%; /* Dark Blue-Gray Border */
-    --input: 207 50% 15%; /* Dark Input Background */
-    --ring: 207 80% 60%; /* Ring based on dark mode accent */
-
-    --chart-1: 174 65% 60%; /* Brighter Teal */
-    --chart-2: 207 90% 55%; /* Bright Deep Blue */
-    --chart-3: 174 55% 50%; 
-    --chart-4: 207 70% 45%;
-    --chart-5: 174 45% 40%;
+    --border: 0 0% 25%; /* Dark Gray Border */
+    --input: 0 0% 14%; /* Dark Input Background */
+    --ring: 174 70% 45%; /* Slightly desaturated Teal for Ring */
     
-    --sidebar-background: 207 70% 6%; /* Even darker for sidebar */
+    --chart-1: 174 72% 56%; /* Teal */
+    --chart-2: 207 80% 60%; /* Lighter Deep Blue */
+    --chart-3: 174 60% 45%; /* Darker Teal */
+    --chart-4: 207 70% 50%; /* Medium Deep Blue */
+    --chart-5: 0 0% 70%;   /* Light Gray for contrast */
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 9%; /* Even darker concrete for sidebar */
     --sidebar-foreground: var(--foreground);
-    --sidebar-primary: var(--primary); /* Teal in dark mode */
-    --sidebar-primary-foreground: var(--primary-foreground); /* Dark text on Teal */
-    --sidebar-accent: 207 60% 15%; /* Dark hover bg for sidebar items */
-    --sidebar-accent-foreground: 174 70% 70%; /* Brighter teal text on dark hover */
-    --sidebar-border: var(--border);
+    --sidebar-primary: var(--primary); /* Teal */
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: 0 0% 18%; /* Dark gray hover for sidebar items */
+    --sidebar-accent-foreground: 174 70% 75%; /* Brighter teal text on dark hover */
+    --sidebar-border: 0 0% 20%;
     --sidebar-ring: var(--ring);
   }
 }
