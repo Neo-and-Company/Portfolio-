@@ -26,8 +26,8 @@ const AboutMe = () => {
             <Image
               src="/DSC02786.jpg"
               alt="Gabriel Elohi Mancillas Gallardo"
-              width={240}
-              height={240}
+              width={280} 
+              height={280}
               className="rounded-lg shadow-lg aspect-square object-cover"
               data-ai-hint="professional headshot"
             />
