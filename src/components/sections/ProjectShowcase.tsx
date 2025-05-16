@@ -52,7 +52,7 @@ const projects: Project[] = [
     technologies: ['Python', 'Pandas', 'NumPy', 'SciPy', 'Matplotlib', 'Scikit-learn', 'TensorFlow', 'SQL', 'FIX Protocol', 'Quantitative Finance'],
     imageUrl: 'https://placehold.co/600x400.png',
     imageHint: 'algorithmic trading finance',
-    repoUrl: 'https://github.com', // Placeholder
+    repoUrl: 'https://github.com/Gabeleo24/Portfolio-Optimization-Algorithmic-Trading-Engine',
     demoUrl: '#', // Placeholder
   },
   {
