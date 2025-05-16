@@ -1,8 +1,9 @@
 
 import Image from 'next/image';
-import { UserCircle2, Briefcase, Zap, TrendingUp, ShieldCheck, Award, Star } from 'lucide-react';
+import Link from 'next/link';
+import { UserCircle2, Briefcase, Zap, TrendingUp, ShieldCheck, Award, Star, ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 
 const AboutMe = () => {
   const skills = [
@@ -17,83 +18,99 @@ const AboutMe = () => {
   ];
 
   return (
-    <section id="about" className="w-full py-16 md:py-24 lg:py-32 force-white-bg section-fade-in">
-      <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
-        {/* Main intro: Image on left, Text on right for medium screens and up */}
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 mb-12 md:mb-16">
-          {/* Image Area */}
-          <div className="w-full md:w-1/3 lg:w-2/5 flex justify-center md:justify-start">
-            <Image
-              src="/DSC02786.jpg"
-              alt="Gabriel Elohi Mancillas Gallardo"
-              width={320} 
-              height={400} 
-              className="rounded-lg shadow-lg object-cover"
-              data-ai-hint="professional headshot"
-            />
-          </div>
+    <section id="about" className="w-full py-16 md:py-24 lg:py-32 bg-background section-fade-in relative overflow-hidden">
+      {/* Decorative Circle */}
+      <div className="absolute bottom-[-200px] left-1/2 transform -translate-x-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-accent/10 rounded-full -z-0 pointer-events-none" aria-hidden="true"></div>
 
-          {/* Text Content Area for Intro */}
-          <div className="w-full md:w-2/3 lg:w-3/5 space-y-4 text-center md:text-left">
-            <Badge variant="secondary" className="text-sm">Hello, I'm Gabriel Elohi Mancillas Gallardo</Badge>
-            <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl header-divider">
+      {/* New Hero Content */}
+      <div className="container mx-auto px-4 md:px-6 z-10 relative">
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* Text Content Area */}
+          <div className="space-y-5 text-center md:text-left">
+            <Badge variant="outline" className="border-accent text-accent text-sm font-semibold py-1 px-4 rounded-full">Hello!</Badge>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary !leading-tight">
+              I'm <span className="text-accent">Gabriel</span>,
+              <br />
               Innovative Data Scientist & Engineer
             </h1>
-            <p className="text-lg text-foreground">
+            <p className="text-lg text-foreground/90 max-w-xl mx-auto md:mx-0">
               Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling. Adept at transforming complex data sets into actionable strategic insights, leveraging SQL, Tableau, Python, and AWS cloud services. Proven ability to develop and implement analytical frameworks to optimize marketing performance, enhance audience engagement, and deliver impactful business results.
             </p>
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+              <Button asChild size="lg" className="rounded-full px-10 py-6 text-base font-semibold bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                <Link href="#projects">Portfolio <ArrowRight className="ml-2 h-5 w-5" /></Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="rounded-full px-10 py-6 text-base font-semibold border-primary text-primary hover:bg-primary/5 hover:text-primary shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                <Link href="#contact">Contact Me</Link>
+              </Button>
+            </div>
+          </div>
+          {/* Image Area */}
+          <div className="flex justify-center md:items-start md:justify-end order-first md:order-last">
+            <div className="relative w-[300px] h-[375px] sm:w-[360px] sm:h-[450px] ">
+              <Image
+                src="/DSC02786.jpg"
+                alt="Gabriel Elohi Mancillas Gallardo"
+                fill
+                className="rounded-xl shadow-2xl object-cover"
+                data-ai-hint="professional headshot"
+                priority
+              />
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Subsequent Details: Centered and below the intro */}
-        <div className="space-y-10 max-w-3xl mx-auto text-center md:text-left"> {/* Ensure child text is aligned left on md+ */}
+      {/* Existing Details Content - This part remains from the old AboutMe */}
+      <div id="about-details" className="container mx-auto px-4 md:px-6 max-w-screen-lg mt-20 md:mt-28 lg:mt-32">
+        <div className="space-y-12 max-w-3xl mx-auto ">
           {/* Skills Section */}
-          <div className="space-y-3">
-            <h3 className="text-xl font-semibold text-primary flex items-center justify-center md:justify-start">
-              <Zap className="mr-2 h-5 w-5 text-accent" />
+          <div className="space-y-4 text-center md:text-left">
+            <h2 className="text-2xl font-semibold text-primary flex items-center justify-center md:justify-start header-divider">
+              <Zap className="mr-3 h-6 w-6 text-accent" />
               Core Skills
-            </h3>
-            <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+            </h2>
+            <div className="flex flex-wrap gap-3 justify-center md:justify-start">
               {skills.map((skill) => (
-                <Badge key={skill} variant="outline" className="text-sm">{skill}</Badge>
+                <Badge key={skill} variant="secondary" className="text-sm px-3 py-1">{skill}</Badge>
               ))}
             </div>
           </div>
 
           {/* Certifications Section */}
-          <div className="space-y-3">
-            <h3 className="text-xl font-semibold text-primary flex items-center justify-center md:justify-start">
-              <Award className="mr-2 h-5 w-5 text-accent" />
+          <div className="space-y-4 text-center md:text-left">
+            <h2 className="text-2xl font-semibold text-primary flex items-center justify-center md:justify-start header-divider">
+              <Award className="mr-3 h-6 w-6 text-accent" />
               Certifications & Learning
-            </h3>
-            <ul className="space-y-1 text-foreground list-none pl-0 text-left"> {/* Ensure list items are left aligned */}
+            </h2>
+            <ul className="space-y-2 text-foreground list-none pl-0 text-left">
               {certifications.map((cert) => (
-                <li key={cert.name} className="flex items-start sm:items-center">
-                  <Star className="mr-2 h-4 w-4 text-yellow-500 flex-shrink-0 mt-1 sm:mt-0" />
-                  <span className="flex-grow"><strong>{cert.name}</strong> ({cert.institution}) - <em>{cert.date}</em></span>
+                <li key={cert.name} className="flex items-start sm:items-center bg-card p-3 rounded-md shadow-sm">
+                  <Star className="mr-3 h-5 w-5 text-yellow-500 flex-shrink-0 mt-1 sm:mt-0" />
+                  <span className="flex-grow text-sm"><strong>{cert.name}</strong> ({cert.institution}) – <em>{cert.date}</em></span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Career Goals Section */}
-          <div className="space-y-3">
-            <h3 className="text-xl font-semibold text-primary flex items-center justify-center md:justify-start">
-              <TrendingUp className="mr-2 h-5 w-5 text-accent" />
+          <div className="space-y-4 text-center md:text-left">
+            <h2 className="text-2xl font-semibold text-primary flex items-center justify-center md:justify-start header-divider">
+              <TrendingUp className="mr-3 h-6 w-6 text-accent" />
               Career Goals
-            </h3>
-            <p className="text-foreground text-left md:text-left"> {/* Ensure paragraph is left aligned */}
+            </h2>
+            <p className="text-foreground/90 text-left md:text-left bg-card p-4 rounded-md shadow-sm">
               Driven to apply expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling to contribute to a dynamic team focused on innovation and real-world problem-solving. Continuously advancing skills, currently pursuing a Master of Science in Applied Data Science (Expected May 2025) and holding certifications in Google Ads and HubSpot, with an AWS Machine Learning Specialty in progress. Eager to tackle complex challenges and explore leadership opportunities.
             </p>
           </div>
 
           {/* Security Clearance Section */}
-          <div className="space-y-3">
-            <h3 className="text-xl font-semibold text-primary flex items-center justify-center md:justify-start">
-              <ShieldCheck className="mr-2 h-5 w-5 text-accent" />
+          <div className="space-y-4 text-center md:text-left">
+            <h2 className="text-2xl font-semibold text-primary flex items-center justify-center md:justify-start header-divider">
+              <ShieldCheck className="mr-3 h-6 w-6 text-accent" />
               Security Clearance
-            </h3>
-            <p className="text-destructive text-left md:text-left"> {/* Ensure paragraph is left aligned */}
+            </h2>
+            <p className="text-destructive bg-destructive/10 p-4 rounded-md shadow-sm font-medium text-left md:text-left">
               Holds an active Secret clearance with the government, valid through <strong>October 2026</strong>.
             </p>
           </div>
