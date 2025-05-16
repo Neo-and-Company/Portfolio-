@@ -8,57 +8,7 @@ body {
 
 @layer base {
   :root {
-    /* PRD Palette: Primary #003049, Secondary #D3D3D3, Accent #40E0D0 */
-    /* New Interpretation: White page, subtly tinted cards */
-    --background: 0 0% 100%; /* White */
-    --foreground: 207 30% 20%; /* Dark grayish blue for text on white */
-    
-    --card: 207 100% 97%; /* Very light blue tint for cards */
-    --card-foreground: var(--foreground);
-    
-    --popover: 0 0% 100%; /* White popovers for clarity */
-    --popover-foreground: var(--foreground);
-    
-    --primary: 207 100% 14%; /* Deep Blue (#003049) */
-    --primary-foreground: 0 0% 100%; /* White text on Deep Blue */
-    
-    --secondary: 207 60% 50%; /* A mid-tone grayish blue for secondary elements/text */
-    --secondary-foreground: 0 0% 100%; /* White text on this secondary color if used as bg */
-    
-    --muted: 207 50% 92%; /* Lighter blue-gray for muted elements */
-    --muted-foreground: 207 30% 45%; /* Medium-dark blue-gray for text on muted */
-    
-    --accent: 174 72% 56%; /* Teal (#40E0D0) */
-    --accent-foreground: 207 100% 10%; /* Very dark blue for text on Teal accent */
-    
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    
-    --border: 207 50% 88%; /* Subtle blue-gray border */
-    --input: 207 100% 98%; /* Very light blue-tinted input fields */
-    --ring: 174 72% 48%; /* Slightly darker Teal for Ring, derived from Accent */
-    
-    --chart-1: 174 72% 56%; /* Teal */
-    --chart-2: 207 100% 30%; /* Brighter Deep Blue */
-    --chart-3: 174 60% 45%; /* Darker Teal */
-    --chart-4: 207 80% 40%; /* Medium Deep Blue */
-    --chart-5: 174 50% 35%; /* Even Darker Teal */
-
-    --radius: 0.5rem;
-
-    /* Sidebar colors can be distinct or follow the main theme */
-    --sidebar-background: 207 100% 96%; /* Very light blue, similar to cards */
-    --sidebar-foreground: var(--foreground);
-    --sidebar-primary: var(--primary);
-    --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: 174 72% 88%; /* Very Light Teal for hover */
-    --sidebar-accent-foreground: 174 70% 20%; /* Dark Teal text on light teal hover */
-    --sidebar-border: 207 50% 80%;
-    --sidebar-ring: var(--ring);
-  }
-
-  .dark {
-    /* Dark Mode: "Dark Grayish Like Concrete" Theme */
+    /* Default to "Dark Grayish Like Concrete" Theme */
     --background: 0 0% 12%; /* Dark Concrete Gray */
     --foreground: 0 0% 88%; /* Light Gray Text */
     
@@ -68,7 +18,56 @@ body {
     --popover: 0 0% 10%; /* Darker Popovers */
     --popover-foreground: var(--foreground);
     
-    --primary: 174 72% 56%; /* Teal (#40E0D0) - becomes primary interactive color in dark mode */
+    --primary: 174 72% 56%; /* Teal (#40E0D0) - becomes primary interactive color */
+    --primary-foreground: 207 100% 10%; /* Very Dark Blue/Black for text on Teal */
+    
+    --secondary: 0 0% 30%; /* Mid Concrete Gray */
+    --secondary-foreground: 0 0% 90%; /* Lighter gray text for secondary elements */
+    
+    --muted: 0 0% 22%; /* Darker Muted Gray */
+    --muted-foreground: 0 0% 65%; /* Medium Light Gray for text on muted */
+    
+    --accent: 207 80% 60%; /* Lighter Deep Blue (derived from #003049) - for accents */
+    --accent-foreground: 0 0% 100%; /* White text on this blue accent */
+    
+    --destructive: 0 60% 50%; /* Adjusted destructive for dark concrete */
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 25%; /* Dark Gray Border */
+    --input: 0 0% 14%; /* Dark Input Background */
+    --ring: 174 70% 45%; /* Slightly desaturated Teal for Ring */
+    
+    --chart-1: 174 72% 56%; /* Teal */
+    --chart-2: 207 80% 60%; /* Lighter Deep Blue */
+    --chart-3: 174 60% 45%; /* Darker Teal */
+    --chart-4: 207 70% 50%; /* Medium Deep Blue */
+    --chart-5: 0 0% 70%;   /* Light Gray for contrast */
+
+    --radius: 0.5rem;
+
+    /* Sidebar colors will also be dark */
+    --sidebar-background: 0 0% 9%; /* Even darker concrete for sidebar */
+    --sidebar-foreground: var(--foreground);
+    --sidebar-primary: var(--primary); /* Teal */
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: 0 0% 18%; /* Dark gray hover for sidebar items */
+    --sidebar-accent-foreground: 174 70% 75%; /* Brighter teal text on dark hover */
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: var(--ring);
+  }
+
+  .dark {
+    /* Ensure .dark class also uses the "Dark Grayish Like Concrete" Theme */
+    --background: 0 0% 12%; /* Dark Concrete Gray */
+    --foreground: 0 0% 88%; /* Light Gray Text */
+    
+    --card: 0 0% 16%; /* Slightly Lighter Concrete Gray for Cards */
+    --card-foreground: var(--foreground);
+    
+    --popover: 0 0% 10%; /* Darker Popovers */
+    --popover-foreground: var(--foreground);
+    
+    --primary: 174 72% 56%; /* Teal (#40E0D0) - becomes primary interactive color */
     --primary-foreground: 207 100% 10%; /* Very Dark Blue/Black for text on Teal */
     
     --secondary: 0 0% 30%; /* Mid Concrete Gray */
@@ -120,7 +119,6 @@ body {
     flex-grow: 1;
   }
   
-  /* Emphasize main headings slightly more */
   h1, h2, h3 { @apply font-bold tracking-tight text-primary; }
   h4, h5, h6 { @apply font-semibold tracking-tight text-primary; }
 
@@ -139,7 +137,7 @@ body {
     content: '';
     display: block;
     width: 4rem; 
-    height: 3px; /* Kept the thicker divider */
+    height: 3px; 
     background-color: hsl(var(--accent)); 
     position: absolute;
     bottom: 0.5rem; 
@@ -150,9 +148,37 @@ body {
 
 @layer utilities {
   .force-white-bg {
-    background-color: hsl(0 0% 100%); /* White */
+    /* This class will now force a white background on top of the dark theme */
+    background-color: hsl(0 0% 100%) !important; 
+    color: hsl(0 0% 12%) !important; /* Ensure text is dark on this white background */
   }
+  /* Add a class to force dark text on specific elements if needed on forced white bg */
+  .force-white-bg .text-primary {
+    color: hsl(var(--primary)) !important; /* Use the primary color even on forced white */
+  }
+   .force-white-bg .text-accent {
+    color: hsl(var(--accent)) !important;
+  }
+  .force-white-bg .text-muted-foreground {
+    color: hsl(0 0% 40%) !important; /* A medium gray for muted text on white */
+  }
+   .force-white-bg .text-foreground {
+      color: hsl(0 0% 12%) !important;
+   }
+   .force-white-bg .text-foreground\/90 {
+      color: hsl(0 0% 15%) !important;
+   }
+    .force-white-bg .bg-card {
+      background-color: hsl(0 0% 96%) !important; /* Light gray card on forced white */
+    }
+    .force-white-bg .text-destructive {
+        color: hsl(0 84.2% 60.2%) !important;
+    }
+    .force-white-bg .bg-destructive\/10 {
+        background-color: hsl(0 84.2% 60.2% / 0.1) !important;
+    }
 }
+
 
 /* Enhanced fade-in and zoom animation for sections */
 @keyframes fadeIn {
