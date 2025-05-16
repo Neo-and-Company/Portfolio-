@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { UserCircle2, Briefcase, Zap, TrendingUp, ShieldCheck, Award, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -30,12 +31,12 @@ const AboutMe = () => {
             />
           </div>
           <div className="md:col-span-2 space-y-6">
-            <div className="space-y-3 text-center"> {/* Added text-center */}
+            <div className="space-y-3 text-center">
               <Badge variant="secondary" className="text-sm">Hello, I'm Gabriel Elohi Mancillas Gallardo</Badge>
-              <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl header-divider inline-block"> {/* Removed text-center, added inline-block */}
+              <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl header-divider inline-block">
                 Innovative Data Scientist & Engineer
               </h1>
-              <p className="text-lg text-foreground"> {/* This text will also be centered */}
+              <p className="text-lg text-foreground">
                 Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling. Adept at transforming complex data sets into actionable strategic insights, leveraging SQL, Tableau, Python, and AWS cloud services. Proven ability to develop and implement analytical frameworks to optimize marketing performance, enhance audience engagement, and deliver impactful business results.
               </p>
             </div>
