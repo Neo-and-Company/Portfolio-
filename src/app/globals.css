@@ -9,81 +9,85 @@ body {
 @layer base {
   :root {
     /* PRD Palette: Primary #003049, Secondary #D3D3D3, Accent #40E0D0 */
-    --background: 0 0% 83%; /* Light Gray (#D3D3D3) */
-    --foreground: 207 15% 25%; /* Dark Gray for text on Light Gray bg */
+    /* New Interpretation: White page, subtly tinted cards */
+    --background: 0 0% 100%; /* White */
+    --foreground: 207 30% 20%; /* Dark grayish blue for text on white */
     
-    --card: 0 0% 100%; /* White */
+    --card: 207 100% 97%; /* Very light blue tint for cards */
     --card-foreground: var(--foreground);
     
-    --popover: var(--card);
-    --popover-foreground: var(--card-foreground);
+    --popover: 0 0% 100%; /* White popovers for clarity */
+    --popover-foreground: var(--foreground);
     
     --primary: 207 100% 14%; /* Deep Blue (#003049) */
     --primary-foreground: 0 0% 100%; /* White text on Deep Blue */
     
-    --secondary: 0 0% 83%; /* Light Gray (#D3D3D3) - For subtle contrasts or can be same as background */
-    --secondary-foreground: 207 15% 25%; /* Dark Gray text on Light Gray */
+    --secondary: 207 60% 50%; /* A mid-tone grayish blue for secondary elements/text */
+    --secondary-foreground: 0 0% 100%; /* White text on this secondary color if used as bg */
     
-    --muted: 0 0% 90%; /* Slightly lighter gray than background for muted elements */
-    --muted-foreground: 0 0% 40%; /* Medium Gray for text on muted */
+    --muted: 207 50% 92%; /* Lighter blue-gray for muted elements */
+    --muted-foreground: 207 30% 45%; /* Medium-dark blue-gray for text on muted */
     
     --accent: 174 72% 56%; /* Teal (#40E0D0) */
-    --accent-foreground: 174 70% 15%; /* Dark Teal/Black for text on Teal accent */
+    --accent-foreground: 207 100% 10%; /* Very dark blue for text on Teal accent */
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     
-    --border: 0 0% 75%; /* Gray border, works with light gray bg and white cards */
-    --input: 0 0% 96%; /* Off-white Input, slightly lighter than card bg or distinct */
-    --ring: 174 72% 45%; /* Slightly darker Teal for Ring, derived from Accent */
+    --border: 207 50% 88%; /* Subtle blue-gray border */
+    --input: 207 100% 98%; /* Very light blue-tinted input fields */
+    --ring: 174 72% 48%; /* Slightly darker Teal for Ring, derived from Accent */
     
     --chart-1: 174 72% 56%; /* Teal */
-    --chart-2: 207 100% 25%; /* Brighter Deep Blue */
+    --chart-2: 207 100% 30%; /* Brighter Deep Blue */
     --chart-3: 174 60% 45%; /* Darker Teal */
-    --chart-4: 207 80% 35%; /* Medium Deep Blue */
+    --chart-4: 207 80% 40%; /* Medium Deep Blue */
     --chart-5: 174 50% 35%; /* Even Darker Teal */
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 95%; /* Light gray, slightly different from main bg */
+    /* Sidebar colors can be distinct or follow the main theme */
+    --sidebar-background: 207 100% 96%; /* Very light blue, similar to cards */
     --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--primary);
     --sidebar-primary-foreground: var(--primary-foreground);
     --sidebar-accent: 174 72% 88%; /* Very Light Teal for hover */
     --sidebar-accent-foreground: 174 70% 20%; /* Dark Teal text on light teal hover */
-    --sidebar-border: 0 0% 80%;
+    --sidebar-border: 207 50% 80%;
     --sidebar-ring: var(--ring);
   }
 
   .dark {
-    /* PRD Palette: Primary #003049, Accent #40E0D0. Secondary #D3D3D3 implies light mode focus */
-    --background: 207 30% 10%; /* Very Dark Blue/Gray */
-    --foreground: 0 0% 88%; /* Light Gray Text */
+    /* Dark Mode: Very dark blue bg, slightly lighter cards */
+    --background: 207 70% 8%; /* Very Dark Blue/Black */
+    --foreground: 207 20% 88%; /* Light Grayish Blue Text */
     
-    --card: 207 30% 15%; /* Slightly Lighter Dark Blue/Gray for Cards */
+    --card: 207 60% 12%; /* Dark blue, distinct from bg */
     --card-foreground: var(--foreground);
     
-    --popover: var(--background);
+    --popover: 207 60% 10%; /* Dark popovers */
     --popover-foreground: var(--foreground);
     
-    --primary: 174 65% 60%; /* Brighter Teal as primary in dark mode for better visibility */
-    --primary-foreground: 174 70% 10%; /* Very Dark Teal/Black for text on bright Teal */
+    /* Using Teal as primary in dark mode can provide good visibility */
+    --primary: 174 65% 60%; /* Brighter Teal as primary in dark mode */
+    --primary-foreground: 207 100% 10%; /* Very Dark blue/black for text on bright Teal */
     
-    --secondary: 207 30% 20%; /* Darker version of card for secondary elements */
+    --secondary: 207 50% 18%; /* Darker grayish blue for secondary elements */
     --secondary-foreground: var(--foreground);
     
-    --muted: 207 25% 20%; /* Darker Muted Grey */
-    --muted-foreground: 0 0% 60%; /* Medium Light Gray for muted text */
+    --muted: 207 40% 22%; /* Darker Muted */
+    --muted-foreground: 207 20% 65%; /* Medium Light Gray for muted text */
     
-    --accent: 207 90% 55%; /* Bright version of Deep Blue as accent in dark mode */
+    /* Using a bright version of the primary blue for accent in dark mode */
+    --accent: 207 90% 65%; /* Bright Deep Blue */
     --accent-foreground: 0 0% 100%; /* White text on bright blue */
     
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
     
-    --border: 207 20% 25%; /* Dark Grey Border */
-    --input: 207 25% 18%; /* Dark Grey Input Background */
-    --ring: 207 80% 50%; /* Ring based on dark mode accent */
+    --border: 207 50% 25%; /* Dark Blue-Gray Border */
+    --input: 207 50% 15%; /* Dark Input Background */
+    --ring: 207 80% 60%; /* Ring based on dark mode accent */
 
     --chart-1: 174 65% 60%; /* Brighter Teal */
     --chart-2: 207 90% 55%; /* Bright Deep Blue */
@@ -91,11 +95,11 @@ body {
     --chart-4: 207 70% 45%;
     --chart-5: 174 45% 40%;
     
-    --sidebar-background: 207 30% 8%; /* Even darker for sidebar */
+    --sidebar-background: 207 70% 6%; /* Even darker for sidebar */
     --sidebar-foreground: var(--foreground);
-    --sidebar-primary: var(--primary);
-    --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: 207 30% 18%; /* Dark hover bg */
+    --sidebar-primary: var(--primary); /* Teal in dark mode */
+    --sidebar-primary-foreground: var(--primary-foreground); /* Dark text on Teal */
+    --sidebar-accent: 207 60% 15%; /* Dark hover bg for sidebar items */
     --sidebar-accent-foreground: 174 70% 70%; /* Brighter teal text on dark hover */
     --sidebar-border: var(--border);
     --sidebar-ring: var(--ring);
@@ -115,15 +119,17 @@ body {
   main {
     flex-grow: 1;
   }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
-  }
-  h1 { @apply text-4xl md:text-5xl text-primary; }
-  h2 { @apply text-3xl md:text-4xl text-primary; }
-  h3 { @apply text-2xl md:text-3xl text-primary; }
-  h4 { @apply text-xl md:text-2xl text-primary; }
-  h5 { @apply text-lg md:text-xl text-primary; }
-  h6 { @apply text-base md:text-lg text-primary; }
+  
+  /* Emphasize main headings slightly more */
+  h1, h2, h3 { @apply font-bold tracking-tight text-primary; }
+  h4, h5, h6 { @apply font-semibold tracking-tight text-primary; }
+
+  h1 { @apply text-4xl md:text-5xl; }
+  h2 { @apply text-3xl md:text-4xl; }
+  h3 { @apply text-2xl md:text-3xl; }
+  h4 { @apply text-xl md:text-2xl; }
+  h5 { @apply text-lg md:text-xl; }
+  h6 { @apply text-base md:text-lg; }
 
   .header-divider {
     @apply relative pb-5; 
