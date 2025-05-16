@@ -1,3 +1,4 @@
+
 import type { Project } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,7 +34,7 @@ const projects: Project[] = [
     technologies: ['Python', 'AWS RDS', 'MySQL', 'ETL', 'IAM', 'AWS Secrets Manager', 'Database Optimization'],
     imageUrl: 'https://placehold.co/600x400.png',
     imageHint: 'database schema diagram',
-    repoUrl: 'https://github.com', // Placeholder
+    repoUrl: 'https://github.com/Neo-and-Company/ETL-Schema-Project',
   },
   {
     id: 'proj4',
