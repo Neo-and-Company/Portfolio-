@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,7 +22,7 @@ export default {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
+  				DEFAULT: 'hsl(var(--primary))', // Deep Blue from PRD
   				foreground: 'hsl(var(--primary-foreground))'
   			},
   			secondary: {
@@ -33,7 +34,7 @@ export default {
   				foreground: 'hsl(var(--muted-foreground))'
   			},
   			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
+  				DEFAULT: 'hsl(var(--accent))', // Teal from PRD
   				foreground: 'hsl(var(--accent-foreground))'
   			},
   			destructive: {
@@ -66,6 +67,15 @@ export default {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+      fontSize: {
+        '7xl': '5rem',
+        '8xl': '6rem',
+        '9xl': '7rem',
+        '10xl': '8rem',
+      },
+      letterSpacing: {
+        'tighter-xl': '-0.05em',
+      },
   		keyframes: {
   			'accordion-down': {
   				from: {

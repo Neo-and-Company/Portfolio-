@@ -1,13 +1,16 @@
+
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google'; // Import Inter
+import { Geist_Mono } from 'next/font/google'; // Keep Geist Mono if used
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+// Setup Inter font
+const inter = Inter({
   subsets: ['latin'],
+  variable: '--font-inter', // CSS variable for Inter
 });
 
 const geistMono = Geist_Mono({
@@ -26,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
+    <html lang="en" className={`${inter.variable} ${geistMono.variable} scroll-smooth`}>
+      <body className="antialiased flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">
           {children}
