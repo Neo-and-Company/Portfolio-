@@ -11,23 +11,23 @@ const AboutMe = () => {
     >
       <div className="container mx-auto grid md:grid-cols-12 gap-x-8 items-center relative z-10">
         {/* Giant Name Background - positioned to be behind content or part of grid */}
-        <div className="hero-name-display md:col-span-3 lg:col-span-3 text-center md:text-left select-none
+        <div className="hero-name-display md:col-span-5 lg:col-span-6 text-center md:text-left select-none
                         absolute md:relative inset-0 md:inset-auto
                         flex flex-col justify-center items-center md:items-start
-                        -z-10 md:z-0 opacity-5 md:opacity-10 pointer-events-none">
+                        -z-10 md:z-0 opacity-05 md:opacity-10 pointer-events-none">
           <h1 className="text-8xl sm:text-9xl md:text-10xl font-extrabold text-foreground/30 uppercase tracking-tighter-xl break-words">
             GABRIEL
           </h1>
-          <h1 className="text-8xl sm:text-9xl md:text-10xl font-extrabold text-foreground/30 uppercase tracking-tighter-xl -mt-6 sm:-mt-8 md:-mt-10 lg:-mt-12 break-words">
+          <h1 className="text-8xl sm:text-9xl md:text-10xl font-extrabold text-foreground/30 uppercase tracking-tighter-xl -mt-2 sm:-mt-2 md:-mt-3 lg:-mt-4 break-words">
             ELOHI
           </h1>
         </div>
 
         {/* Image - column for image */}
-        <div className="md:col-span-5 lg:col-span-5 flex justify-center relative order-first md:order-none my-8 md:my-0 
-                        md:-ml-12 lg:-ml-16 xl:-ml-24"> {/* Adjusted negative margin for wider image column */}
+        <div className="md:col-span-4 lg:col-span-3 flex justify-center relative order-first md:order-none my-8 md:my-0 
+                        md:-ml-8 lg:-ml-10 xl:-ml-12"> {/* Adjusted negative margin for rebalanced columns */}
           {/* Image container with controlled max-width and aspect ratio */}
-          <div className="relative z-10 w-full md:max-w-none aspect-[4/5]"> 
+          <div className="relative z-10 w-full aspect-[4/5]"> 
             <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
@@ -41,7 +41,7 @@ const AboutMe = () => {
         </div>
             
         {/* Details Block - column for text details */}
-        <div className="md:col-span-4 lg:col-span-4 text-center md:text-left relative z-0 md:pl-0 lg:pl-0 order-last md:order-none"> 
+        <div className="md:col-span-3 lg:col-span-3 text-center md:text-left relative z-0 md:pl-0 lg:pl-0 order-last md:order-none"> 
           <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-1 tracking-wide">
             INNOVATIVE DATA SCIENTIST & ENGINEER
           </h2>
