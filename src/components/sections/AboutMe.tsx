@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Github, Linkedin, Twitter } from 'lucide-react';
 
 const AboutMe = () => {
   return (
@@ -21,14 +22,14 @@ const AboutMe = () => {
         </div>
 
         {/* Image - positioned to overlap */}
-        <div className="md:col-span-3 lg:col-span-3 flex justify-center relative order-first md:order-none my-8 md:my-0">
+        <div className="md:col-span-3 lg:col-span-3 flex justify-center relative order-first md:order-none my-8 md:my-0 md:-ml-8 lg:-ml-12 xl:-ml-16">
           {/* Image container */}
-          <div className="relative z-10">
+          <div className="relative z-10 w-full max-w-[240px] sm:max-w-[280px] md:max-w-full aspect-[4/5]">
             <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
-              width={400} 
-              height={500}
+              width={6814}
+              height={3835}
               className="rounded-lg shadow-2xl object-cover"
               data-ai-hint="professional headshot"
               priority
@@ -55,8 +56,8 @@ const AboutMe = () => {
       </div>
 
       {/* Decorative Circles */}
-      <div className="absolute top-1/3 left-2/3 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 bg-accent rounded-full opacity-30 md:opacity-20 pointer-events-none z-0 blur-lg"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 sm:w-48 sm:h-48 md:w-60 md:h-60 bg-primary/70 rounded-full opacity-10 md:opacity-5 pointer-events-none z-0 blur-2xl"></div>
+      <div className="absolute top-1/3 left-2/3 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 bg-accent rounded-full opacity-20 pointer-events-none z-0 blur-lg"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 sm:w-48 sm:h-48 md:w-60 md:h-60 bg-primary/70 rounded-full opacity-5 pointer-events-none z-0 blur-2xl"></div>
     </section>
   );
 };
