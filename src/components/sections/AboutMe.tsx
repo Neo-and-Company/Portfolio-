@@ -7,11 +7,11 @@ const AboutMe = () => {
   return (
     <main
       id="about" // This ID is used for navigation
-      className="min-h-screen flex items-center pt-32 pb-12 px-4 sm:px-6 lg:px-16 relative overflow-hidden"
+      className="min-h-screen flex items-center pt-32 pb-12 px-4 sm:px-6 lg:px-16 relative overflow-hidden bg-background text-foreground section-fade-in"
     >
       <div className="container mx-auto grid md:grid-cols-12 gap-x-8 items-center relative z-10">
-        {/* Giant Name Background - positioned to be behind content or part of grid */}
-        <div className="hero-name-display md:col-span-3 lg:col-span-4 text-center md:text-left select-none
+        {/* Giant Name Background */}
+        <div className="hero-name-display md:col-span-4 lg:col-span-5 text-center md:text-left select-none
                         absolute md:relative inset-0 md:inset-auto
                         flex flex-col justify-center items-center md:items-start
                         -z-10 md:z-0 opacity-05 md:opacity-10 pointer-events-none">
@@ -24,14 +24,16 @@ const AboutMe = () => {
         </div>
 
         {/* Image - column for image */}
-        <div className="md:col-span-6 lg:col-span-5 flex justify-center relative order-first md:order-none my-8 md:my-0 md:-ml-6 lg:-ml-8 xl:-ml-10"> {/* Adjusted negative margin for rebalanced columns */}
-          <div className="relative z-10 w-full h-64 sm:h-80 md:h-96 lg:h-[450px] xl:h-[500px]"> {/* Explicit responsive heights */}
+        {/* Adjusted column span and negative margins for image prominence */}
+        <div className="md:col-span-5 lg:col-span-4 flex justify-center relative order-first md:order-none my-8 md:my-0 md:-ml-6 lg:-ml-8 xl:-ml-10">
+          {/* This div now dictates the size of the image */}
+          <div className="relative z-10 w-full h-64 sm:h-80 md:h-96 lg:h-[450px] xl:h-[500px]">
             <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
-              fill
+              fill // Use fill to make the image cover the parent div
               priority
-              className="rounded-lg shadow-2xl object-cover"
+              className="object-cover" // Removed rounded-lg and shadow-2xl
               data-ai-hint="professional headshot"
             />
           </div>
