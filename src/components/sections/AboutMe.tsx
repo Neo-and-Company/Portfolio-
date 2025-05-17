@@ -11,7 +11,8 @@ const AboutMe = () => {
     >
       <div className="container mx-auto grid md:grid-cols-12 gap-x-8 items-center relative z-10">
         {/* Giant Name Background */}
-        <div className="hero-name-display md:col-span-4 lg:col-span-5 text-center md:text-left select-none
+        {/* Adjusted column spans: md:col-span-2 lg:col-span-3 */}
+        <div className="hero-name-display md:col-span-2 lg:col-span-3 text-center md:text-left select-none
                         absolute md:relative inset-0 md:inset-auto
                         flex flex-col justify-center items-center md:items-start
                         -z-10 md:z-0 opacity-05 md:opacity-10 pointer-events-none">
@@ -24,22 +25,25 @@ const AboutMe = () => {
         </div>
 
         {/* Image - column for image */}
-        {/* Adjusted column span and negative margins for image prominence */}
-        <div className="md:col-span-5 lg:col-span-4 flex justify-center relative order-first md:order-none my-8 md:my-0 md:-ml-6 lg:-ml-8 xl:-ml-10">
-          {/* This div now dictates the size of the image */}
-          <div className="relative z-10 w-full h-64 sm:h-80 md:h-96 lg:h-[450px] xl:h-[500px]">
+        {/* Adjusted column spans: md:col-span-7 lg:col-span-6 */}
+        {/* Adjusted negative margins: md:-ml-4 lg:-ml-6 xl:-ml-8 */}
+        {/* Increased responsive heights: h-80 sm:h-96 md:h-[500px] lg:h-[600px] xl:h-[700px] */}
+        <div className="md:col-span-7 lg:col-span-6 flex justify-center relative order-first md:order-none my-8 md:my-0 
+                        md:-ml-4 lg:-ml-6 xl:-ml-8">
+          <div className="relative z-10 w-full h-80 sm:h-96 md:h-[500px] lg:h-[600px] xl:h-[700px]">
             <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
-              fill // Use fill to make the image cover the parent div
+              fill={true} 
               priority
-              className="object-cover" // Removed rounded-lg and shadow-2xl
+              className="object-cover" 
               data-ai-hint="professional headshot"
             />
           </div>
         </div>
             
         {/* Details Block - column for text details */}
+        {/* Column spans remain: md:col-span-3 lg:col-span-3 */}
         <div className="md:col-span-3 lg:col-span-3 text-center md:text-left relative z-0 md:pl-0 lg:pl-0 order-last md:order-none"> 
           <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-1 tracking-wide">
             INNOVATIVE DATA SCIENTIST & ENGINEER
