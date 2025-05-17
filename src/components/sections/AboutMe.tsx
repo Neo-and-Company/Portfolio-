@@ -1,4 +1,3 @@
-
 // src/components/sections/AboutMe.tsx (Hero Section)
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,13 +22,14 @@ const AboutMe = () => {
 
         {/* Image - positioned to overlap */}
         <div className="md:col-span-3 lg:col-span-3 flex justify-center relative order-first md:order-none my-8 md:my-0">
-          <div className="relative w-full max-w-[240px] sm:max-w-[280px] md:max-w-full 
-                          md:-ml-16 lg:-ml-24 xl:-ml-32 z-10">
+          {/* Simplified image container for debugging */}
+          <div className="relative z-10">
             <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
-              fill
-              className="rounded-lg shadow-2xl object-cover aspect-[4/5]"
+              width={240}
+              height={300} // 4/5 aspect ratio for 240 width
+              className="rounded-lg shadow-2xl object-cover border-4 border-red-500" // Added red border for debug
               data-ai-hint="professional headshot"
               priority
             />
