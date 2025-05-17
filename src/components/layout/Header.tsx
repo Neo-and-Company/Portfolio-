@@ -8,8 +8,8 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 const navItems = [
-  { label: 'Home', href: '#about' },
-  { label: 'About', href: '#about-details' }, // Will need to create this section or link to ProfessionalSummary
+  { label: 'Home', href: '#about' }, // #about is the ID of the Hero section
+  { label: 'About', href: '#experience' }, // Link to ProfessionalSummary which acts as detailed about
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
@@ -33,7 +33,7 @@ const Header = () => {
               href={item.href}
               className={`text-sm ${
                 pathname === item.href || (item.href === "#about" && (pathname === "/" || pathname.startsWith("/#")))
-                  ? 'text-accent font-semibold'
+                  ? 'text-accent font-semibold' // Highlight active link with accent color
                   : 'text-muted-foreground hover:text-foreground'
               } transition-colors`}
             >

@@ -3,33 +3,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Inspired by Samay Raina example, adapted with PRD colors */
+/* Based on the provided HTML example and user's PRD */
 @layer base {
   :root {
+    /* Example's dark theme: #111827 background, #E5E7EB foreground */
     --background: hsl(222, 47%, 11%); /* #111827 dark-bg */
     --foreground: hsl(210, 40%, 96.1%); /* #E5E7EB light-text */
 
-    --card: hsl(222, 47%, 14%); /* Slightly lighter than background */
+    --card: hsl(222, 47%, 14%); /* Slightly lighter than background for cards */
     --card-foreground: hsl(210, 40%, 96.1%);
 
     --popover: hsl(222, 47%, 10%);
     --popover-foreground: hsl(210, 40%, 96.1%);
 
-    /* PRD Primary: Deep Blue */
+    /* PRD Primary: Deep Blue (used for role title) */
     --primary: hsl(207, 100%, 15%); /* #003049 */
     --primary-foreground: hsl(210, 40%, 98%); /* White for text on Deep Blue */
 
-    /* Secondary: A medium dark gray from the example's context */
-    --secondary: hsl(215, 28%, 17%); /* ~gray-700 */
-    --secondary-foreground: hsl(210, 40%, 96.1%);
+    /* Secondary/Muted: For less prominent text, borders etc. (Example's medium-text #9CA3AF) */
+    --secondary: hsl(215, 28%, 17%); /* ~gray-700, slightly darker than card */
+    --secondary-foreground: hsl(215, 14%, 65%); /* #9CA3AF - medium-text for less emphasis */
+    
+    --muted: hsl(217, 33%, 20%);  /* A bit darker than secondary */
+    --muted-foreground: hsl(215, 14%, 55%); /* Darker than secondary-foreground */
 
-    /* Muted: A darker gray */
-    --muted: hsl(217, 33%, 17%);  /* ~gray-800 */
-    --muted-foreground: hsl(215, 20%, 65%); /* ~gray-400 from example (dark-text) */
-
-    /* PRD Accent: Teal */
+    /* PRD Accent: Teal (used for button, one circle) */
     --accent: hsl(174, 72%, 56%); /* #40E0D0 */
-    --accent-foreground: hsl(222, 47%, 11%); /* Dark text for Teal buttons */
+    /* Example used dark text on accent buttons */
+    --accent-foreground: hsl(222, 47%, 11%); /* #111827 dark text for Teal buttons */
 
     --destructive: hsl(0, 84.2%, 60.2%);
     --destructive-foreground: hsl(0, 0%, 98%);
@@ -42,12 +43,33 @@
     --chart-2: hsl(207, 90%, 54%); /* Lighter shade of Deep Blue */
     --chart-3: hsl(174, 60%, 45%);
     --chart-4: hsl(207, 80%, 45%);
-    --chart-5: hsl(215, 20%, 65%); /* Muted gray */
+    --chart-5: hsl(215, 14%, 65%); /* Muted gray (medium-text) */
 
     --radius: 0.5rem;
   }
 
-  /* No separate .dark class needed if this is the default theme */
+  /* The .dark class will inherit the :root styles as this is the default theme */
+  .dark {
+    --background: hsl(222, 47%, 11%);
+    --foreground: hsl(210, 40%, 96.1%);
+    --card: hsl(222, 47%, 14%);
+    --card-foreground: hsl(210, 40%, 96.1%);
+    --popover: hsl(222, 47%, 10%);
+    --popover-foreground: hsl(210, 40%, 96.1%);
+    --primary: hsl(207, 100%, 15%);
+    --primary-foreground: hsl(210, 40%, 98%);
+    --secondary: hsl(215, 28%, 17%);
+    --secondary-foreground: hsl(215, 14%, 65%);
+    --muted: hsl(217, 33%, 20%);
+    --muted-foreground: hsl(215, 14%, 55%);
+    --accent: hsl(174, 72%, 56%);
+    --accent-foreground: hsl(222, 47%, 11%);
+    --destructive: hsl(0, 72.2%, 50.6%);
+    --destructive-foreground: hsl(0, 0%, 98%);
+    --border: hsl(215, 28%, 22%);
+    --input: hsl(215, 28%, 20%);
+    --ring: hsl(174, 70%, 45%);
+  }
 }
 
 @layer base {
@@ -65,9 +87,9 @@
     flex-grow: 1;
   }
 
-  /* Increased heading sizes and use foreground color */
   h1, h2, h3, h4, h5, h6 { @apply font-bold tracking-tight text-foreground; }
 
+  /* Increased heading sizes */
   h1 { @apply text-5xl md:text-6xl; }
   h2 { @apply text-4xl md:text-5xl; }
   h3 { @apply text-3xl md:text-4xl; }
@@ -75,7 +97,8 @@
   h5 { @apply text-xl md:text-2xl; }
   h6 { @apply text-lg md:text-xl; }
 
-  .header-divider { /* For specific headers needing underline */
+  /* For specific headers needing underline (from PRD) */
+  .header-divider { 
     @apply relative pb-2 mb-4;
   }
   .header-divider::after {
@@ -83,9 +106,9 @@
     @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-[3px] bg-accent rounded-full;
   }
 
-  /* Custom line height for the large hero name */
+  /* Custom line height for the large hero name display */
   .hero-name-display h1 {
-    line-height: 0.85; /* Even tighter than example */
+    line-height: 0.85; /* Even tighter than example's 0.9 for more impact */
   }
 }
 

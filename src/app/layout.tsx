@@ -1,7 +1,7 @@
 
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google'; // Import Inter
-import { Geist_Mono } from 'next/font/google'; // Keep Geist Mono if used
+import { Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -11,6 +11,7 @@ import { Toaster } from '@/components/ui/toaster';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter', // CSS variable for Inter
+  display: 'swap', // Ensure font displays fallback while loading
 });
 
 const geistMono = Geist_Mono({
