@@ -1,132 +1,84 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserCircle2, Briefcase, Zap, TrendingUp, ShieldCheck, Award, Star, ArrowRight, Home, FolderGit2, Mail } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, Phone } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 
 const AboutMe = () => {
-  const skills = [
-    "Python", "SQL", "AWS", "Tableau", "Scikit-learn",
-    "Statistical Modeling", "ETL Pipelines", "Data Wrangling", "R", "Java"
-  ];
-
-  const certifications = [
-    { name: "Google Ads Search Certification", institution: "Google", date: "Achieved: Aug 2023" },
-    { name: "HubSpot Email Marketing Certification", institution: "HubSpot", date: "Achieved: Aug 2023" },
-    { name: "AWS Certified Machine Learning - Specialty", institution: "Amazon Web Services", date: "In Progress" },
-  ];
-
+  // This component is now the Hero section
   return (
-    <section id="about" className="w-full py-16 md:py-24 lg:py-32 section-fade-in relative overflow-hidden">
-      {/* Background Image and Overlay */}
-      <div
-        className="absolute inset-0 -z-10"
-        aria-hidden="true"
-      >
-        <Image
-          src="/SD.jpg" // Updated path to use the image from the public folder
-          alt="Abstract background"
-          fill
-          className="object-cover"
-          data-ai-hint="cityscape background" // Updated hint
-          priority
-        />
-        <div className="absolute inset-0 bg-black/90"></div> {/* Dark overlay for readability */}
-      </div>
-
-      {/* Hero Content */}
-      <div className="container mx-auto px-4 md:px-6 z-10 relative">
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Text Content Area */}
-          <div className="space-y-5 text-center md:text-left">
-            <Badge variant="outline" className="border-accent text-accent text-sm font-semibold py-1 px-4 rounded-full">Hello!</Badge>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary !leading-tight">
-              I'm <span className="text-accent">Gabriel</span>,
+    <section id="about" className="w-full min-h-screen flex items-center bg-background text-foreground py-16 md:py-24 lg:py-32 section-fade-in relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6 z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column: Text Content & Buttons */}
+          <div className="space-y-6 text-center lg:text-left">
+            <Badge variant="secondary" className="text-sm font-semibold bg-accent/20 text-accent border-accent/30 py-1 px-3 rounded-full inline-block">
+              Hello!
+            </Badge>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tighter !leading-tight">
+              I&apos;m <span className="text-accent">Gabriel</span>,
               <br />
               Innovative Data Scientist & Engineer
             </h1>
-            <p className="text-lg text-foreground/90 max-w-xl mx-auto md:mx-0">
-              Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling. Adept at transforming complex data sets into actionable strategic insights, leveraging SQL, Tableau, Python, and AWS cloud services. Proven ability to develop and implement analytical frameworks to optimize marketing performance, enhance audience engagement, and deliver impactful business results.
+            
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0">
+              Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling. Adept at transforming complex data sets into actionable strategic insights.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
-              <Button asChild size="lg" className="rounded-full px-10 py-6 text-base font-semibold bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                <Link href="#projects">Portfolio <ArrowRight className="ml-2 h-5 w-5" /></Link>
+
+            <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start">
+              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-8 py-3 text-base">
+                <Link href="#projects">Portfolio</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="rounded-full px-10 py-6 text-base font-semibold border-primary text-primary hover:bg-primary/5 hover:text-primary shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+              <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/10 rounded-full px-8 py-3 text-base">
                 <Link href="#contact">Contact Me</Link>
               </Button>
             </div>
+             {/* Social Links - moved to bottom left of hero text area for consistency with example */}
+            <div className="flex gap-5 mt-10 justify-center lg:justify-start text-muted-foreground">
+              <Link href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-accent transition-colors">
+                <Github className="h-6 w-6" />
+              </Link>
+              <Link href="https://www.linkedin.com/in/gabriel-mancillas-gallardo-4a962320b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-accent transition-colors">
+                <Linkedin className="h-6 w-6" />
+              </Link>
+              <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="hover:text-accent transition-colors">
+                <Twitter className="h-6 w-6" />
+              </Link>
+            </div>
           </div>
-          {/* Image Area */}
-          <div className="flex justify-center md:items-start md:justify-end order-first md:order-last">
-            <div className="relative w-[300px] h-[375px] sm:w-[360px] sm:h-[450px] ">
+
+          {/* Right Column: Image and Decorative Elements */}
+          <div className="relative flex justify-center items-center min-h-[350px] lg:min-h-[500px]">
+            {/* Decorative Shapes from example (simplified) */}
+            <div className="absolute -top-10 -left-10 w-32 h-32 md:w-40 md:h-40 opacity-20 -translate-x-1/2 -translate-y-1/2">
+              <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="50,0 100,100 0,100" fill="hsl(var(--muted) / 0.5)"/>
+              </svg>
+            </div>
+            <div className="absolute -bottom-10 -right-10 w-20 h-20 md:w-28 md:h-28 bg-accent rounded-full opacity-30 translate-x-1/2 translate-y-1/2"></div>
+            
+            <div className="relative w-[280px] h-[380px] sm:w-[320px] sm:h-[420px] md:w-[350px] md:h-[450px] z-10">
               <Image
                 src="/DSC02786.png" 
                 alt="Gabriel Elohi Mancillas Gallardo"
                 fill
-                className="rounded-xl shadow-2xl object-cover"
+                className="object-cover rounded-lg shadow-2xl"
                 data-ai-hint="professional headshot"
                 priority
               />
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Existing Details Content - This part remains from the old AboutMe */}
-      <div id="about-details" className="container mx-auto px-4 md:px-6 max-w-screen-lg mt-20 md:mt-28 lg:mt-32 relative z-10">
-        <div className="space-y-12 max-w-3xl mx-auto ">
-          {/* Skills Section */}
-          <div className="space-y-4 text-center md:text-left">
-            <h2 className="text-2xl font-semibold text-primary flex items-center justify-center md:justify-start header-divider">
-              <Zap className="mr-3 h-6 w-6 text-accent" />
-              Core Skills
-            </h2>
-            <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-              {skills.map((skill) => (
-                <Badge key={skill} variant="secondary" className="text-sm px-3 py-1">{skill}</Badge>
-              ))}
+             {/* Contact Info inspired by example - Placeholder */}
+            <div className="absolute bottom-0 right-0 lg:bottom-5 lg:right-5 bg-card/80 backdrop-blur-sm p-4 rounded-lg shadow-lg z-20 text-xs text-card-foreground space-y-1 max-w-[200px]">
+                <div className="flex items-center gap-2">
+                    <Mail className="h-4 w-4 text-accent"/>
+                    <span>gabriel@example.com</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-accent"/>
+                    <span>+1 (234) 567-890</span>
+                </div>
             </div>
-          </div>
-
-          {/* Certifications Section */}
-          <div className="space-y-4 text-center md:text-left">
-            <h2 className="text-2xl font-semibold text-primary flex items-center justify-center md:justify-start header-divider">
-              <Award className="mr-3 h-6 w-6 text-accent" />
-              Certifications & Learning
-            </h2>
-            <ul className="space-y-2 text-foreground list-none pl-0 text-left">
-              {certifications.map((cert) => (
-                <li key={cert.name} className="flex items-start sm:items-center bg-card p-3 rounded-md shadow-sm">
-                  <Star className="mr-3 h-5 w-5 text-yellow-500 flex-shrink-0 mt-1 sm:mt-0" />
-                  <span className="flex-grow text-sm"><strong>{cert.name}</strong> ({cert.institution}) – <em>{cert.date}</em></span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Career Goals Section */}
-          <div className="space-y-4 text-center md:text-left">
-            <h2 className="text-2xl font-semibold text-primary flex items-center justify-center md:justify-start header-divider">
-              <TrendingUp className="mr-3 h-6 w-6 text-accent" />
-              Career Goals
-            </h2>
-            <p className="text-foreground/90 text-left md:text-left bg-card p-4 rounded-md shadow-sm">
-              Driven to apply expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling to contribute to a dynamic team focused on innovation and real-world problem-solving. Continuously advancing skills, currently pursuing a Master of Science in Applied Data Science (Expected May 2025) and holding certifications in Google Ads and HubSpot, with an AWS Machine Learning Specialty in progress. Eager to tackle complex challenges and explore leadership opportunities.
-            </p>
-          </div>
-
-          {/* Security Clearance Section */}
-          <div className="space-y-4 text-center md:text-left">
-            <h2 className="text-2xl font-semibold text-primary flex items-center justify-center md:justify-start header-divider">
-              <ShieldCheck className="mr-3 h-6 w-6 text-accent" />
-              Security Clearance
-            </h2>
-            <p className="text-destructive bg-destructive/10 p-4 rounded-md shadow-sm font-medium text-left md:text-left">
-              Holds an active Secret clearance with the government, valid through <strong>October 2026</strong>.
-            </p>
           </div>
         </div>
       </div>
@@ -134,4 +86,6 @@ const AboutMe = () => {
   );
 };
 
+// This component is effectively the "Hero" section now.
+// The detailed AboutMe content is now in page.tsx as AboutMeQuoteBlock or needs a new dedicated section.
 export default AboutMe;
