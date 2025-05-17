@@ -63,7 +63,7 @@ const AboutMe = () => {
           <div className="flex justify-center md:items-start md:justify-end order-first md:order-last">
             <div className="relative w-[300px] h-[375px] sm:w-[360px] sm:h-[450px] ">
               <Image
-                src="/DSC02786.jpg" 
+                src="/DSC02786.png" 
                 alt="Gabriel Elohi Mancillas Gallardo"
                 fill
                 className="rounded-xl shadow-2xl object-cover"
