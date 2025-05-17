@@ -11,7 +11,7 @@ const AboutMe = () => {
     >
       <div className="container mx-auto grid md:grid-cols-12 gap-x-8 items-center relative z-10">
         {/* Giant Name Background - positioned to be behind content or part of grid */}
-        <div className="hero-name-display md:col-span-4 lg:col-span-5 text-center md:text-left select-none
+        <div className="hero-name-display md:col-span-3 lg:col-span-4 text-center md:text-left select-none
                         absolute md:relative inset-0 md:inset-auto
                         flex flex-col justify-center items-center md:items-start
                         -z-10 md:z-0 opacity-05 md:opacity-10 pointer-events-none">
@@ -24,9 +24,9 @@ const AboutMe = () => {
         </div>
 
         {/* Image - column for image */}
-        <div className="md:col-span-5 lg:col-span-4 flex justify-center relative order-first md:order-none my-8 md:my-0 
-                        md:-ml-8 lg:-ml-10 xl:-ml-12"> {/* Adjusted negative margin for rebalanced columns */}
-          <div className="relative z-10 w-full aspect-[4/5]"> {/* Image container with controlled max-width and aspect ratio */}
+        <div className="md:col-span-6 lg:col-span-5 flex justify-center relative order-first md:order-none my-8 md:my-0 
+                        md:-ml-6 lg:-ml-8 xl:-ml-10"> {/* Adjusted negative margin for rebalanced columns */}
+          <div className="relative z-10 w-full aspect-video"> {/* Image container with controlled aspect ratio */}
             <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
