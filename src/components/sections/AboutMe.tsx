@@ -1,8 +1,8 @@
+
 // src/components/sections/AboutMe.tsx (Hero Section)
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Github, Linkedin, Twitter } from 'lucide-react';
 
 const AboutMe = () => {
   return (
@@ -14,10 +14,10 @@ const AboutMe = () => {
         {/* Giant Name Background */}
         <div className="hero-name-display md:col-span-6 lg:col-span-7 text-center md:text-left select-none absolute md:relative inset-0 md:inset-auto flex flex-col justify-center items-center md:items-start -z-10 md:z-0 opacity-5 md:opacity-10">
           <h1 className="text-8xl sm:text-9xl md:text-10xl font-extrabold text-foreground/30 uppercase tracking-tighter-xl break-words">
-            Gabriel
+            GABRIEL
           </h1>
           <h1 className="text-8xl sm:text-9xl md:text-10xl font-extrabold text-foreground/30 uppercase tracking-tighter-xl -mt-4 sm:-mt-6 md:-mt-10 lg:-mt-12 break-words">
-            Elohi
+            ELOHI
           </h1>
         </div>
 
