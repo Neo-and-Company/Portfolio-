@@ -11,9 +11,9 @@ const AboutMe = () => {
     >
       <div className="container mx-auto grid md:grid-cols-12 gap-x-8 items-center relative z-10">
         {/* Giant Name Background - positioned to be behind content */}
-        <div className="hero-name-display md:col-span-6 lg:col-span-7 text-center md:text-left select-none 
-                        absolute md:relative inset-0 md:inset-auto 
-                        flex flex-col justify-center items-center md:items-start 
+        <div className="hero-name-display md:col-span-6 lg:col-span-7 text-center md:text-left select-none
+                        absolute md:relative inset-0 md:inset-auto
+                        flex flex-col justify-center items-center md:items-start
                         -z-10 md:z-0 opacity-05 md:opacity-10 pointer-events-none">
           <h1 className="text-8xl sm:text-9xl md:text-10xl font-extrabold text-foreground/30 uppercase tracking-tighter-xl break-words">
             GABRIEL
@@ -24,21 +24,21 @@ const AboutMe = () => {
         </div>
 
         {/* Image - positioned to overlap */}
-        <div className="md:col-span-3 lg:col-span-3 flex justify-center relative order-first md:order-none my-8 md:my-0 
+        <div className="md:col-span-3 lg:col-span-3 flex justify-center relative order-first md:order-none my-8 md:my-0
                         md:-ml-8 lg:-ml-12 xl:-ml-20"> {/* Adjusted negative margin for overlap */}
           {/* Image container with controlled max-width and aspect ratio */}
-          <div className="relative z-10 w-full max-w-[240px] sm:max-w-[280px] md:max-w-xs lg:max-w-sm aspect-[4/5]">
+          <div className="relative z-10 w-full max-w-[240px] sm:max-w-[280px] md:max-w-none aspect-[4/5]">
             <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
-              fill // Use fill with a sized parent
+              fill
               className="rounded-lg shadow-2xl object-cover"
               data-ai-hint="professional headshot"
               priority
             />
           </div>
         </div>
-        
+
         {/* Details Block */}
         <div className="md:col-span-4 lg:col-span-3 text-center md:text-left relative z-0 md:pl-0 lg:pl-0 order-last md:order-none">
           <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-1 tracking-wide">
