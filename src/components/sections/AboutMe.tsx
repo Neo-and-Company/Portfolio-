@@ -23,8 +23,8 @@ const AboutMe = () => {
 
         {/* Image - positioned to overlap */}
         <div className="md:col-span-3 lg:col-span-3 flex justify-center relative order-first md:order-none my-8 md:my-0">
-          <div className="relative w-[300px] h-[375px] sm:w-[350px] sm:h-[437px] md:w-[375px] md:h-[468px] lg:w-[400px] lg:h-[500px]
-                          md:-ml-16 lg:-ml-28 xl:-ml-36 z-10">
+          <div className="relative w-[240px] h-[300px] sm:w-[280px] sm:h-[350px] md:w-[320px] md:h-[400px]
+                          md:-ml-16 lg:-ml-24 xl:-ml-32 z-10">
             <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
@@ -49,14 +49,14 @@ const AboutMe = () => {
             Adept at transforming complex data sets into actionable strategic insights.
           </p>
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-lg text-base sm:text-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-opacity-50 px-8 py-3">
-            <Link href="#projects">SEE PORTFOLIO</Link>
+            <Link href="#projects">SEE MORE</Link>
           </Button>
         </div>
       </div>
 
       {/* Decorative Circles */}
-      <div className="absolute top-1/3 left-2/3 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 bg-accent rounded-full opacity-10 blur-xl pointer-events-none z-0"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 sm:w-48 sm:h-48 md:w-60 md:h-60 bg-primary rounded-full opacity-5 blur-2xl pointer-events-none z-0"></div>
+      <div className="absolute top-1/3 left-2/3 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 bg-accent rounded-full opacity-30 md:opacity-20 pointer-events-none z-0 blur-lg"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 sm:w-48 sm:h-48 md:w-60 md:h-60 bg-primary/70 rounded-full opacity-10 md:opacity-5 pointer-events-none z-0 blur-2xl"></div>
     </section>
   );
 };
