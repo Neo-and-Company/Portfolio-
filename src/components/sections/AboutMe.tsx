@@ -11,6 +11,7 @@ const AboutMe = () => {
     >
       <div className="container mx-auto grid md:grid-cols-12 gap-8 items-center relative z-10">
         {/* Giant Name Background */}
+        {/* Adjusted opacity and positioning for better visibility with image */}
         <div className="hero-name-display md:col-span-6 lg:col-span-7 text-center md:text-left select-none absolute md:relative inset-0 md:inset-auto flex flex-col justify-center items-center md:items-start -z-10 md:z-0 opacity-5 md:opacity-10">
           <h1 className="text-8xl sm:text-9xl md:text-10xl font-extrabold text-foreground/30 uppercase tracking-tighter-xl break-words">
             Gabriel
@@ -21,17 +22,18 @@ const AboutMe = () => {
         </div>
 
         {/* Image - positioned to overlap */}
+        {/* Removed fill and using explicit width/height for debug, removed negative margins */}
         <div className="md:col-span-3 lg:col-span-3 flex justify-center relative order-first md:order-none my-8 md:my-0">
           {/* Simplified image container for debugging */}
           <div className="relative z-10">
             <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
-              width={240}
-              height={300} // 4/5 aspect ratio for 240 width
-              className="rounded-lg shadow-2xl object-cover border-4 border-red-500" // Added red border for debug
+              width={320} // Increased width
+              height={400} // Increased height (maintaining 4/5 aspect ratio)
+              className="rounded-lg shadow-2xl object-cover border-4 border-red-500" // Kept red border for debug
               data-ai-hint="professional headshot"
-              priority
+              priority // Added priority as it's a key hero image
             />
           </div>
         </div>
