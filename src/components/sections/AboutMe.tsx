@@ -23,7 +23,7 @@ const AboutMe = () => {
 
         {/* Image - positioned to overlap */}
         <div className="md:col-span-3 lg:col-span-3 flex justify-center relative order-first md:order-none my-8 md:my-0">
-          <div className="relative w-[240px] h-[300px] sm:w-[280px] sm:h-[350px] md:w-[320px] md:h-[400px]
+          <div className="relative w-full max-w-[240px] sm:max-w-[280px] md:max-w-full 
                           md:-ml-16 lg:-ml-24 xl:-ml-32 z-10">
             <Image
               src="/DSC02786.png"
