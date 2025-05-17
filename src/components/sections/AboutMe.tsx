@@ -8,10 +8,10 @@ const AboutMe = () => {
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center pt-32 pb-12 px-4 sm:px-6 lg:px-16 relative overflow-hidden"
+      className="min-h-screen flex items-center pt-32 pb-12 px-4 sm:px-6 lg:px-16 relative overflow-hidden bg-background text-foreground section-fade-in"
     >
       <div className="container mx-auto grid md:grid-cols-12 gap-8 items-center relative z-10">
-        {/* Giant Name Background - ensure it doesn't affect layout too much */}
+        {/* Giant Name Background */}
         <div className="hero-name-display md:col-span-6 lg:col-span-7 text-center md:text-left select-none absolute md:relative inset-0 md:inset-auto flex flex-col justify-center items-center md:items-start -z-10 md:z-0 opacity-5 md:opacity-10">
           <h1 className="text-8xl sm:text-9xl md:text-10xl font-extrabold text-foreground/30 uppercase tracking-tighter-xl break-words">
             Gabriel
@@ -21,13 +21,13 @@ const AboutMe = () => {
           </h1>
         </div>
 
-        {/* Image - positioned to overlap, adjust ml for desired overlap */}
+        {/* Image - positioned to overlap */}
         <div className="md:col-span-3 lg:col-span-3 flex justify-center relative order-first md:order-none my-8 md:my-0">
-          <div className="relative w-[240px] h-[300px] sm:w-[280px] sm:h-[350px] md:w-[300px] md:h-[375px] lg:w-[320px] lg:h-[400px] 
-                          md:-ml-12 lg:-ml-20 xl:-ml-28 z-10">
+          <div className="relative w-[300px] h-[375px] sm:w-[350px] sm:h-[437px] md:w-[375px] md:h-[468px] lg:w-[400px] lg:h-[500px]
+                          md:-ml-16 lg:-ml-28 xl:-ml-36 z-10">
             <Image
               src="/DSC02786.png"
-              alt="Gabriel Elohi"
+              alt="Gabriel Elohi Mancillas Gallardo"
               fill
               className="rounded-lg shadow-2xl object-cover aspect-[4/5]"
               data-ai-hint="professional headshot"
