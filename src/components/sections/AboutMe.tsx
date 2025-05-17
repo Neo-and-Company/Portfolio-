@@ -5,9 +5,9 @@ import { Button } from '@/components/ui/button';
 
 const AboutMe = () => {
   return (
-    <section
+    <main
       id="about" // This ID is used for navigation
-      className="min-h-screen flex items-center pt-32 pb-12 px-4 sm:px-6 lg:px-16 relative overflow-hidden bg-background text-foreground section-fade-in"
+      className="min-h-screen flex items-center pt-32 pb-12 px-4 sm:px-6 lg:px-16 relative overflow-hidden"
     >
       <div className="container mx-auto grid md:grid-cols-12 gap-x-8 items-center relative z-10">
         {/* Giant Name Background - positioned to be behind content or part of grid */}
@@ -24,16 +24,14 @@ const AboutMe = () => {
         </div>
 
         {/* Image - column for image */}
-        <div className="md:col-span-6 lg:col-span-5 flex justify-center relative order-first md:order-none my-8 md:my-0 
-                        md:-ml-6 lg:-ml-8 xl:-ml-10"> {/* Adjusted negative margin for rebalanced columns */}
-          <div className="relative z-10 w-full aspect-video"> {/* Image container with controlled aspect ratio */}
+        <div className="md:col-span-6 lg:col-span-5 flex justify-center relative order-first md:order-none my-8 md:my-0 md:-ml-6 lg:-ml-8 xl:-ml-10"> {/* Adjusted negative margin for rebalanced columns */}
+          <div className="relative z-10 w-full h-64 sm:h-80 md:h-96 lg:h-[450px] xl:h-[500px]"> {/* Explicit responsive heights */}
             <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
-              width={6814}
-              height={3835}
-              className="rounded-lg shadow-2xl object-cover w-full h-full"
+              fill
               priority
+              className="rounded-lg shadow-2xl object-cover"
               data-ai-hint="professional headshot"
             />
           </div>
@@ -60,7 +58,7 @@ const AboutMe = () => {
       {/* Decorative Circles - adjusted z-index and opacity for subtlety */}
       <div className="absolute top-1/3 left-2/3 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 bg-accent rounded-full opacity-20 pointer-events-none -z-20 blur-lg"></div>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 sm:w-48 sm:h-48 md:w-60 md:h-60 bg-primary/70 rounded-full opacity-05 pointer-events-none -z-20 blur-2xl"></div>
-    </section>
+    </main>
   );
 };
 
