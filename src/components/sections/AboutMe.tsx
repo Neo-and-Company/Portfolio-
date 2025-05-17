@@ -1,14 +1,29 @@
 
+// src/components/sections/AboutMe.tsx
 import Image from 'next/image';
 import Link from 'next/link';
 import { Github, Linkedin, Twitter, Mail, Phone } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
+// This component is the Hero section
 const AboutMe = () => {
-  // This component is now the Hero section
   return (
     <section id="about" className="w-full min-h-screen flex items-center bg-background text-foreground py-16 md:py-24 lg:py-32 section-fade-in relative overflow-hidden">
+      {/* Background Image and Overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/SD.jpg" // Your background image
+          alt="Abstract background"
+          fill
+          className="object-cover"
+          quality={80}
+          priority
+          data-ai-hint="abstract texture"
+        />
+        <div className="absolute inset-0 bg-black/90"></div> {/* Dark overlay */}
+      </div>
+
       <div className="container mx-auto px-4 md:px-6 z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column: Text Content & Buttons */}
@@ -34,7 +49,7 @@ const AboutMe = () => {
                 <Link href="#contact">Contact Me</Link>
               </Button>
             </div>
-             {/* Social Links - moved to bottom left of hero text area for consistency with example */}
+             {/* Social Links */}
             <div className="flex gap-5 mt-10 justify-center lg:justify-start text-muted-foreground">
               <Link href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-accent transition-colors">
                 <Github className="h-6 w-6" />
@@ -48,9 +63,9 @@ const AboutMe = () => {
             </div>
           </div>
 
-          {/* Right Column: Image and Decorative Elements */}
+          {/* Right Column: Image and Contact Info */}
           <div className="relative flex justify-center items-center min-h-[350px] lg:min-h-[500px]">
-            {/* Decorative Shapes from example (simplified) */}
+            {/* Decorative Shapes (Optional - keeping them simple) */}
             <div className="absolute -top-10 -left-10 w-32 h-32 md:w-40 md:h-40 opacity-20 -translate-x-1/2 -translate-y-1/2">
               <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <polygon points="50,0 100,100 0,100" fill="hsl(var(--muted) / 0.5)"/>
@@ -68,15 +83,15 @@ const AboutMe = () => {
                 priority
               />
             </div>
-             {/* Contact Info inspired by example - Placeholder */}
+             {/* Contact Info */}
             <div className="absolute bottom-0 right-0 lg:bottom-5 lg:right-5 bg-card/80 backdrop-blur-sm p-4 rounded-lg shadow-lg z-20 text-xs text-card-foreground space-y-1 max-w-[200px]">
                 <div className="flex items-center gap-2">
                     <Mail className="h-4 w-4 text-accent"/>
-                    <span>gabriel@example.com</span>
+                    <span>gabriel@example.com</span> {/* Placeholder */}
                 </div>
                 <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4 text-accent"/>
-                    <span>+1 (234) 567-890</span>
+                    <span>+1 (234) 567-890</span> {/* Placeholder */}
                 </div>
             </div>
           </div>
@@ -86,6 +101,4 @@ const AboutMe = () => {
   );
 };
 
-// This component is effectively the "Hero" section now.
-// The detailed AboutMe content is now in page.tsx as AboutMeQuoteBlock or needs a new dedicated section.
 export default AboutMe;

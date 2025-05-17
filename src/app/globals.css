@@ -9,86 +9,104 @@ body {
 
 @layer base {
   :root {
-    /* Default to a dark theme similar to the example image */
-    --background: hsl(210, 6%, 12%); /* Very dark gray, near black e.g. #1D1E20 */
-    --foreground: hsl(0, 0%, 95%); /* Light gray / Off-white e.g. #F2F2F2 */
+    /* Default: Ship Gray Palette (Light Mode Interpretation) */
+    --background: hsl(220, 13%, 95%); /* Ship Gray 50 - Lightest */
+    --foreground: hsl(220, 10%, 20%); /* Ship Gray 950 - Darkest for text */
 
-    --card: hsl(210, 6%, 16%); /* Slightly lighter dark gray for cards e.g. #252729 */
+    --card: hsl(220, 13%, 100%); /* White cards */
     --card-foreground: var(--foreground);
 
-    --popover: hsl(210, 6%, 14%); /* Darker popover e.g. #202224 */
+    --popover: hsl(220, 13%, 98%); /* Slightly off-white popover */
     --popover-foreground: var(--foreground);
 
-    --primary: hsl(174, 72%, 56%); /* Teal - User's primary, used as example's orange accent */
+    /* Primary: Teal - Retained */
+    --primary: hsl(174, 72%, 56%);
     --primary-foreground: hsl(210, 40%, 98%); /* White for text on Teal */
 
-    --secondary: hsl(210, 6%, 25%); /* Medium dark gray */
-    --secondary-foreground: var(--foreground);
+    /* Secondary: Lighter Ship Gray for subtle backgrounds/elements */
+    --secondary: hsl(220, 13%, 90%); /* Ship Gray 100 */
+    --secondary-foreground: hsl(220, 10%, 30%); /* Ship Gray 800 */
 
-    --muted: hsl(210, 6%, 40%); /* Lighter dark gray for muted text/elements */
-    --muted-foreground: hsl(0, 0%, 70%); /* Lighter gray for text on muted */
+    /* Muted: Mid-tone Ship Gray */
+    --muted: hsl(220, 10%, 75%); /* Ship Gray 300 */
+    --muted-foreground: hsl(220, 10%, 45%); /* Ship Gray 600 */
 
-    --accent: hsl(174, 72%, 56%); /* Teal - Re-using primary as main accent */
-    --accent-foreground: hsl(210, 40%, 98%); /* White for text on Teal */
+    /* Accent: Blue - Retained */
+    --accent: hsl(222, 80%, 70%); /* Light Blue */
+    --accent-foreground: hsl(210, 40%, 98%); /* White for text on Light Blue */
 
     --destructive: 0 60% 50%; /* Standard destructive red */
     --destructive-foreground: 0 0% 98%;
 
-    --border: hsl(210, 6%, 20%); /* Dark border e.g. #2F3133 */
-    --input: hsl(210, 6%, 16%); /* Dark input background */
+    --border: hsl(220, 10%, 85%); /* Ship Gray 200 */
+    --input: hsl(220, 13%, 92%); /* Ship Gray 75 (custom interpolation) */
     --ring: hsl(174, 70%, 45%); /* Teal for rings */
 
-    --chart-1: hsl(174, 72%, 56%);
-    --chart-2: hsl(207, 80%, 60%); /* User's original blue accent */
+    --chart-1: hsl(174, 72%, 56%); /* Teal */
+    --chart-2: hsl(222, 80%, 60%); /* Blue */
     --chart-3: hsl(174, 60%, 45%);
-    --chart-4: hsl(207, 70%, 50%);
-    --chart-5: hsl(210, 6%, 60%);
+    --chart-4: hsl(222, 70%, 50%);
+    --chart-5: hsl(220, 10%, 60%); /* Ship Gray 500 */
 
     --radius: 0.5rem;
 
-    --sidebar-background: hsl(210, 6%, 10%); /* Even darker sidebar */
+    --sidebar-background: hsl(220, 13%, 92%); /* Ship Gray 75 */
     --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--primary);
     --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: hsl(210, 6%, 16%);
+    --sidebar-accent: hsl(220, 13%, 88%); /* Ship Gray 150 */
     --sidebar-accent-foreground: var(--primary);
-    --sidebar-border: hsl(210, 6%, 15%);
+    --sidebar-border: hsl(220, 10%, 80%); /* Ship Gray 250 */
     --sidebar-ring: var(--ring);
   }
 
   .dark {
-    /* Dark mode will be the same as the default root for this design */
-    --background: hsl(210, 6%, 12%);
-    --foreground: hsl(0, 0%, 95%);
-    --card: hsl(210, 6%, 16%);
+    /* Dark Mode: Ship Gray Palette */
+    --background: hsl(220, 10%, 15%);    /* Ship Gray 950 (example has #1D1E20 hsl(210, 6%, 12%)) - Using a slightly lighter for Ship Gray */
+    --foreground: hsl(220, 13%, 95%);    /* Ship Gray 50 */
+
+    --card: hsl(220, 10%, 20%);          /* Ship Gray 900 */
     --card-foreground: var(--foreground);
-    --popover: hsl(210, 6%, 14%);
+
+    --popover: hsl(220, 10%, 18%);       /* Ship Gray 925 (custom interpolation) */
     --popover-foreground: var(--foreground);
+
+    /* Primary: Teal - Retained */
     --primary: hsl(174, 72%, 56%);
     --primary-foreground: hsl(210, 40%, 98%);
-    --secondary: hsl(210, 6%, 25%);
+
+    /* Secondary: Darker Ship Gray for subtle backgrounds/elements */
+    --secondary: hsl(220, 10%, 25%);     /* Ship Gray 800 */
     --secondary-foreground: var(--foreground);
-    --muted: hsl(210, 6%, 40%);
-    --muted-foreground: hsl(0, 0%, 70%);
-    --accent: hsl(174, 72%, 56%);
+
+    /* Muted: Mid-dark Ship Gray */
+    --muted: hsl(220, 10%, 35%);         /* Ship Gray 700 */
+    --muted-foreground: hsl(220, 10%, 65%); /* Ship Gray 400 */
+
+    /* Accent: Blue - Retained */
+    --accent: hsl(222, 80%, 70%);
     --accent-foreground: hsl(210, 40%, 98%);
+
     --destructive: 0 60% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: hsl(210, 6%, 20%);
-    --input: hsl(210, 6%, 16%);
+
+    --border: hsl(220, 10%, 28%);        /* Ship Gray 750 (custom interpolation) */
+    --input: hsl(220, 10%, 22%);         /* Ship Gray 850 (custom interpolation) */
     --ring: hsl(174, 70%, 45%);
+
     --chart-1: hsl(174, 72%, 56%);
-    --chart-2: hsl(207, 80%, 60%);
+    --chart-2: hsl(222, 80%, 60%);
     --chart-3: hsl(174, 60%, 45%);
-    --chart-4: hsl(207, 70%, 50%);
-    --chart-5: hsl(210, 6%, 60%);
-    --sidebar-background: hsl(210, 6%, 10%);
+    --chart-4: hsl(222, 70%, 50%);
+    --chart-5: hsl(220, 10%, 50%);       /* Ship Gray 500 */
+
+    --sidebar-background: hsl(220, 10%, 12%); /* Ship Gray 975 (custom interpolation) */
     --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--primary);
     --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: hsl(210, 6%, 16%);
+    --sidebar-accent: hsl(220, 10%, 20%); /* Ship Gray 900 */
     --sidebar-accent-foreground: var(--primary);
-    --sidebar-border: hsl(210, 6%, 15%);
+    --sidebar-border: hsl(220, 10%, 18%); /* Ship Gray 925 */
     --sidebar-ring: var(--ring);
   }
 }
@@ -98,7 +116,7 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground; /* Default to dark theme */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -106,44 +124,49 @@ body {
   main {
     flex-grow: 1;
   }
-  
-  h1, h2, h3, h4, h5, h6 { @apply font-bold tracking-tight text-foreground; }
 
-  h1 { @apply text-5xl md:text-6xl; }
-  h2 { @apply text-4xl md:text-5xl; }
-  h3 { @apply text-3xl md:text-4xl; }
-  h4 { @apply text-2xl md:text-3xl; }
-  h5 { @apply text-xl md:text-2xl; }
-  h6 { @apply text-lg md:text-xl; }
+  h1, h2, h3, h4, h5, h6 { @apply font-bold tracking-tight text-foreground; } /* Changed from text-primary */
 
-  /* Removing the general header-divider, will apply underlines specifically */
-  .header-divider { }
-  .header-divider::after { display: none; }
+  h1 { @apply text-6xl md:text-7xl; } /* Larger Headings */
+  h2 { @apply text-5xl md:text-6xl; }
+  h3 { @apply text-4xl md:text-5xl; }
+  h4 { @apply text-3xl md:text-4xl; }
+  h5 { @apply text-2xl md:text-3xl; }
+  h6 { @apply text-xl md:text-2xl; }
+
+  .header-divider {
+    @apply relative pb-2 mb-4;
+  }
+  .header-divider::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-accent rounded-full;
+  }
 }
 
 @layer utilities {
+  /* Utility to force white background and dark text for specific sections if needed */
   .force-white-bg {
-    background-color: hsl(0 0% 100%) !important; 
-    color: hsl(0 0% 12%) !important;
+    background-color: hsl(0, 0%, 100%) !important;
+    color: hsl(220, 10%, 20%) !important; /* Dark gray text for readability on white */
   }
    .force-white-bg .text-primary { color: hsl(var(--primary)) !important; }
-   .force-white-bg .text-accent { color: hsl(174, 72%, 56%) !important; } /* Teal for accent on white */
-   .force-white-bg .text-muted-foreground { color: hsl(0 0% 40%) !important; }
-   .force-white-bg .text-foreground { color: hsl(0 0% 12%) !important; }
-   .force-white-bg .text-foreground\/90 { color: hsl(0 0% 15%) !important; }
-   .force-white-bg .bg-card { background-color: hsl(0 0% 96%) !important; }
-   .force-white-bg .text-destructive { color: hsl(0 84.2% 60.2%) !important; }
-   .force-white-bg .bg-destructive\/10 { background-color: hsl(0 84.2% 60.2% / 0.1) !important; }
+   .force-white-bg .text-accent { color: hsl(var(--accent)) !important; }
+   .force-white-bg .text-muted-foreground { color: hsl(220, 10%, 45%) !important; }
+   .force-white-bg .text-foreground { color: hsl(220, 10%, 20%) !important; }
+   .force-white-bg .text-foreground\/90 { color: hsl(220, 10%, 25%) !important; }
+   .force-white-bg .bg-card { background-color: hsl(220, 13%, 95%) !important; } /* Light gray cards on white bg */
+   .force-white-bg .text-destructive { color: hsl(0, 84.2%, 60.2%) !important; }
+   .force-white-bg .bg-destructive\/10 { background-color: hsl(0, 84.2%, 60.2% / 0.1) !important; }
 }
 
 @keyframes fadeIn {
-  from { 
-    opacity: 0; 
-    transform: translateY(20px) scale(0.95); 
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0) scale(1); 
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
