@@ -10,11 +10,11 @@ const AboutMe = () => {
       className="min-h-screen flex items-center pt-32 pb-12 px-4 sm:px-6 lg:px-16 relative overflow-hidden bg-background text-foreground section-fade-in"
     >
       <div className="container mx-auto grid md:grid-cols-12 gap-x-8 items-center relative z-10">
-        {/* Giant Name Background - positioned to be behind content */}
-        <div className="hero-name-display md:col-span-6 lg:col-span-7 text-center md:text-left select-none
+        {/* Giant Name Background - positioned to be behind content or part of grid */}
+        <div className="hero-name-display md:col-span-3 lg:col-span-3 text-center md:text-left select-none
                         absolute md:relative inset-0 md:inset-auto
                         flex flex-col justify-center items-center md:items-start
-                        -z-10 md:z-0 opacity-05 md:opacity-10 pointer-events-none">
+                        -z-10 md:z-0 opacity-5 md:opacity-10 pointer-events-none">
           <h1 className="text-8xl sm:text-9xl md:text-10xl font-extrabold text-foreground/30 uppercase tracking-tighter-xl break-words">
             GABRIEL
           </h1>
@@ -23,34 +23,34 @@ const AboutMe = () => {
           </h1>
         </div>
 
-        {/* Image - positioned to overlap */}
-        <div className="md:col-span-3 lg:col-span-3 flex justify-center relative order-first md:order-none my-8 md:my-0 
-                        md:-ml-8 lg:-ml-12 xl:-ml-20"> {/* Adjusted negative margin */}
+        {/* Image - column for image */}
+        <div className="md:col-span-5 lg:col-span-5 flex justify-center relative order-first md:order-none my-8 md:my-0 
+                        md:-ml-12 lg:-ml-16 xl:-ml-24"> {/* Adjusted negative margin for wider image column */}
           {/* Image container with controlled max-width and aspect ratio */}
-          <div className="relative z-10 w-full max-w-[240px] sm:max-w-[280px] md:max-w-none aspect-[4/5]"> 
+          <div className="relative z-10 w-full md:max-w-none aspect-[4/5]"> 
             <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
               width={6814}
               height={3835}
-              className="rounded-lg shadow-2xl object-cover"
-              data-ai-hint="professional headshot"
+              className="rounded-lg shadow-2xl object-cover w-full h-full"
               priority
+              data-ai-hint="professional headshot"
             />
           </div>
         </div>
             
-        {/* Details Block */}
-        <div className="md:col-span-4 lg:col-span-3 text-center md:text-left relative z-0 md:pl-0 lg:pl-0 order-last md:order-none"> {/* md:pl-0 to align with new layout */}
+        {/* Details Block - column for text details */}
+        <div className="md:col-span-4 lg:col-span-4 text-center md:text-left relative z-0 md:pl-0 lg:pl-0 order-last md:order-none"> 
           <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-1 tracking-wide">
             INNOVATIVE DATA SCIENTIST & ENGINEER
           </h2>
           <div className="w-16 h-0.5 bg-primary mb-4 mx-auto md:mx-0"></div> {/* Role underline */}
           <p className="text-muted-foreground mb-4 text-sm sm:text-base leading-relaxed">
-            Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling.
+            Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling. Adept at transforming complex data sets into actionable strategic insights.
           </p>
           <p className="text-muted-foreground mb-6 text-sm sm:text-base leading-relaxed">
-            Adept at transforming complex data sets into actionable strategic insights.
+            Proven ability to develop and implement analytical frameworks to optimize marketing performance, enhance audience engagement, and deliver impactful business results.
           </p>
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-lg text-base sm:text-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-opacity-50 px-8 py-3">
             <Link href="#projects">SEE MORE</Link>
