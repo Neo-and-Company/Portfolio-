@@ -11,7 +11,7 @@ import { Toaster } from '@/components/ui/toaster';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter', // CSS variable for Inter
-  display: 'swap', // Ensure font displays fallback while loading
+  display: 'swap',
 });
 
 const geistMono = Geist_Mono({
@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${geistMono.variable} scroll-smooth`}>
-      <body className="antialiased flex flex-col min-h-screen">
+      <body className="antialiased flex flex-col min-h-screen"> {/* Inter is applied via globals.css now */}
         <Header />
         <main className="flex-grow">
           {children}

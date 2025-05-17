@@ -2,7 +2,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-    darkMode: ["class"], // Keep class-based dark mode for flexibility
+    darkMode: ["class"],
     content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -11,8 +11,6 @@ export default {
   theme: {
   	extend: {
   		colors: {
-        // Base colors will be defined via CSS variables in globals.css
-        // to match the example's dark theme by default.
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -80,16 +78,19 @@ export default {
         '4xl': '2.25rem',
         '5xl': '3rem',
         '6xl': '3.75rem',
-        '7xl': '4.5rem', // Example had 5rem, adjusted for better scale
-        '8xl': '6rem',    // Matches example script's 8xl
-        '9xl': '7.5rem',  // Matches example script's 9xl
-        '10xl': '9rem',   // Matches example script's 10xl
+        '7xl': '4.5rem', 
+        '8xl': '6rem',    // From example
+        '9xl': '7.5rem',  // Approx for example's 9xl
+        '10xl': '9rem',   // Approx for example's 10xl
       },
       letterSpacing: {
-        'tighter-xl': '-0.05em', 
+        'tighter-xl': '-0.05em', // From example
       },
       opacity: {
-        '05': '0.05',
+        '05': '0.05', // From example
+        '10': '0.10',
+        '20': '0.20',
+        '30': '0.30',
       },
   		keyframes: {
   			'accordion-down': {

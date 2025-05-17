@@ -8,8 +8,8 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 const navItems = [
-  { label: 'Home', href: '#about' }, // #about is the ID of the Hero section
-  { label: 'About', href: '#experience' }, // Link to ProfessionalSummary which acts as detailed about
+  { label: 'Home', href: '#about' }, 
+  { label: 'About', href: '#experience' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
@@ -33,7 +33,7 @@ const Header = () => {
               href={item.href}
               className={`text-sm ${
                 pathname === item.href || (item.href === "#about" && (pathname === "/" || pathname.startsWith("/#")))
-                  ? 'text-accent font-semibold' // Highlight active link with accent color
+                  ? 'text-accent font-semibold' 
                   : 'text-muted-foreground hover:text-foreground'
               } transition-colors`}
             >
@@ -44,7 +44,7 @@ const Header = () => {
 
         <div className="flex items-center space-x-4">
           <Button variant="ghost" size="icon" aria-label="Search" className="text-muted-foreground hover:text-foreground">
-            <Search className="h-5 w-5" />
+            <Search className="h-6 w-6" />
           </Button>
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
