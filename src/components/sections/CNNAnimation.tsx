@@ -5,29 +5,26 @@ import React, { useEffect, useRef } from 'react';
 // IMPORTANT: You need to install three.js and its types:
 // npm install three
 // npm install --save-dev @types/three
-// import * * as THREE from 'three'; // Temporarily commented out
+import * as THREE from 'three'; // Now uncommented
 
 const CNNAnimation: React.FC = () => {
     const animationSectionRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    // const animationFrameId = useRef<number | null>(null);
-    // const sceneRef = useRef<THREE.Scene | null>(null);
-    // const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-    // const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-    // const linesRef = useRef<THREE.Line[]>([]);
-    // const particlesRef = useRef<THREE.Mesh[]>([]);
-    // const layerDefinitionsRef = useRef<any[]>([]); // To store layer data including nodes
-    // const animationStartedRef = useRef(false);
-    // const clockRef = useRef(new THREE.Clock());
+    const animationFrameId = useRef<number | null>(null);
+    const sceneRef = useRef<THREE.Scene | null>(null);
+    const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+    const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+    const linesRef = useRef<THREE.Line[]>([]);
+    const particlesRef = useRef<THREE.Mesh[]>([]);
+    const layerDefinitionsRef = useRef<any[]>([]); // To store layer data including nodes
+    const animationStartedRef = useRef(false);
+    const clockRef = useRef(new THREE.Clock());
 
     useEffect(() => {
         if (typeof window === 'undefined' || !animationSectionRef.current || !canvasRef.current) {
             return;
         }
-        // --- All Three.js related code below is temporarily commented out ---
-        // --- Please install 'three' and '@types/three' and uncomment this section ---
-
-        /*
+        
         const section = animationSectionRef.current;
         const canvas = canvasRef.current;
 
@@ -261,7 +258,7 @@ const CNNAnimation: React.FC = () => {
                         if (object.geometry) object.geometry.dispose();
                         if (object.material) {
                              if (Array.isArray(object.material)) {
-                                object.material.forEach(material => material.dispose());
+                                (object.material as THREE.Material[]).forEach(material => material.dispose());
                             } else {
                                 (object.material as THREE.Material).dispose();
                             }
@@ -277,7 +274,6 @@ const CNNAnimation: React.FC = () => {
                 rendererRef.current.dispose();
             }
         };
-        */
 
     }, []);
 
@@ -294,17 +290,12 @@ const CNNAnimation: React.FC = () => {
                 <p className="text-lg md:text-xl text-muted-foreground max-w-xl md:max-w-2xl mx-auto">
                     Visualizing feature extraction and classification.
                 </p>
-                 <div className="mt-4 p-4 bg-destructive/20 text-destructive rounded-md border border-destructive">
-                    <p className="font-semibold">Animation Offline</p>
-                    <p className="text-sm">The 'three' package is not installed. Please run:</p>
-                    <code className="block text-xs bg-destructive/30 p-2 rounded mt-1">npm install three @types/three</code>
-                    <p className="text-sm mt-1">Then, uncomment the Three.js code in CNNAnimation.tsx.</p>
-                </div>
             </div>
         </section>
     );
 };
 
 export default CNNAnimation;
+    
 
     
