@@ -3,83 +3,89 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base theme matching the HTML example's dark mode */
+/* Matches the new HTML example: dark theme by default */
 @layer base {
   :root {
-    --background: hsl(222, 47%, 11%); /* #111827 dark-bg */
-    --foreground: hsl(210, 40%, 96.1%); /* #E5E7EB light-text */
+    --background: 222 47% 11%; /* #111827 dark-bg */
+    --foreground: 210 40% 96.1%; /* #E5E7EB light-text */
 
-    --card: hsl(222, 47%, 14%); /* Slightly lighter than background for cards */
-    --card-foreground: hsl(210, 40%, 96.1%);
+    --card: 222 47% 14%; /* Slightly lighter than background for cards */
+    --card-foreground: 210 40% 96.1%;
 
-    --popover: hsl(222, 47%, 10%);
-    --popover-foreground: hsl(210, 40%, 96.1%);
+    --popover: 222 47% 10%;
+    --popover-foreground: 210 40% 96.1%;
 
-    /* Map to example's brand-purple: #8A3FFC (Used for role title, one circle) */
-    /* This is your PRD Primary color */
-    --primary: hsl(260, 96%, 61%);
-    --primary-foreground: hsl(210, 40%, 98%); /* White for text on this purple */
+    /* --primary: 208 93% 50%; /* Example's brand-purple (#8A3FFC) -> Using your PRD Deep Blue */
+    /* --primary-foreground: 210 40% 98%; */
+    /* For new example: primary color is brand-purple */
+    --primary: 260 96% 61%; /* #8A3FFC from new example */
+    --primary-foreground: 210 40% 98%; /* White for text on this purple */
 
-    /* Maps to example's medium-text: #9CA3AF */
-    --secondary: hsl(215, 28%, 17%);
-    --secondary-foreground: hsl(215, 14%, 65%);
+    /* --secondary: 220 15% 20%; /* Example's medium-text (#D1D5DB / #9CA3AF) -> Muted foreground */
+    /* --secondary-foreground: 210 40% 90%; */
+    /* For new example: secondary can be a muted version */
+    --secondary: 215 28% 17%; /* A darker muted color for secondary elements */
+    --secondary-foreground: 215 14% 65%; /* Muted text for secondary elements */
     
-    --muted: hsl(217, 33%, 20%);
-    --muted-foreground: hsl(215, 14%, 65%); /* Example's medium-text #9CA3AF */
+    /* --muted: 220 10% 25%; */
+    /* --muted-foreground: 210 30% 70%; /* Example's dark-text (#9CA3AF) */
+    /* For new example: medium-text for muted */
+    --muted: 217 33% 20%;
+    --muted-foreground: 215 20% 65%; /* #9CA3AF example's medium-text */
 
-    /* Maps to example's accent-cyan: #22D3EE (Used for button, one circle) */
-    /* This is your PRD Accent color */
-    --accent: hsl(187, 85%, 53%);
-    /* Example used dark text on accent buttons: #111827 */
-    --accent-foreground: hsl(222, 47%, 11%); 
+    /* --accent: 174 72% 56%; /* Teal #40E0D0 - PRD Accent */
+    /* --accent-foreground: 222 47% 11%; */
+    /* For new example: accent is accent-cyan */
+    --accent: 187 85% 53%; /* #22D3EE from new example */
+    --accent-foreground: 222 47% 11%; /* Text on accent, example's button-text-dark */
 
-    --destructive: hsl(0, 84.2%, 60.2%);
-    --destructive-foreground: hsl(0, 0%, 98%);
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: hsl(215, 28%, 22%); 
-    --input: hsl(215, 28%, 20%);
-    --ring: hsl(187, 83%, 63%); /* Lighter cyan for rings */
+    --border: 215 28% 22%; 
+    --input: 215 28% 20%;
+    --ring: 187 83% 63%; /* Lighter cyan for rings */
 
-    --chart-1: hsl(187, 85%, 53%); /* Accent Cyan */
-    --chart-2: hsl(260, 90%, 70%); /* Lighter shade of Brand Purple */
+    --chart-1: hsl(var(--accent)); 
+    --chart-2: hsl(var(--primary)); 
     --chart-3: hsl(187, 70%, 45%);
     --chart-4: hsl(260, 80%, 60%);
-    --chart-5: hsl(215, 14%, 65%); /* Muted gray (medium-text) */
+    --chart-5: hsl(var(--muted-foreground));
 
     --radius: 0.5rem;
 
     /* Sidebar specific colors - adapt to dark theme */
-    --sidebar-background: hsl(222, 47%, 9%); /* Slightly darker than main bg */
-    --sidebar-foreground: hsl(210, 40%, 80%); /* Slightly dimmer text for sidebar */
+    --sidebar-background: 222 47% 9%; /* Slightly darker than main bg */
+    --sidebar-foreground: 210 40% 80%; /* Slightly dimmer text for sidebar */
     --sidebar-primary: hsl(var(--primary));
     --sidebar-primary-foreground: hsl(var(--primary-foreground));
     --sidebar-accent: hsl(var(--accent));
     --sidebar-accent-foreground: hsl(var(--accent-foreground));
-    --sidebar-border: hsl(222, 47%, 15%);
+    --sidebar-border: 222 47% 15%;
     --sidebar-ring: hsl(var(--ring));
   }
 
-  /* The .dark class will inherit the :root styles as this is the default theme */
+  /* Dark class is not strictly needed if :root is already dark, but kept for consistency */
   .dark {
-    --background: hsl(222, 47%, 11%);
-    --foreground: hsl(210, 40%, 96.1%);
-    --card: hsl(222, 47%, 14%);
-    --card-foreground: hsl(210, 40%, 96.1%);
-    --popover: hsl(222, 47%, 10%);
-    --popover-foreground: hsl(210, 40%, 96.1%);
-    --primary: hsl(260, 96%, 61%);
-    --primary-foreground: hsl(210, 40%, 98%);
-    --secondary: hsl(215, 28%, 17%);
-    --secondary-foreground: hsl(215, 14%, 65%);
-    --muted: hsl(217, 33%, 20%);
-    --muted-foreground: hsl(215, 14%, 65%);
-    --accent: hsl(187, 85%, 53%);
-    --accent-foreground: hsl(222, 47%, 11%);
-    --destructive: hsl(0, 72.2%, 50.6%);
-    --destructive-foreground: hsl(0, 0%, 98%);
-    --border: hsl(215, 28%, 22%);
-    --input: hsl(215, 28%, 20%);
-    --ring: hsl(187, 83%, 63%);
+    --background: 222 47% 11%; /* #111827 */
+    --foreground: 210 40% 96.1%; /* #E5E7EB */
+    --card: 222 47% 14%;
+    --card-foreground: 210 40% 96.1%;
+    --popover: 222 47% 10%;
+    --popover-foreground: 210 40% 96.1%;
+    --primary: 260 96% 61%; /* #8A3FFC */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 215 28% 17%;
+    --secondary-foreground: 215 14% 65%;
+    --muted: 217 33% 20%;
+    --muted-foreground: 215 20% 65%; /* #9CA3AF */
+    --accent: 187 85% 53%; /* #22D3EE */
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 72.2% 50.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 215 28% 22%;
+    --input: 215 28% 20%;
+    --ring: 187 83% 63%;
   }
 }
 
@@ -93,6 +99,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overscroll-behavior-y: none; /* From new example */
   }
   main {
     flex-grow: 1;
@@ -100,29 +107,26 @@
 
   h1, h2, h3, h4, h5, h6 { @apply font-bold tracking-tight text-foreground; }
 
-  /* Increased heading sizes based on PRD */
-  h1 { @apply text-5xl md:text-6xl; }
+  h1 { @apply text-5xl md:text-6xl; } /* Base size */
   h2 { @apply text-4xl md:text-5xl; }
   h3 { @apply text-3xl md:text-4xl; }
   h4 { @apply text-2xl md:text-3xl; }
   h5 { @apply text-xl md:text-2xl; }
   h6 { @apply text-lg md:text-xl; }
 
-  /* Specific underline for section headers needing it */
   .header-divider { 
     @apply relative pb-2 mb-4;
   }
   .header-divider::after {
     content: '';
-    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-[3px] bg-primary rounded-full;
+    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-[2px] bg-primary rounded-full; /* Thinner divider */
   }
   
-  /* Custom line height for the large hero name display, from example */
   .hero-name-display h1 {
     line-height: 0.9; 
   }
 
-  /* Utility class for sections that must have a white background */
+  /* Utility class for sections that must have a white background if ever needed */
   .force-white-bg {
     background-color: hsl(0, 0%, 100%) !important; /* Pure white */
     color: hsl(222, 47%, 11%) !important; /* Dark text for readability */
@@ -135,14 +139,14 @@
   .force-white-bg div {
      color: hsl(222, 47%, 11%) !important; /* Ensure nested text is also dark */
   }
-   .force-white-bg .text-primary { /* If primary color is dark, make it visible on white */
+   .force-white-bg .text-primary { 
     color: hsl(var(--primary)) !important;
   }
   .force-white-bg .text-accent {
      color: hsl(var(--accent)) !important;
   }
    .force-white-bg .text-muted-foreground {
-    color: hsl(222, 47%, 30%) !important; /* A darker muted for white bg */
+    color: hsl(222, 47%, 30%) !important; 
   }
 }
 

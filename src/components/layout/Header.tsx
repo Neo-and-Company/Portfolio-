@@ -7,9 +7,10 @@ import { Menu, Search, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
+// Navigation items from the new example
 const navItems = [
-  { label: 'Home', href: '#about' }, 
-  { label: 'About', href: '#experience' },
+  { label: 'Home', href: '#heroAnimationSection' }, // Assuming CNN section will have this id
+  { label: 'About', href: '#cnnExplanationSection' }, // Assuming explanation section will have this id
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
@@ -20,9 +21,9 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="py-6 px-4 sm:px-6 lg:px-16 fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/20">
+    <header className="py-4 px-4 sm:px-6 lg:px-16 fixed top-0 left-0 right-0 z-50 bg-background shadow-md"> {/* Matches example header style */}
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-3xl font-extrabold text-foreground">
+        <Link href="/" className="text-3xl font-semibold text-foreground"> {/* Matches "G." logo style */}
           G.
         </Link>
 
@@ -32,8 +33,8 @@ const Header = () => {
               key={item.label}
               href={item.href}
               className={`text-sm ${
-                pathname === item.href || (item.href === "#about" && (pathname === "/" || pathname.startsWith("/#")))
-                  ? 'text-accent font-semibold' 
+                pathname === item.href || (item.href === "#heroAnimationSection" && (pathname === "/" || pathname.startsWith("/#")))
+                  ? 'text-accent font-semibold' // Accent for active/home
                   : 'text-muted-foreground hover:text-foreground'
               } transition-colors`}
             >
@@ -43,9 +44,10 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="icon" aria-label="Search" className="text-muted-foreground hover:text-foreground">
+          {/* Search button - can be re-enabled if needed */}
+          {/* <Button variant="ghost" size="icon" aria-label="Search" className="text-muted-foreground hover:text-foreground">
             <Search className="h-6 w-6" />
-          </Button>
+          </Button> */}
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
@@ -55,7 +57,7 @@ const Header = () => {
             </SheetTrigger>
             <SheetContent side="right" className="bg-background text-foreground w-[280px] p-0">
               <SheetHeader className="p-6 border-b border-border/20">
-                <SheetTitle className="text-left text-2xl font-extrabold text-foreground">G.</SheetTitle>
+                <SheetTitle className="text-left text-2xl font-semibold text-foreground">G.</SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col p-6 space-y-1">
                 {navItems.map((item) => (
@@ -64,7 +66,7 @@ const Header = () => {
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`block text-lg py-3 px-3 rounded-md ${
-                      pathname === item.href || (item.href === "#about" && (pathname === "/" || pathname.startsWith("/#")))
+                      pathname === item.href || (item.href === "#heroAnimationSection" && (pathname === "/" || pathname.startsWith("/#")))
                         ? 'bg-accent/20 text-accent font-semibold'
                         : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                     } transition-colors`}

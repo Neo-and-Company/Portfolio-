@@ -1,67 +1,25 @@
 
+"use client";
+
 import Image from 'next/image';
-import { Button } from '@/components/ui/button'; // Assuming Button is correctly imported
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 const AboutMe = () => {
+  // This component's content is effectively replaced by CNNAnimation for the hero.
+  // You can repurpose this for a more traditional "About Me" text section
+  // if needed later, or remove it if CNNExplanation covers enough.
+  // For now, I'll keep it minimal to avoid conflict if it were still on the page.
   return (
-    <main
-      id="about"
-      className="min-h-screen flex items-center pt-10 pb-12 px-4 sm:px-6 lg:px-16 relative overflow-hidden bg-background text-foreground section-fade-in"
-    >
-      <div className="container mx-auto grid md:grid-cols-12 gap-x-8 items-center relative z-10">
-        {/* Giant Name Background */}
-        <div className="hero-name-display md:col-span-3 lg:col-span-4 text-center md:text-left select-none
-                        absolute md:relative inset-0 md:inset-auto
-                        flex flex-col justify-center items-center md:items-start
-                        -z-10 md:z-0 opacity-05 md:opacity-10 pointer-events-none">
-          <h1 className="text-8xl sm:text-9xl md:text-10xl font-extrabold text-foreground/30 uppercase tracking-tighter-xl break-words">
-            GABRIEL
-          </h1>
-          <h1 className="text-8xl sm:text-9xl md:text-10xl font-extrabold text-foreground/30 uppercase tracking-tighter-xl -mt-2 sm:-mt-2 md:-mt-3 lg:-mt-4 break-words">
-            ELOHI
-          </h1>
-        </div>
-
-        {/* Image - column for image */}
-        <div className="md:col-span-5 lg:col-span-4 flex justify-center relative order-first md:order-none my-8 md:my-0
-                        md:-ml-6 lg:-ml-10 xl:-ml-12"> {/* Adjusted negative margins */}
-          <div className="relative z-10 w-full h-64 sm:h-72 md:h-[380px] lg:h-[450px] xl:h-[520px]"> {/* Adjusted heights */}
-             <Image
-              src="/DSC02786.png"
-              alt="Gabriel Elohi Mancillas Gallardo"
-              fill={true}
-              className="object-cover" 
-              data-ai-hint="professional headshot"
-              priority
-            />
-          </div>
-        </div>
-            
-        {/* Details Block - column for text details */}
-        <div className="md:col-span-4 lg:col-span-4 text-center md:text-left relative z-0 md:pl-0 lg:pl-0 order-last md:order-none space-y-4"> 
-          <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-1 tracking-wide">
-            INNOVATIVE DATA SCIENTIST & ENGINEER
-          </h2>
-          <div className="w-16 h-0.5 bg-primary mb-4 mx-auto md:mx-0"></div> {/* Role underline */}
-          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling. Adept at transforming complex data sets into actionable strategic insights.
-          </p>
-          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Proven ability to develop and implement analytical frameworks to optimize marketing performance, enhance audience engagement, and deliver impactful business results.
-          </p>
-          <Button 
-            asChild 
-            className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold py-3 px-8 rounded-lg text-base sm:text-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-opacity-50"
-          >
-            <a href="#projects">SEE MORE</a>
-          </Button>
-        </div>
+    <section id="about-placeholder" className="py-12 md:py-16 bg-background text-foreground">
+      <div className="container mx-auto px-4 md:px-6 text-center">
+        <h2 className="text-3xl font-bold text-primary mb-4">About Gabriel Elohi</h2>
+        <p className="text-lg text-muted-foreground">
+          Further details about Gabriel can be presented here or integrated into other sections.
+          The main hero visual is now handled by the CNN Animation.
+        </p>
       </div>
-
-      {/* Decorative Circles - adjusted z-index and opacity for subtlety */}
-      <div className="absolute top-1/3 left-2/3 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 bg-accent rounded-full opacity-20 pointer-events-none -z-20 blur-lg"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 sm:w-48 sm:h-48 md:w-60 md:h-60 bg-primary/70 rounded-full opacity-05 pointer-events-none -z-20 blur-2xl"></div>
-    </main>
+    </section>
   );
 };
 
