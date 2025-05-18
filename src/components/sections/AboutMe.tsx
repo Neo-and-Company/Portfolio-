@@ -4,12 +4,12 @@ import Image from 'next/image';
 const AboutMe = () => {
   return (
     <main
-      id="about" // This ID is used for navigation
-      className="min-h-screen flex items-center pt-24 pb-12 px-4 sm:px-6 lg:px-16 relative overflow-hidden bg-background text-foreground section-fade-in" // Changed pt-32 to pt-24
+      id="about"
+      className="min-h-screen flex items-center pt-[5.25rem] pb-12 px-4 sm:px-6 lg:px-16 relative overflow-hidden bg-background text-foreground section-fade-in"
     >
       <div className="container mx-auto grid md:grid-cols-12 gap-x-8 items-center relative z-10">
         {/* Giant Name Background */}
-        <div className="hero-name-display md:col-span-3 lg:col-span-4 text-center md:text-left select-none
+        <div className="hero-name-display md:col-span-4 lg:col-span-5 text-center md:text-left select-none
                         absolute md:relative inset-0 md:inset-auto
                         flex flex-col justify-center items-center md:items-start
                         -z-10 md:z-0 opacity-05 md:opacity-10 pointer-events-none">
@@ -22,11 +22,11 @@ const AboutMe = () => {
         </div>
 
         {/* Image - column for image */}
-        <div className="md:col-span-7 lg:col-span-6 flex justify-center relative order-first md:order-none my-8 md:my-0
-                        md:-ml-4 lg:-ml-6 xl:-ml-8"> {/* Adjusted negative margins for wider image */}
-          <div className="relative z-10 w-full h-80 sm:h-96 md:h-[500px] lg:h-[600px] xl:h-[700px]">
+        <div className="md:col-span-5 lg:col-span-4 flex justify-center relative order-first md:order-none my-8 md:my-0
+                        md:-ml-6 lg:-ml-8 xl:-ml-10"> {/* Adjusted negative margins */}
+          <div className="relative z-10 w-full h-80 sm:h-96 md:h-[500px] lg:h-[600px] xl:h-[700px]"> {/* Explicit responsive heights */}
              <Image
-              src="/DSC02786.png"
+              src="/DSC02786.png" // Assuming this is in public/DSC02786.png
               alt="Gabriel Elohi Mancillas Gallardo"
               fill={true}
               className="object-cover" 
