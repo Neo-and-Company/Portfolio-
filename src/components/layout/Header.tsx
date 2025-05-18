@@ -7,10 +7,9 @@ import { Menu, Search, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
-// Navigation items from the new example
 const navItems = [
-  { label: 'Home', href: '#heroAnimationSection' }, // Assuming CNN section will have this id
-  { label: 'About', href: '#cnnExplanationSection' }, // Assuming explanation section will have this id
+  { label: 'Home', href: '/' }, // Points to AboutMe/Hero section
+  { label: 'About', href: '#about' }, // Or a dedicated about section if one exists later
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
@@ -21,9 +20,9 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="py-4 px-4 sm:px-6 lg:px-16 fixed top-0 left-0 right-0 z-50 bg-background shadow-md"> {/* Matches example header style */}
+    <header className="py-6 px-4 sm:px-6 lg:px-16 fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-3xl font-semibold text-foreground"> {/* Matches "G." logo style */}
+        <Link href="/" className="text-3xl font-extrabold text-foreground">
           G.
         </Link>
 
@@ -33,9 +32,9 @@ const Header = () => {
               key={item.label}
               href={item.href}
               className={`text-sm ${
-                pathname === item.href || (item.href === "#heroAnimationSection" && (pathname === "/" || pathname.startsWith("/#")))
-                  ? 'text-accent font-semibold' // Accent for active/home
-                  : 'text-muted-foreground hover:text-foreground'
+                (pathname === item.href || (item.href === "/" && pathname.startsWith("/#"))) // Highlight "Home" if on root or hash link from root
+                  ? 'text-foreground font-semibold border-b-2 border-accent pb-1' // Example's active style (using accent)
+                  : 'text-muted-foreground hover:text-foreground transition-colors'
               } transition-colors`}
             >
               {item.label}
@@ -44,10 +43,9 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center space-x-4">
-          {/* Search button - can be re-enabled if needed */}
-          {/* <Button variant="ghost" size="icon" aria-label="Search" className="text-muted-foreground hover:text-foreground">
+          <Button variant="ghost" size="icon" aria-label="Search" className="text-muted-foreground hover:text-foreground">
             <Search className="h-6 w-6" />
-          </Button> */}
+          </Button>
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
@@ -66,8 +64,8 @@ const Header = () => {
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`block text-lg py-3 px-3 rounded-md ${
-                      pathname === item.href || (item.href === "#heroAnimationSection" && (pathname === "/" || pathname.startsWith("/#")))
-                        ? 'bg-accent/20 text-accent font-semibold'
+                      (pathname === item.href || (item.href === "/" && pathname.startsWith("/#")))
+                        ? 'bg-accent/20 text-accent font-semibold' // Active style for mobile
                         : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                     } transition-colors`}
                   >

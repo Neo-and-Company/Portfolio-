@@ -15,17 +15,17 @@ const projects: Project[] = [
     technologies: ['R', 'Tableau', 'Statistical Analysis', 'Data Visualization'],
     imageUrl: 'https://placehold.co/600x400.png',
     imageHint: 'financial charts transportation',
-    repoUrl: 'https://github.com', // Placeholder
-    demoUrl: '#', // Placeholder
+    repoUrl: 'https://github.com', 
+    demoUrl: '#', 
   },
   {
     id: 'proj2',
-    title: 'Stock Price Forecasting (NVIDIA)',
-    description: 'Designed and deployed a stock price forecasting model using Amazon SageMaker’s DeepAR. Leveraged historical market data and technical indicators for improved prediction accuracy, enabling real-time predictions for investment strategies. Achieved 94% F-1 Score with AWS Sagemaker.',
-    technologies: ['Python', 'AWS SageMaker', 'DeepAR', 'TensorFlow', 'Scikit-learn', 'Time Series Analysis'],
-    imageUrl: 'https://placehold.co/600x400.png',
-    imageHint: 'stock market graph',
-    repoUrl: 'https://github.com', // Placeholder
+    title: 'Stock Price Forecasting (NVIDIA) & Lemon Quality Testing',
+    description: 'Designed and deployed a stock price forecasting model using Amazon SageMaker’s DeepAR. Leveraged historical market data and technical indicators for improved prediction accuracy. Additionally, developed an image classification model on SageMaker for assessing lemon quality via visual inspection, demonstrating versatility in applying ML to diverse problem domains. Achieved 94% F-1 Score for stock forecasting.',
+    technologies: ['Python', 'AWS SageMaker', 'DeepAR', 'TensorFlow', 'Scikit-learn', 'Time Series Analysis', 'Image Classification', 'Computer Vision'],
+    imageUrl: 'https://placehold.co/600x400.png', // Placeholder for lemon testing
+    imageHint: 'lemon testing ai', // Updated hint
+    repoUrl: 'https://github.com', 
   },
   {
     id: 'proj3',
@@ -44,7 +44,7 @@ const projects: Project[] = [
     imageUrl: 'https://placehold.co/600x400.png',
     imageHint: 'data analytics wedding',
     repoUrl: 'https://github.com/Neo-and-Company/Dove',
-    demoUrl: '#', // Placeholder, can be removed if no demo link
+    demoUrl: '#', 
   },
   {
     id: 'proj5',
@@ -54,7 +54,7 @@ const projects: Project[] = [
     imageUrl: 'https://placehold.co/600x400.png',
     imageHint: 'algorithmic trading finance',
     repoUrl: 'https://github.com/Gabeleo24/Portfolio-Optimization-Algorithmic-Trading-Engine',
-    demoUrl: '#', // Placeholder
+    demoUrl: '#', 
   },
   {
     id: 'proj6',
@@ -128,3 +128,4 @@ const ProjectShowcase = () => {
 };
 
 export default ProjectShowcase;
+

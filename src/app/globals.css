@@ -6,6 +6,7 @@
 /* Matches the new HTML example: dark theme by default */
 @layer base {
   :root {
+    /* Default to a dark theme inspired by the example */
     --background: 222 47% 11%; /* #111827 dark-bg */
     --foreground: 210 40% 96.1%; /* #E5E7EB light-text */
 
@@ -15,41 +16,33 @@
     --popover: 222 47% 10%;
     --popover-foreground: 210 40% 96.1%;
 
-    /* --primary: 208 93% 50%; /* Example's brand-purple (#8A3FFC) -> Using your PRD Deep Blue */
-    /* --primary-foreground: 210 40% 98%; */
-    /* For new example: primary color is brand-purple */
-    --primary: 260 96% 61%; /* #8A3FFC from new example */
-    --primary-foreground: 210 40% 98%; /* White for text on this purple */
+    /* Primary: User's PRD Deep Blue (for Role Title) */
+    --primary: 207 100% 15%; /* #003049 */
+    --primary-foreground: 210 40% 98%; /* White for text on this blue */
 
-    /* --secondary: 220 15% 20%; /* Example's medium-text (#D1D5DB / #9CA3AF) -> Muted foreground */
-    /* --secondary-foreground: 210 40% 90%; */
-    /* For new example: secondary can be a muted version */
-    --secondary: 215 28% 17%; /* A darker muted color for secondary elements */
-    --secondary-foreground: 215 14% 65%; /* Muted text for secondary elements */
+    /* Secondary: User's PRD Light Gray for muted elements or card backgrounds if needed */
+    --secondary: 210 17% 90%; /* #E0E0E0 a bit lighter than #D3D3D3 for better contrast on dark */
+    --secondary-foreground: 222 47% 11%; /* Dark text for secondary elements */
     
-    /* --muted: 220 10% 25%; */
-    /* --muted-foreground: 210 30% 70%; /* Example's dark-text (#9CA3AF) */
-    /* For new example: medium-text for muted */
-    --muted: 217 33% 20%;
-    --muted-foreground: 215 20% 65%; /* #9CA3AF example's medium-text */
+    /* Muted: Example's medium-text for muted text */
+    --muted: 217 33% 20%; /* A dark muted color */
+    --muted-foreground: 215 20% 65%; /* #9CA3AF example's medium-text / dark-text */
 
-    /* --accent: 174 72% 56%; /* Teal #40E0D0 - PRD Accent */
-    /* --accent-foreground: 222 47% 11%; */
-    /* For new example: accent is accent-cyan */
-    --accent: 187 85% 53%; /* #22D3EE from new example */
-    --accent-foreground: 222 47% 11%; /* Text on accent, example's button-text-dark */
+    /* Accent: User's PRD Teal (for Button and Decorative Circle) */
+    --accent: 174 72% 56%; /* #40E0D0 */
+    --accent-foreground: 222 47% 11%; /* Dark text for teal button */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 215 28% 22%; 
     --input: 215 28% 20%;
-    --ring: 187 83% 63%; /* Lighter cyan for rings */
+    --ring: 174 70% 60%; /* Lighter teal for rings */
 
     --chart-1: hsl(var(--accent)); 
     --chart-2: hsl(var(--primary)); 
-    --chart-3: hsl(187, 70%, 45%);
-    --chart-4: hsl(260, 80%, 60%);
+    --chart-3: hsl(174, 60%, 45%);
+    --chart-4: hsl(207, 80%, 30%);
     --chart-5: hsl(var(--muted-foreground));
 
     --radius: 0.5rem;
@@ -65,7 +58,7 @@
     --sidebar-ring: hsl(var(--ring));
   }
 
-  /* Dark class is not strictly needed if :root is already dark, but kept for consistency */
+  /* This .dark class can be identical to :root if dark is the only/default theme */
   .dark {
     --background: 222 47% 11%; /* #111827 */
     --foreground: 210 40% 96.1%; /* #E5E7EB */
@@ -73,19 +66,19 @@
     --card-foreground: 210 40% 96.1%;
     --popover: 222 47% 10%;
     --popover-foreground: 210 40% 96.1%;
-    --primary: 260 96% 61%; /* #8A3FFC */
+    --primary: 207 100% 15%; /* #003049 */
     --primary-foreground: 210 40% 98%;
-    --secondary: 215 28% 17%;
-    --secondary-foreground: 215 14% 65%;
+    --secondary: 210 17% 90%;
+    --secondary-foreground: 222 47% 11%;
     --muted: 217 33% 20%;
     --muted-foreground: 215 20% 65%; /* #9CA3AF */
-    --accent: 187 85% 53%; /* #22D3EE */
+    --accent: 174 72% 56%; /* #40E0D0 */
     --accent-foreground: 222 47% 11%;
     --destructive: 0 72.2% 50.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 215 28% 22%;
     --input: 215 28% 20%;
-    --ring: 187 83% 63%;
+    --ring: 174 70% 60%;
   }
 }
 
@@ -105,14 +98,13 @@
     flex-grow: 1;
   }
 
-  h1, h2, h3, h4, h5, h6 { @apply font-bold tracking-tight text-foreground; }
-
-  h1 { @apply text-5xl md:text-6xl; } /* Base size */
-  h2 { @apply text-4xl md:text-5xl; }
-  h3 { @apply text-3xl md:text-4xl; }
-  h4 { @apply text-2xl md:text-3xl; }
-  h5 { @apply text-xl md:text-2xl; }
-  h6 { @apply text-lg md:text-xl; }
+  /* Updated heading sizes for more impact, general text remains default */
+  h1 { @apply text-5xl md:text-6xl font-bold tracking-tight text-foreground; }
+  h2 { @apply text-4xl md:text-5xl font-bold tracking-tight text-foreground; }
+  h3 { @apply text-3xl md:text-4xl font-bold tracking-tight text-foreground; }
+  h4 { @apply text-2xl md:text-3xl font-bold tracking-tight text-foreground; }
+  h5 { @apply text-xl md:text-2xl font-bold tracking-tight text-foreground; }
+  h6 { @apply text-lg md:text-xl font-bold tracking-tight text-foreground; }
 
   .header-divider { 
     @apply relative pb-2 mb-4;
@@ -122,11 +114,12 @@
     @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-[2px] bg-primary rounded-full; /* Thinner divider */
   }
   
+  /* Custom line height for the large name display in Hero */
   .hero-name-display h1 {
-    line-height: 0.9; 
+    line-height: 0.9; /* Adjust for tight vertical spacing */
   }
 
-  /* Utility class for sections that must have a white background if ever needed */
+  /* Utility class for sections that must have a white background */
   .force-white-bg {
     background-color: hsl(0, 0%, 100%) !important; /* Pure white */
     color: hsl(222, 47%, 11%) !important; /* Dark text for readability */
