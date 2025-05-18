@@ -1,3 +1,4 @@
+
 import type { Experience } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Briefcase, CalendarDays, CheckCircle } from 'lucide-react';
@@ -34,7 +35,7 @@ const experiences: Experience[] = [
 
 const ProfessionalSummary = () => {
   return (
-    <section id="experience" className="w-full py-16 md:py-24 bg-background section-fade-in">
+    <section id="experience" className="w-full py-12 md:py-16 bg-background section-fade-in">
       <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
         <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl md:text-5xl text-center mb-12 header-divider">
           Professional Experience

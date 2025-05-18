@@ -1,17 +1,14 @@
 
 "use client";
 
-import { useEffect, useTransition } from "react"; // Added useTransition
+import { useEffect, useTransition } from "react";
 import { useActionState } from "react";
-// useFormStatus is not the primary source of pending state if action isn't directly on form
-// import { useFormStatus } from "react-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label"; // Label is not directly used here, FormLabel is
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { submitContactForm, type ContactFormState } from "@/lib/actions";
@@ -33,7 +30,6 @@ const initialState: ContactFormState = {
   fieldValues: { name: "", email: "", message: "" }
 };
 
-// Modified SubmitButton to take isLoading prop from useTransition
 function SubmitButton({ isLoading }: { isLoading: boolean }) {
   return (
     <Button type="submit" disabled={isLoading} className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
@@ -69,9 +65,8 @@ const ContactForm = () => {
 
     if (state.success) {
       form.reset({ name: "", email: "", message: "" });
-      form.clearErrors(); // Clear any previous errors from RHF state
+      form.clearErrors(); 
     } else if (state.errors) {
-      // Populate server-side validation errors into react-hook-form
       Object.entries(state.errors).forEach(([fieldName, fieldErrors]) => {
         if (fieldErrors && fieldErrors.length > 0) {
           form.setError(fieldName as keyof FormData, {
@@ -80,12 +75,10 @@ const ContactForm = () => {
           });
         }
       });
-      // Repopulate fields to preserve user input, keeping the errors we just set
       if (state.fieldValues) {
         form.reset(state.fieldValues, { keepErrors: true });
       }
     } else if (state.fieldValues && !state.success && state.message) {
-      // Handle general server error message, preserve input
       form.reset(state.fieldValues);
     }
 
@@ -97,7 +90,6 @@ const ContactForm = () => {
     formData.append('name', data.name);
     formData.append('email', data.email);
     formData.append('message', data.message);
-    // Wrap the server action call in startTransition
     startTransition(() => {
       formAction(formData);
     });
@@ -105,7 +97,7 @@ const ContactForm = () => {
 
 
   return (
-    <section id="contact" className="w-full py-16 md:py-24 bg-card section-fade-in">
+    <section id="contact" className="w-full py-12 md:py-16 bg-card section-fade-in">
       <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
         <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl md:text-5xl text-center mb-12">
           Get In Touch
@@ -132,7 +124,7 @@ const ContactForm = () => {
                       <FormControl>
                         <Input id="name" placeholder="John Doe" {...field} />
                       </FormControl>
-                      <FormMessage /> {/* Displays RHF client errors & server errors set via form.setError */}
+                      <FormMessage /> 
                     </FormItem>
                   )}
                 />
@@ -164,7 +156,7 @@ const ContactForm = () => {
                 />
               </CardContent>
               <CardFooter className="flex flex-col items-start gap-4">
-                 <SubmitButton isLoading={isTransitionPending} /> {/* Pass the pending state from useTransition */}
+                 <SubmitButton isLoading={isTransitionPending} />
               </CardFooter>
             </form>
           </Form>

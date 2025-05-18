@@ -1,5 +1,6 @@
 
 import Image from 'next/image';
+import { Button } from '@/components/ui/button'; // Assuming Button is correctly imported
 
 const AboutMe = () => {
   return (
@@ -9,7 +10,7 @@ const AboutMe = () => {
     >
       <div className="container mx-auto grid md:grid-cols-12 gap-x-8 items-center relative z-10">
         {/* Giant Name Background */}
-        <div className="hero-name-display md:col-span-4 lg:col-span-5 text-center md:text-left select-none
+        <div className="hero-name-display md:col-span-3 lg:col-span-4 text-center md:text-left select-none
                         absolute md:relative inset-0 md:inset-auto
                         flex flex-col justify-center items-center md:items-start
                         -z-10 md:z-0 opacity-05 md:opacity-10 pointer-events-none">
@@ -23,8 +24,8 @@ const AboutMe = () => {
 
         {/* Image - column for image */}
         <div className="md:col-span-5 lg:col-span-4 flex justify-center relative order-first md:order-none my-8 md:my-0
-                        md:-ml-4 lg:-ml-6 xl:-ml-8"> {/* Adjusted negative margins */}
-          <div className="relative z-10 w-full h-80 sm:h-96 md:h-[500px] lg:h-[600px] xl:h-[700px]"> {/* Explicit responsive heights */}
+                        md:-ml-6 lg:-ml-10 xl:-ml-12"> {/* Adjusted negative margins */}
+          <div className="relative z-10 w-full h-64 sm:h-72 md:h-[380px] lg:h-[450px] xl:h-[520px]"> {/* Adjusted heights */}
              <Image
               src="/DSC02786.png"
               alt="Gabriel Elohi Mancillas Gallardo"
@@ -37,20 +38,23 @@ const AboutMe = () => {
         </div>
             
         {/* Details Block - column for text details */}
-        <div className="md:col-span-3 lg:col-span-3 text-center md:text-left relative z-0 md:pl-0 lg:pl-0 order-last md:order-none"> 
+        <div className="md:col-span-4 lg:col-span-4 text-center md:text-left relative z-0 md:pl-0 lg:pl-0 order-last md:order-none space-y-4"> 
           <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-1 tracking-wide">
             INNOVATIVE DATA SCIENTIST & ENGINEER
           </h2>
           <div className="w-16 h-0.5 bg-primary mb-4 mx-auto md:mx-0"></div> {/* Role underline */}
-          <p className="text-muted-foreground mb-4 text-sm sm:text-base leading-relaxed">
+          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
             Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling. Adept at transforming complex data sets into actionable strategic insights.
           </p>
-          <p className="text-muted-foreground mb-6 text-sm sm:text-base leading-relaxed">
+          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
             Proven ability to develop and implement analytical frameworks to optimize marketing performance, enhance audience engagement, and deliver impactful business results.
           </p>
-          <button className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold py-3 px-8 rounded-lg text-base sm:text-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-opacity-50">
-            SEE MORE
-          </button>
+          <Button 
+            asChild 
+            className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold py-3 px-8 rounded-lg text-base sm:text-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-opacity-50"
+          >
+            <a href="#projects">SEE MORE</a>
+          </Button>
         </div>
       </div>
 
