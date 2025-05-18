@@ -23,8 +23,8 @@ const projects: Project[] = [
     title: 'Stock Price Forecasting (NVIDIA) & Lemon Quality Testing',
     description: 'Designed and deployed a stock price forecasting model using Amazon SageMaker’s DeepAR. Leveraged historical market data and technical indicators for improved prediction accuracy. Additionally, developed an image classification model on SageMaker for assessing lemon quality via visual inspection, demonstrating versatility in applying ML to diverse problem domains. Achieved 94% F-1 Score for stock forecasting.',
     technologies: ['Python', 'AWS SageMaker', 'DeepAR', 'TensorFlow', 'Scikit-learn', 'Time Series Analysis', 'Image Classification', 'Computer Vision'],
-    imageUrl: 'https://placehold.co/600x400.png', // Placeholder for lemon testing
-    imageHint: 'lemon testing ai', // Updated hint
+    imageUrl: 'https://placehold.co/600x400.png',
+    imageHint: 'lemon testing ai',
     repoUrl: 'https://github.com', 
   },
   {
@@ -87,7 +87,7 @@ const ProjectShowcase = () => {
                     data-ai-hint={project.imageHint}
                   />
                 </div>
-                <CardTitle className="text-xl text-primary flex items-center">
+                <CardTitle className="text-xl text-accent flex items-center"> {/* Changed text-primary to text-accent */}
                   <FolderGit2 className="mr-2 h-5 w-5 text-accent" />
                   {project.title}
                 </CardTitle>
@@ -96,7 +96,7 @@ const ProjectShowcase = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex-grow">
-                <h4 className="font-semibold text-sm text-muted-foreground mb-2">Technologies Used:</h4>
+                <h4 className="font-semibold text-sm text-foreground/80 mb-2">Technologies Used:</h4> {/* Changed text-muted-foreground to text-foreground/80 */}
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech) => (
                     <Badge key={tech} variant="secondary">{tech}</Badge>
@@ -128,4 +128,3 @@ const ProjectShowcase = () => {
 };
 
 export default ProjectShowcase;
-
