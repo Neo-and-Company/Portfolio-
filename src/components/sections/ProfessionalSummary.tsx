@@ -45,11 +45,11 @@ const ProfessionalSummary = () => {
             <Card key={exp.id} className="shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardHeader>
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
-                  <CardTitle className="text-2xl text-primary flex items-center">
+                  <CardTitle className="text-2xl text-accent flex items-center"> {/* Changed text-primary to text-accent */}
                     <Briefcase className="mr-2 h-6 w-6 text-accent" />
                     {exp.role}
                   </CardTitle>
-                  <div className="text-sm text-muted-foreground flex items-center mt-2 sm:mt-0">
+                  <div className="text-sm text-foreground/80 flex items-center mt-2 sm:mt-0"> {/* Changed text-muted-foreground to text-foreground/80 */}
                     <CalendarDays className="mr-2 h-4 w-4" />
                     {exp.dates}
                   </div>
@@ -67,7 +67,7 @@ const ProfessionalSummary = () => {
                 </ul>
                 {exp.skills && exp.skills.length > 0 && (
                   <div>
-                    <h4 className="font-semibold text-sm text-muted-foreground mb-2">Key Skills:</h4>
+                    <h4 className="font-semibold text-sm text-foreground/80 mb-2">Key Skills:</h4> {/* Changed text-muted-foreground to text-foreground/80 */}
                     <div className="flex flex-wrap gap-2">
                       {exp.skills.map((skill) => (
                         <Badge key={skill} variant="secondary">{skill}</Badge>
