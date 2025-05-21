@@ -246,9 +246,25 @@ const RotatingImages = ({
 const ProjectShowcase = () => {
   
   return (
-    <section id="projects" className="w-full py-12 md:py-16 bg-slate-900 section-fade-in">
-      <div className="container mx-auto px-4 md:px-6 max-w-screen-xl">
-        <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl text-center mb-12 header-divider">
+    <section id="projects" className="w-full py-12 md:py-16 relative section-fade-in">
+      {/* Background image with cream overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/AdobeStock_432194964.jpeg"
+          alt="Projects background"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          quality={85}
+          data-ai-hint="abstract texture"
+        />
+        {/* Cream overlay with retro filter */}
+        <div className="absolute inset-0 bg-[#F5F5DC]/90"></div>
+        <div className="absolute inset-0 backdrop-sepia-[0.15] mix-blend-multiply"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 md:px-6 max-w-screen-xl relative z-10">
+        <h2 className="text-3xl font-bold tracking-tight text-slate-800 sm:text-4xl md:text-5xl text-center mb-12 header-divider">
           Project Showcase
         </h2>
         
@@ -256,7 +272,7 @@ const ProjectShowcase = () => {
           {projects.map((project) => (
             <Card
               key={project.id}
-              className="flex flex-col bg-slate-800/50 text-white shadow-lg hover:shadow-primary/30 transition-shadow duration-300 h-full rounded-lg overflow-hidden"
+              className="flex flex-col bg-white/80 backdrop-blur-sm text-slate-800 shadow-lg hover:shadow-primary/30 transition-shadow duration-300 h-full rounded-lg overflow-hidden"
             >
               <div className="w-full h-60 md:h-72 relative"> 
                 {project.mediaType === 'video' && project.imageUrl ? (
@@ -292,11 +308,11 @@ const ProjectShowcase = () => {
               </CardHeader>
               
               <CardContent className="flex-grow p-4 pt-0">
-                <p className="text-slate-300 text-sm mb-4 h-24 overflow-y-auto">{project.description}</p>
-                <div className="text-sm text-foreground/80 mb-2">Technologies Used:</div>
+                <p className="text-slate-700 text-sm mb-4 h-24 overflow-y-auto">{project.description}</p>
+                <div className="text-sm text-slate-600 mb-2">Technologies Used:</div>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.slice(0, 4).map((tech) => ( 
-                    <Badge key={tech} variant="secondary" className="text-xs bg-slate-700 text-slate-200">
+                    <Badge key={tech} variant="secondary" className="text-xs bg-slate-200 text-slate-700">
                       {tech}
                     </Badge>
                   ))}
@@ -305,7 +321,7 @@ const ProjectShowcase = () => {
               
               <CardFooter className="p-4 flex justify-start gap-3">
                 {project.repoUrl && (
-                  <Button variant="outline" size="sm" asChild className="border-primary/50 text-primary-foreground hover:bg-primary/20 hover:text-primary-foreground">
+                  <Button variant="outline" size="sm" asChild className="border-primary/50 text-primary hover:bg-primary/20 hover:text-primary">
                     <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
                       <Github className="mr-2 h-4 w-4" />
                       Code
@@ -313,7 +329,7 @@ const ProjectShowcase = () => {
                   </Button>
                 )}
                 {project.demoUrl && project.demoUrl !== '#' && (
-                  <Button variant="outline" size="sm" asChild className="border-primary/50 text-primary-foreground hover:bg-primary/20 hover:text-primary-foreground">
+                  <Button variant="outline" size="sm" asChild className="border-primary/50 text-primary hover:bg-primary/20 hover:text-primary">
                     <Link href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
                       <ExternalLink className="mr-2 h-4 w-4" />
                       Demo
