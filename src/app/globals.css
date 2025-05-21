@@ -143,12 +143,12 @@
     color: hsl(222, 47%, 30%) !important; 
   }
 
-  /* Font style classes for AboutMe component */
-  .font-style-1 { font-family: var(--font-roboto), sans-serif; @apply text-sky-400; }
-  .font-style-2 { font-family: var(--font-lora), serif; @apply text-emerald-400; }
-  .font-style-3 { font-family: var(--font-source-code-pro), monospace; @apply text-red-400; }
-  .font-style-4 { font-family: var(--font-playfair-display), serif; @apply text-amber-400; }
-  .font-style-5 { font-family: var(--font-dancing-script), cursive; @apply text-violet-400; }
+  /* Font style classes for AboutMe component - HARMONIZED TO AMBER/GOLD */
+  .font-style-1 { font-family: var(--font-roboto), sans-serif; @apply text-amber-200; }
+  .font-style-2 { font-family: var(--font-lora), serif; @apply text-amber-300; }
+  .font-style-3 { font-family: var(--font-source-code-pro), monospace; @apply text-amber-400; }
+  .font-style-4 { font-family: var(--font-playfair-display), serif; @apply text-amber-500; }
+  .font-style-5 { font-family: var(--font-dancing-script), cursive; @apply text-yellow-300; }
 }
 
 @layer components {
@@ -161,8 +161,8 @@
     @apply border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-black; /* Specific amber */
   }
   .icon-link {
-    @apply transition-colors duration-300 ease-in-out;
-    /* Specific text-amber-400 hover:text-amber-300 is in AboutMe.tsx directly */
+    @apply transition-colors duration-300 ease-in-out text-amber-400 hover:text-amber-300;
+    /* text-amber-400 hover:text-amber-300 is explicitly set here from AboutMe.tsx */
   }
 }
 
@@ -181,3 +181,5 @@
 .section-fade-in {
   animation: fadeIn 0.7s ease-out forwards;
 }
+
+    
