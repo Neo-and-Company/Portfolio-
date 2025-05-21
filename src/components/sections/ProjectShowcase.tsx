@@ -28,11 +28,11 @@ const projects: Project[] = [
     title: 'Stock Price Forecasting (NVIDIA) & Lemon Quality Testing',
     description: 'Designed and deployed a stock price forecasting model using Amazon SageMaker’s DeepAR. Leveraged historical market data and technical indicators for improved prediction accuracy. Additionally, developed an image classification model on SageMaker for assessing lemon quality via visual inspection, demonstrating versatility in applying ML to diverse problem domains. Achieved 94% F-1 Score for stock forecasting.',
     technologies: ['Python', 'AWS SageMaker', 'DeepAR', 'TensorFlow', 'Scikit-learn', 'Time Series Analysis', 'Image Classification', 'Computer Vision'],
-    imageUrl: '/AdobeStock_461738310.jpeg', // Primary image, ensure path is correct in /public
-    imageHint: 'lemon testing ai', // Updated hint
+    imageUrl: 'https://placehold.co/600x400.png', // Changed to placeholder
+    imageHint: 'lemon testing ai',
     repoUrl: 'https://github.com',
     mediaType: 'rotating-images',
-    imageUrls: ['/AdobeStock_461738310.jpeg', '/AdobeStock_1476792681.jpeg'], // Ensure these images are in /public
+    imageUrls: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], // Changed to placeholders
   },
   {
     id: 'proj3',
@@ -244,8 +244,6 @@ const RotatingImages = ({
 };
 
 const ProjectShowcase = () => {
-  // Autoplay is now handled by individual RotatingImages components based on their prop
-  // So, the global autoplayEnabled state and button are removed.
   
   return (
     <section id="projects" className="w-full py-12 md:py-16 bg-slate-900 section-fade-in">
@@ -260,7 +258,7 @@ const ProjectShowcase = () => {
               key={project.id}
               className="flex flex-col bg-slate-800/50 text-white shadow-lg hover:shadow-primary/30 transition-shadow duration-300 h-full rounded-lg overflow-hidden"
             >
-              <div className="w-full h-60 md:h-72 relative"> {/* Increased height */}
+              <div className="w-full h-60 md:h-72 relative"> 
                 {project.mediaType === 'video' && project.imageUrl ? (
                   <VideoPlayer
                     src={project.imageUrl} 
@@ -270,8 +268,6 @@ const ProjectShowcase = () => {
                   <RotatingImages
                     images={project.imageUrls}
                     alt={project.title}
-                    // Autoplay can be controlled per project if needed, or default to true
-                    // autoplay={project.id === 'some-specific-project' ? false : true} 
                     imageHint={project.imageHint}
                   />
                 ) : project.imageUrl ? ( 
@@ -290,16 +286,16 @@ const ProjectShowcase = () => {
               </div>
               
               <CardHeader className="p-4">
-                <CardTitle className="text-xl font-semibold text-accent"> {/* Changed to text-accent */}
+                <CardTitle className="text-xl font-semibold text-accent">
                   {project.title}
                 </CardTitle>
               </CardHeader>
               
               <CardContent className="flex-grow p-4 pt-0">
                 <p className="text-slate-300 text-sm mb-4 h-24 overflow-y-auto">{project.description}</p>
-                <div className="text-sm text-foreground/80 mb-2">Technologies Used:</div> {/* Changed from muted-foreground */}
+                <div className="text-sm text-foreground/80 mb-2">Technologies Used:</div>
                 <div className="flex flex-wrap gap-2">
-                  {project.technologies.slice(0, 4).map((tech) => ( // Show up to 4 for brevity in card
+                  {project.technologies.slice(0, 4).map((tech) => ( 
                     <Badge key={tech} variant="secondary" className="text-xs bg-slate-700 text-slate-200">
                       {tech}
                     </Badge>
