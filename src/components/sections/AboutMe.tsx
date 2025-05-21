@@ -34,6 +34,9 @@ const AboutMe = () => {
     
     letterElements.forEach((el) => {
       const element = el as HTMLElement;
+      // Ensure element is still in the DOM before calling getBoundingClientRect
+      if (!document.body.contains(element)) return;
+      
       const rect = element.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
@@ -68,6 +71,8 @@ const AboutMe = () => {
       const forceMult = viewportWidth < 768 ? 10 : 15;
       
       physicsLettersRef.current.forEach(({ element, physics, initialX, initialY }) => {
+        // Ensure element is still in the DOM before calling getBoundingClientRect
+        if (!document.body.contains(element)) return;
         const rect = element.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
@@ -107,6 +112,7 @@ const AboutMe = () => {
         
         physics.update();
         
+        // Corrected transform calculation
         const transformX = physics.position.x - initialX;
         const transformY = physics.position.y - initialY;
         
@@ -120,18 +126,16 @@ const AboutMe = () => {
     
     const handleResize = () => {
       physicsLettersRef.current.forEach((item) => {
-        const element = item.element;
         // Ensure element is still in the DOM before calling getBoundingClientRect
-        if (!document.body.contains(element)) return;
+        if (!document.body.contains(item.element)) return;
         
-        const rect = element.getBoundingClientRect();
-        const newCenterX = rect.left + rect.width / 2;
-        const newCenterY = rect.top + rect.height / 2;
+        const rect = item.element.getBoundingClientRect();
+        const newCenterX = rect.left + item.element.offsetWidth / 2; // Use offsetWidth for more stable centering
+        const newCenterY = rect.top + item.element.offsetHeight / 2;
 
         item.initialX = newCenterX;
         item.initialY = newCenterY;
         
-        // Correctly update physics point's position and target
         item.physics.position.x = newCenterX;
         item.physics.position.y = newCenterY;
         item.physics.position.z = 0;
@@ -141,8 +145,7 @@ const AboutMe = () => {
     };
     
     window.addEventListener('resize', handleResize);
-    // Initial call to set positions correctly
-    handleResize(); 
+    handleResize(); // Initial call to set positions correctly
     
     return () => {
       if (animationFrameRef.current) {
@@ -204,7 +207,7 @@ const AboutMe = () => {
       <div className="relative h-screen z-10">
         <div className="absolute left-[5%] sm:left-[10%] top-[15%] sm:top-[22%] z-10">
           <div className="physics-text-container">
-            <h1 className="text-7xl sm:text-8xl md:text-[10rem] lg:text-[14rem] font-extrabold tracking-tighter leading-[0.8]">
+            <h1 className="text-7xl sm:text-8xl md:text-[10rem] lg:text-[14rem] font-extrabold tracking-[-0.1em] leading-[0.8]">
               <span className="physics-letter-container text-amber-300 opacity-90">
                 {'GABRIEL'.split('').map((letter, index) => (
                   <span 
