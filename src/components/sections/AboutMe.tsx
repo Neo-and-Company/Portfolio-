@@ -122,6 +122,9 @@ const AboutMe = () => {
     const handleResize = () => {
       physicsLettersRef.current.forEach((item) => {
         const element = item.element;
+        // Ensure element is still in the DOM before getting bounding rect
+        if (!document.body.contains(element)) return;
+        
         const rect = element.getBoundingClientRect();
         const newCenterX = rect.left + rect.width / 2;
         const newCenterY = rect.top + rect.height / 2;
