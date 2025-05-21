@@ -1,3 +1,4 @@
+
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
@@ -9,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Github, ExternalLink, Play, Pause } from 'lucide-react';
 import type { Project, MediaType } from '@/types'; 
 
+// Array of project data
 const projects: Project[] = [
   {
     id: 'proj1',
@@ -37,7 +39,7 @@ const projects: Project[] = [
     title: 'ETL Schema and Pipeline (AWS RDS)',
     description: 'Built a robust ETL data pipeline using Python and AWS RDS/MySQL, featuring schema design, database optimization, and automated reporting. Implemented AWS security (IAM, RDS Proxy, Secrets Manager) for secure, scalable data handling.',
     technologies: ['Python', 'AWS RDS', 'MySQL', 'ETL', 'IAM', 'AWS Secrets Manager', 'Database Optimization'],
-    imageUrl: '/AdobeStock_1080340122_Editorial_Use_Only.jpeg', 
+    imageUrl: 'https://placehold.co/600x400.png', 
     imageHint: 'database schema diagram',
     repoUrl: 'https://github.com/Neo-and-Company/ETL-Schema-Project',
     mediaType: 'image',
