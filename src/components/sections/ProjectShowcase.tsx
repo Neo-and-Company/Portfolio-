@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
@@ -16,7 +15,7 @@ const projects: Project[] = [
     title: 'Financial Analysis of Transportation Trends (Capstone)',
     description: 'Conducted a statistical analysis on the economic impact of Uber and rideshare platforms versus traditional taxis. Utilized R and Tableau to extract, clean, and visualize data, presenting findings on transportation disruption trends.',
     technologies: ['R', 'Tableau', 'Statistical Analysis', 'Data Visualization'],
-    imageUrl: '/AdobeStock_980574083.jpeg', 
+    imageUrl: 'https://placehold.co/600x400.png', // Changed from /AdobeStock_980574083.jpeg
     imageHint: 'financial charts transportation',
     repoUrl: 'https://github.com',
     demoUrl: '#',
@@ -27,11 +26,11 @@ const projects: Project[] = [
     title: 'Stock Price Forecasting (NVIDIA) & Lemon Quality Testing',
     description: 'Designed and deployed a stock price forecasting model using Amazon SageMaker’s DeepAR. Leveraged historical market data and technical indicators for improved prediction accuracy. Additionally, developed an image classification model on SageMaker for assessing lemon quality via visual inspection, demonstrating versatility in applying ML to diverse problem domains. Achieved 94% F-1 Score for stock forecasting.',
     technologies: ['Python', 'AWS SageMaker', 'DeepAR', 'TensorFlow', 'Scikit-learn', 'Time Series Analysis', 'Image Classification', 'Computer Vision'],
-    imageUrl: 'https://placehold.co/600x400.png', 
-    imageHint: 'lemon testing ai',
+    imageUrl: 'https://placehold.co/600x400.png', // Was /AdobeStock_461738310.jpeg
+    imageHint: 'lemon testing ai', // Updated hint
     repoUrl: 'https://github.com',
     mediaType: 'rotating-images',
-    imageUrls: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], 
+    imageUrls: ['https://placehold.co/600x400.png', 'https://placehold.co/600x400.png'], // Was local paths
   },
   {
     id: 'proj3',
@@ -48,7 +47,7 @@ const projects: Project[] = [
     title: 'EM3 Wedding Services: Data-Driven Insights Platform',
     description: "Engineered a sophisticated ETL pipeline and data analytics framework for EM3 Wedding Services, a premier provider in the wedding industry. This platform ingests, transforms, and models heterogeneous data sources encompassing client engagement, service utilization, and market dynamics. Leveraged advanced data science techniques for predictive analytics, customer segmentation, and operational optimization. The robust data engineering backbone ensures data quality, scalability, and facilitates comprehensive business intelligence, empowering EM3 to enhance service personalization and strategic decision-making.",
     technologies: ['Python', 'SQL', 'ETL Pipelines', 'Data Modeling', 'Data Warehousing', 'Business Intelligence', 'Predictive Analytics', 'Cloud Data Platforms'],
-    imageUrl: 'https://placehold.co/600x400.png', 
+    imageUrl: 'https://placehold.co/600x400.png', // Changed from /AdobeStock_589427987.jpeg
     imageHint: 'data analytics wedding',
     repoUrl: 'https://github.com/Neo-and-Company/Dove',
     demoUrl: '#', 
@@ -70,7 +69,7 @@ const projects: Project[] = [
     title: 'Automated Knowledge Discovery & Insight Platform',
     description: "Architected and implemented an end-to-end platform for automated knowledge discovery from unstructured and semi-structured data sources. This system employs advanced NLP techniques for entity recognition, relation extraction, and sentiment analysis. It features a data augmentation pipeline to enrich datasets and a machine learning core to identify hidden patterns, anomalies, and predictive insights. The extracted knowledge is structured into a dynamic knowledge graph, enabling complex queries and visualizations for strategic decision support. Focus on scalability and real-time processing of diverse data streams.",
     technologies: ['Python', 'spaCy', 'NLTK', 'Transformers (Hugging Face)', 'Elasticsearch', 'Neo4j', 'Airflow', 'LLM APIs', 'Knowledge Graphs', 'Information Retrieval'],
-    imageUrl: 'https://placehold.co/600x400.png', 
+    imageUrl: 'https://placehold.co/600x400.png', // Changed from /AdobeStock_552748421.jpeg
     imageHint: 'knowledge graph data',
     repoUrl: 'https://github.com/Gabeleo24/Automated-Knowledge-Discovery-Insight-Platform',
     mediaType: 'image',
