@@ -29,7 +29,7 @@ const projects: Project[] = [
     description: 'Designed and deployed a stock price forecasting model using Amazon SageMaker’s DeepAR. Leveraged historical market data and technical indicators for improved prediction accuracy. Additionally, developed an image classification model on SageMaker for assessing lemon quality via visual inspection, demonstrating versatility in applying ML to diverse problem domains. Achieved 94% F-1 Score for stock forecasting.',
     technologies: ['Python', 'AWS SageMaker', 'DeepAR', 'TensorFlow', 'Scikit-learn', 'Time Series Analysis', 'Image Classification', 'Computer Vision'],
     imageUrl: '/AdobeStock_461738310.jpeg', // Primary image, ensure path is correct in /public
-    imageHint: 'stock market analysis',
+    imageHint: 'lemon testing ai', // Updated hint
     repoUrl: 'https://github.com',
     mediaType: 'rotating-images',
     imageUrls: ['/AdobeStock_461738310.jpeg', '/AdobeStock_1476792681.jpeg'], // Ensure these images are in /public
@@ -174,7 +174,7 @@ const RotatingImages = ({
   const fallbackSrc = '/placeholder-image.jpg'; // Ensure this is in /public
   
   useEffect(() => {
-    setIsPaused(!autoplay);
+    setIsPaused(!autoplay); // Initialize based on autoplay prop
   }, [autoplay]);
   
   useEffect(() => {
@@ -188,7 +188,7 @@ const RotatingImages = ({
   }, [images, isPaused]);
   
   const validImages = images.filter(img => !imageErrors[img]);
-  if (validImages.length === 0 && images.length > 0) { // Check if there were images to begin with
+  if (validImages.length === 0 && images.length > 0) { 
     return (
       <div className="relative w-full h-full">
         <Image
@@ -202,7 +202,7 @@ const RotatingImages = ({
       </div>
     );
   }
-   if (images.length === 0) { // No images provided at all
+   if (images.length === 0) { 
     return <ProjectImage src={fallbackSrc} alt={alt} imageHint={imageHint || 'no image provided'} />;
   }
 
@@ -230,19 +230,22 @@ const RotatingImages = ({
         </div>
       ))}
       
-      <button
-        onClick={() => setIsPaused(!isPaused)}
-        className="absolute bottom-3 right-3 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-10 transition-colors"
-        aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
-      >
-        {isPaused ? <Play size={20} /> : <Pause size={20} />}
-      </button>
+      {images.length > 1 && ( // Only show play/pause if there's more than one image
+        <button
+          onClick={() => setIsPaused(!isPaused)}
+          className="absolute bottom-3 right-3 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-10 transition-colors"
+          aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
+        >
+          {isPaused ? <Play size={20} /> : <Pause size={20} />}
+        </button>
+      )}
     </div>
   );
 };
 
 const ProjectShowcase = () => {
-  const [autoplayEnabled, setAutoplayEnabled] = useState(true);
+  // Autoplay is now handled by individual RotatingImages components based on their prop
+  // So, the global autoplayEnabled state and button are removed.
   
   return (
     <section id="projects" className="w-full py-12 md:py-16 bg-slate-900 section-fade-in">
@@ -251,55 +254,35 @@ const ProjectShowcase = () => {
           Project Showcase
         </h2>
         
-        <div className="flex justify-center mb-8">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setAutoplayEnabled(!autoplayEnabled)}
-            className="border-primary/50 text-foreground hover:bg-primary/10"
-          >
-            {autoplayEnabled ? (
-              <>
-                <Pause className="mr-2 h-4 w-4" />
-                Pause All Slideshows
-              </>
-            ) : (
-              <>
-                <Play className="mr-2 h-4 w-4" />
-                Play All Slideshows
-              </>
-            )}
-          </Button>
-        </div>
-        
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
             <Card
               key={project.id}
               className="flex flex-col bg-slate-800/50 text-white shadow-lg hover:shadow-primary/30 transition-shadow duration-300 h-full rounded-lg overflow-hidden"
             >
-              <div className="w-full h-56 md:h-64 relative">
+              <div className="w-full h-60 md:h-72 relative"> {/* Increased height */}
                 {project.mediaType === 'video' && project.imageUrl ? (
                   <VideoPlayer
-                    src={project.imageUrl} // imageUrl here is used as video src
-                    poster={project.imageUrl.replace(/\.(mov|mp4|webm)$/, '.jpg')} // Convention for poster
+                    src={project.imageUrl} 
+                    poster={project.imageUrl.replace(/\.(mov|mp4|webm)$/, '.jpg')} 
                   />
                 ) : project.mediaType === 'rotating-images' && project.imageUrls && project.imageUrls.length > 0 ? (
                   <RotatingImages
                     images={project.imageUrls}
                     alt={project.title}
-                    autoplay={autoplayEnabled}
+                    // Autoplay can be controlled per project if needed, or default to true
+                    // autoplay={project.id === 'some-specific-project' ? false : true} 
                     imageHint={project.imageHint}
                   />
-                ) : project.imageUrl ? ( // Default to single image if mediaType is 'image' or undefined
+                ) : project.imageUrl ? ( 
                   <ProjectImage
                     src={project.imageUrl}
                     alt={project.title}
                     imageHint={project.imageHint}
                   />
-                ) : ( // Fallback if no media is specified or imageUrl is missing for 'image' type
+                ) : ( 
                    <ProjectImage
-                    src="/placeholder-image.jpg" // Ensure this is in /public
+                    src="/placeholder-image.jpg" 
                     alt="Placeholder image"
                     imageHint="placeholder project"
                   />
@@ -307,15 +290,16 @@ const ProjectShowcase = () => {
               </div>
               
               <CardHeader className="p-4">
-                <CardTitle className="text-xl font-semibold text-primary-foreground">
+                <CardTitle className="text-xl font-semibold text-accent"> {/* Changed to text-accent */}
                   {project.title}
                 </CardTitle>
               </CardHeader>
               
               <CardContent className="flex-grow p-4 pt-0">
                 <p className="text-slate-300 text-sm mb-4 h-24 overflow-y-auto">{project.description}</p>
+                <div className="text-sm text-foreground/80 mb-2">Technologies Used:</div> {/* Changed from muted-foreground */}
                 <div className="flex flex-wrap gap-2">
-                  {project.technologies.slice(0, 4).map((tech) => (
+                  {project.technologies.slice(0, 4).map((tech) => ( // Show up to 4 for brevity in card
                     <Badge key={tech} variant="secondary" className="text-xs bg-slate-700 text-slate-200">
                       {tech}
                     </Badge>
