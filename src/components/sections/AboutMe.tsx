@@ -121,6 +121,7 @@ const AboutMe = () => {
     const handleResize = () => {
       physicsLettersRef.current.forEach((item) => {
         const element = item.element;
+        // Ensure element is still in the DOM before calling getBoundingClientRect
         if (!document.body.contains(element)) return;
         
         const rect = element.getBoundingClientRect();
@@ -130,6 +131,7 @@ const AboutMe = () => {
         item.initialX = newCenterX;
         item.initialY = newCenterY;
         
+        // Correctly update physics point's position and target
         item.physics.position.x = newCenterX;
         item.physics.position.y = newCenterY;
         item.physics.position.z = 0;
@@ -139,6 +141,7 @@ const AboutMe = () => {
     };
     
     window.addEventListener('resize', handleResize);
+    // Initial call to set positions correctly
     handleResize(); 
     
     return () => {
@@ -255,7 +258,7 @@ const AboutMe = () => {
               style={{ opacity: imageOpacity }}
             >
               <Image 
-                src="/DSC02786.png" 
+                src="/gabe.png" 
                 alt="Gabriel Elohi" 
                 fill
                 className="object-cover object-center object-bottom filter-none saturate-100"
