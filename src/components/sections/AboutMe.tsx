@@ -107,7 +107,6 @@ const AboutMe = () => {
         
         physics.update();
         
-        // Corrected transform calculation
         const transformX = physics.position.x - initialX;
         const transformY = physics.position.y - initialY;
         
@@ -122,7 +121,6 @@ const AboutMe = () => {
     const handleResize = () => {
       physicsLettersRef.current.forEach((item) => {
         const element = item.element;
-        // Ensure element is still in the DOM before getting bounding rect
         if (!document.body.contains(element)) return;
         
         const rect = element.getBoundingClientRect();
@@ -141,7 +139,7 @@ const AboutMe = () => {
     };
     
     window.addEventListener('resize', handleResize);
-    handleResize(); // Initial call to set positions correctly
+    handleResize(); 
     
     return () => {
       if (animationFrameRef.current) {
@@ -260,9 +258,9 @@ const AboutMe = () => {
                 src="/DSC02786.png" 
                 alt="Gabriel Elohi" 
                 fill
-                className="object-cover object-center object-bottom"
+                className="object-cover object-center object-bottom filter-none saturate-100"
                 priority
-                data-ai-hint="professional headshot"
+                data-ai-hint="color portrait"
               />
             </div>
           </div>
@@ -309,7 +307,7 @@ const AboutMe = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row justify-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6">
-                <Link href="#projects" className="btn-primary text-center bg-amber-500 hover:bg-amber-600 text-black">
+                <Link href="#projects" className="btn-primary text-center">
                   View Projects
                 </Link>
                 <Link 
@@ -326,7 +324,7 @@ const AboutMe = () => {
                   href="https://www.linkedin.com/in/gabriel-mancillas-gallardo-4a962320b/" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="icon-link text-amber-400 hover:text-amber-300" 
+                  className="icon-link" 
                   aria-label="LinkedIn Profile"
                 >
                   <Linkedin className="w-6 h-6" />
@@ -335,7 +333,7 @@ const AboutMe = () => {
                   href="https://github.com/Gabeleo24" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="icon-link text-amber-400 hover:text-amber-300" 
+                  className="icon-link" 
                   aria-label="GitHub Profile"
                 >
                   <Github className="w-6 h-6" />
@@ -350,5 +348,3 @@ const AboutMe = () => {
 };
 
 export default AboutMe;
-
-    
