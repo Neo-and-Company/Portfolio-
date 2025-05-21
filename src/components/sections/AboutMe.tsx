@@ -195,10 +195,10 @@ const AboutMe = () => {
           src="/AdobeStock_432194964.jpeg"
           alt="About me background"
           fill
-          className="object-cover"
+          className="object-cover opacity-100"
           priority
           sizes="100vw"
-          quality={85}
+          quality={100}
           data-ai-hint="abstract texture"
         />
         <div className="absolute inset-0 bg-black/60"></div>
@@ -207,6 +207,10 @@ const AboutMe = () => {
       <div className="relative h-screen z-10">
         <div className="absolute left-[5%] sm:left-[10%] top-[15%] sm:top-[22%] z-10">
           <div className="physics-text-container">
+            {/* Added small text above name */}
+            <p className="text-white/70 text-sm sm:text-base mb-2 ml-1 tracking-wide">
+              hello, i am
+            </p>
             <h1 className="text-7xl sm:text-8xl md:text-[10rem] lg:text-[14rem] font-extrabold tracking-[-0.1em] leading-[0.8]">
               <span className="physics-letter-container text-amber-300 opacity-90">
                 {'GABRIEL'.split('').map((letter, index) => (
@@ -220,6 +224,7 @@ const AboutMe = () => {
                       position: 'relative',
                       transition: 'transform 0.2s ease',
                       color: '#F59E0B', 
+                      textShadow: '0 0 15px rgba(245, 158, 11, 0.5), 0 0 30px rgba(245, 158, 11, 0.3)'
                     }}
                   >
                     {letter}
@@ -238,6 +243,7 @@ const AboutMe = () => {
                       position: 'relative',
                       transition: 'transform 0.2s ease',
                       color: '#F59E0B', 
+                      textShadow: '0 0 15px rgba(245, 158, 11, 0.5), 0 0 30px rgba(245, 158, 11, 0.3)'
                     }}
                   >
                     {letter}
@@ -245,6 +251,11 @@ const AboutMe = () => {
                 ))}
               </span>
             </h1>
+            {/* Subtitle below name */}
+            <p className="text-white/70 text-base sm:text-lg mt-2 ml-1 tracking-wide">
+                Data Scientist & Engineer
+            </p>
+            {/* Remove the education line */}
           </div>
         </div>
         
@@ -278,6 +289,10 @@ const AboutMe = () => {
         <div className="absolute md:right-0 md:top-0 md:bottom-0 md:w-[40%] w-full bottom-0 p-8 md:p-12 flex items-center z-30">
           <div className="w-full">
             <div className="bg-black/40 backdrop-blur-sm p-6 rounded-xl">
+              {/* Add "this is what I am" above the title */}
+              <p className="text-white/70 text-base sm:text-lg mb-2 ml-1 tracking-wide">
+                this is what I am
+              </p>
               <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-amber-300 mb-2">
                 {'INNOVATIVE DATA SCIENTIST & ENGINEER'.split('').map((letter, index) => {
                   const isActive = index === activeLetterIndex;

@@ -4,6 +4,7 @@
 import type { Experience } from '@/types';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Briefcase } from 'lucide-react';
+import Image from 'next/image';
 
 const experiences: Experience[] = [
   {
@@ -37,63 +38,81 @@ const experiences: Experience[] = [
 const ProfessionalSummary = () => {
   return (
     <>
-      {/* Enhanced Rainbow divider with Apple Intelligence style */}
-      <div className="w-full">
-        <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
-          <div className="rainbow-divider-apple"></div>
-          <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl text-center mb-12 apple-intelligence-heading">
-            Professional Experience
-          </h2>
+      {/* Background image with cream overlay */}
+      <div className="w-full relative">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/AdobeStock_432194964.jpeg"
+            alt="Professional background"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            quality={85}
+            data-ai-hint="abstract texture"
+          />
+          {/* Cream overlay with retro filter */}
+          <div className="absolute inset-0 bg-[#F5F5DC]/90"></div>
+          <div className="absolute inset-0 backdrop-sepia-[0.15] mix-blend-multiply"></div>
         </div>
-      </div>
-      
-      <section id="experience" className="w-full py-6 md:py-12 bg-background section-fade-in">
-        <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
-          <div className="space-y-8">
-            {experiences.map((exp) => (
-              <Card key={exp.id} className="shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardHeader>
-                  <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
-                    <CardTitle className="text-2xl flex items-center text-accent">
-                      <Briefcase className="mr-2 h-6 w-6 text-accent" />
-                      {exp.role}
-                    </CardTitle>
-                    <div className="text-muted-foreground mt-2 sm:mt-0">
-                      {exp.dates}
-                    </div>
-                  </div>
-                  <div className="text-foreground/80">
-                    {exp.company}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {exp.description.map((item, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="text-secondary mr-2 mt-1">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                
-                  {exp.skills && exp.skills.length > 0 && (
-                    <div className="mt-6">
-                      <div className="text-sm text-muted-foreground mb-2">Key Skills:</div>
-                      <div className="flex flex-wrap gap-2">
-                        {exp.skills.map((skill, index) => (
-                          <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary-foreground">
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
+
+        {/* Enhanced Rainbow divider with Apple Intelligence style */}
+        <div className="w-full relative z-10">
+          <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
+            <div className="rainbow-divider-apple"></div>
+            <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl text-center mb-12 text-slate-800">
+              Professional Experience
+            </h2>
           </div>
         </div>
-      </section>
+      
+        <section id="experience" className="w-full py-6 md:py-12 relative z-10 section-fade-in">
+          <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
+            <div className="space-y-8">
+              {experiences.map((exp) => (
+                <Card key={exp.id} className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white/80 backdrop-blur-sm">
+                  <CardHeader>
+                    <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
+                      <CardTitle className="text-2xl flex items-center text-accent">
+                        <Briefcase className="mr-2 h-6 w-6 text-accent" />
+                        {exp.role}
+                      </CardTitle>
+                      <div className="text-slate-600 mt-2 sm:mt-0">
+                        {exp.dates}
+                      </div>
+                    </div>
+                    <div className="text-slate-700">
+                      {exp.company}
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-3">
+                      {exp.description.map((item, index) => (
+                        <li key={index} className="flex items-start">
+                          <span className="text-secondary mr-2 mt-1">•</span>
+                          <span className="text-slate-800">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                
+                    {exp.skills && exp.skills.length > 0 && (
+                      <div className="mt-6">
+                        <div className="text-sm text-slate-600 mb-2">Key Skills:</div>
+                        <div className="flex flex-wrap gap-2">
+                          {exp.skills.map((skill, index) => (
+                            <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 };
