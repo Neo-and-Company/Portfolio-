@@ -5,40 +5,38 @@
 
 @layer base {
   :root {
-    --background: 222 47% 11%; /* Default to dark-bg #111827 */
-    --foreground: 210 40% 96.1%; /* Default to light-text #E5E7EB */
+    /* Ship Gray Darker Theme Base - Default is Dark */
+    --background: 220 13% 10%; /* Ship Gray 950 */
+    --foreground: 220 20% 96%; /* Ship Gray 50 */
 
-    --card: 224 40% 15%; /* Slightly lighter than background for cards */
-    --card-foreground: 210 40% 96.1%;
+    --card: 220 13% 15%; /* Ship Gray 900 */
+    --card-foreground: 220 20% 96%; /* Ship Gray 50 */
 
-    --popover: 222 47% 9%; /* Darker for popovers */
-    --popover-foreground: 210 40% 96.1%;
+    --popover: 220 13% 8%; /* Ship Gray 970 */
+    --popover-foreground: 220 20% 96%; /* Ship Gray 50 */
+    
+    /* PRD Primary: Deep Blue (#003049) -> HSL: 207, 100%, 15% (used for "COMEDIAN" title in Hero) */
+    --primary: 207 100% 30%; /* Brighter blue for more visibility on dark bg */
+    --primary-foreground: 210 40% 98%; /* White */
 
-    /* PRD Primary color: Deep Blue (#003049) -> HSL: 207, 100%, 15% */
-    /* Mapped to example's brand-purple for role title in new hero */
-    --primary: 207 100% 15%; 
-    --primary-foreground: 210 40% 98%; /* White for text on this blue */
+    /* PRD Secondary: Light Gray (#D3D3D3) -> HSL: 0, 0%, 83% */
+    /* Mapped to muted elements in dark theme */
+    --secondary: 220 14% 25%; /* Ship Gray 800 */
+    --secondary-foreground: 220 20% 90%; /* Ship Gray 100 */
 
-    /* Secondary: Light Gray (#D3D3D3) for subtle contrasts on light theme - not primary for dark theme */
-    /* Using a muted gray for dark theme secondary elements */
-    --secondary: 220 15% 25%; 
-    --secondary-foreground: 210 40% 85%;
+    /* Muted: Lighter gray for less important text on dark theme */
+    --muted: 220 14% 20%; /* Ship Gray 850 */
+    --muted-foreground: 220 15% 65%; /* Ship Gray 400 - for general muted text */
 
-    /* Muted Foreground (for less important text) maps to example's medium-text #9CA3AF */
-    --muted: 220 15% 20%;
-    --muted-foreground: 215 20% 65%; /* #9CA3AF */
-
-    /* PRD Accent: Teal (#40E0D0) -> HSL: 174, 72%, 56% */
-    /* Mapped to example's accent-cyan for button in new hero */
+    /* PRD Accent: Teal (#40E0D0) -> HSL: 174, 72%, 56% (used for "SEE MORE" button, circle) */
     --accent: 174 72% 56%; 
-    /* Button text for accent button in example is dark #111827 */
-    --accent-foreground: 222 47% 11%; 
+    --accent-foreground: 222 47% 11%; /* Dark text for Teal button, was --dark-bg */
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 72.2% 50.6%; /* Red for destructive actions */
     --destructive-foreground: 0 0% 98%;
 
-    --border: 215 28% 17%; /* Darker border for dark theme */
-    --input: 215 28% 15%; /* Darker input for dark theme */
+    --border: 220 13% 20%; /* Ship Gray 850 */
+    --input: 220 13% 18%; /* Ship Gray 870 */
     --ring: 174 70% 60%; /* Lighter teal for rings */
 
     --chart-1: hsl(var(--accent)); 
@@ -49,37 +47,40 @@
 
     --radius: 0.5rem;
 
-    /* Sidebar specific colors - adapt to dark theme */
-    --sidebar-background: 222 47% 9%; /* Slightly darker than main bg */
-    --sidebar-foreground: 210 40% 80%; /* Slightly dimmer text for sidebar */
+    /* Sidebar */
+    --sidebar-background: 220 13% 9%; /* Ship Gray 960 */
+    --sidebar-foreground: 220 15% 75%; /* Ship Gray 300 */
     --sidebar-primary: hsl(var(--primary));
     --sidebar-primary-foreground: hsl(var(--primary-foreground));
     --sidebar-accent: hsl(var(--accent));
     --sidebar-accent-foreground: hsl(var(--accent-foreground));
-    --sidebar-border: 222 47% 15%;
+    --sidebar-border: 220 13% 18%; /* Ship Gray 870 */
     --sidebar-ring: hsl(var(--ring));
   }
 
+  /* 
+    The .dark class is not strictly necessary if the :root already defines the dark theme.
+    However, it's kept for explicitness and if a light/dark toggle is ever introduced.
+  */
   .dark {
-    /* Dark mode is the default, so these can mirror :root */
-    --background: 222 47% 11%;
-    --foreground: 210 40% 96.1%;
-    --card: 224 40% 15%;
-    --card-foreground: 210 40% 96.1%;
-    --popover: 222 47% 9%;
-    --popover-foreground: 210 40% 96.1%;
-    --primary: 207 100% 15%; 
+    --background: 220 13% 10%;
+    --foreground: 220 20% 96%;
+    --card: 220 13% 15%;
+    --card-foreground: 220 20% 96%;
+    --popover: 220 13% 8%;
+    --popover-foreground: 220 20% 96%;
+    --primary: 207 100% 30%; 
     --primary-foreground: 210 40% 98%;
-    --secondary: 220 15% 25%;
-    --secondary-foreground: 210 40% 85%;
-    --muted: 220 15% 20%;
-    --muted-foreground: 215 20% 65%;
+    --secondary: 220 14% 25%;
+    --secondary-foreground: 220 20% 90%;
+    --muted: 220 14% 20%;
+    --muted-foreground: 220 15% 65%;
     --accent: 174 72% 56%;
     --accent-foreground: 222 47% 11%;
     --destructive: 0 72.2% 50.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 215 28% 17%;
-    --input: 215 28% 15%;
+    --border: 220 13% 20%;
+    --input: 220 13% 18%;
     --ring: 174 70% 60%;
   }
 }
@@ -100,19 +101,24 @@
     flex-grow: 1;
   }
 
-  h1 { @apply text-5xl md:text-6xl font-bold tracking-tight text-muted-foreground; }
-  h2 { @apply text-4xl md:text-5xl font-bold tracking-tight text-muted-foreground; }
-  h3 { @apply text-3xl md:text-4xl font-bold tracking-tight text-muted-foreground; }
-  h4 { @apply text-2xl md:text-3xl font-bold tracking-tight text-muted-foreground; }
-  h5 { @apply text-xl md:text-2xl font-bold tracking-tight text-muted-foreground; }
-  h6 { @apply text-lg md:text-xl font-bold tracking-tight text-muted-foreground; }
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-muted-foreground; /* Changed from text-primary to muted-foreground */
+  }
 
+  h1 { @apply text-6xl md:text-7xl font-bold tracking-tight; } /* Increased */
+  h2 { @apply text-5xl md:text-6xl font-bold tracking-tight; } /* Increased */
+  h3 { @apply text-4xl md:text-5xl font-bold tracking-tight; } /* Increased */
+  h4 { @apply text-3xl md:text-4xl font-bold tracking-tight; } /* Increased */
+  h5 { @apply text-2xl md:text-3xl font-bold tracking-tight; } /* Increased */
+  h6 { @apply text-xl md:text-2xl font-bold tracking-tight; } /* Increased */
+
+  /* Divider for specific headers like in ProfessionalSummary, ProjectShowcase */
   .header-divider { 
     @apply relative pb-2 mb-4;
   }
   .header-divider::after {
     content: '';
-    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-[3px] bg-primary rounded-full; /* Thicker divider using primary */
+    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-[3px] bg-primary rounded-full;
   }
   
   /* Custom line height for the large name display in Hero */
@@ -120,7 +126,7 @@
     line-height: 0.9; 
   }
 
-  /* Force white background for specific sections if needed */
+  /* Utility for forcing white background if needed on a section, ensuring text readability */
   .force-white-bg {
     background-color: hsl(0, 0%, 100%) !important; /* Pure white */
     color: hsl(222, 47%, 11%) !important; /* Dark text for readability */
@@ -128,19 +134,22 @@
   .force-white-bg h1,
   .force-white-bg h2,
   .force-white-bg h3,
+  .force-white-bg h4,
+  .force-white-bg h5,
+  .force-white-bg h6,
   .force-white-bg p,
   .force-white-bg span,
   .force-white-bg div {
-     color: hsl(222, 47%, 11%) !important; 
+     color: hsl(222, 47%, 11%) !important; /* Default dark text */
   }
    .force-white-bg .text-primary { 
-    color: hsl(var(--primary)) !important;
+    color: hsl(var(--primary)) !important; /* Ensures themed primary text is still themed */
   }
   .force-white-bg .text-accent {
-     color: hsl(var(--accent)) !important;
+     color: hsl(var(--accent)) !important; /* Ensures themed accent text is still themed */
   }
    .force-white-bg .text-muted-foreground {
-    color: hsl(222, 47%, 30%) !important; 
+    color: hsl(222, 47%, 30%) !important; /* A slightly lighter dark grey for muted text on white */
   }
 
   /* Font style classes for AboutMe component - HARMONIZED TO AMBER/GOLD */
@@ -149,20 +158,33 @@
   .font-style-3 { font-family: var(--font-source-code-pro), monospace; @apply text-amber-400; }
   .font-style-4 { font-family: var(--font-playfair-display), serif; @apply text-amber-500; }
   .font-style-5 { font-family: var(--font-dancing-script), cursive; @apply text-yellow-300; }
+
+  /* Styles for ProfessionalSummary - rainbow divider and heading */
+  .rainbow-divider-apple {
+    height: 4px;
+    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)), #34D399, #FBBF24, #EF4444); /* Example gradient */
+    border-radius: 2px;
+    margin-bottom: 1rem; /* Space between divider and heading */
+  }
+
+  .apple-intelligence-heading {
+    color: hsl(var(--foreground)); /* Use main foreground color for the heading */
+    /* Additional styles for Apple Intelligence look can be added here */
+  }
 }
 
 @layer components {
+  /* Button styles for the animated AboutMe hero */
   .btn-primary {
     @apply inline-block px-6 py-3 rounded-lg font-semibold transition-colors duration-300 ease-in-out;
-    @apply bg-amber-500 text-black hover:bg-amber-600; /* Specific amber from new AboutMe */
+    @apply bg-amber-500 text-black hover:bg-amber-600; 
   }
   .btn-secondary {
     @apply inline-block px-6 py-3 rounded-lg font-semibold transition-colors duration-300 ease-in-out;
-    @apply border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-black; /* Specific amber */
+    @apply border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-black;
   }
   .icon-link {
     @apply transition-colors duration-300 ease-in-out text-amber-400 hover:text-amber-300;
-    /* text-amber-400 hover:text-amber-300 is explicitly set here from AboutMe.tsx */
   }
 }
 
@@ -181,5 +203,3 @@
 .section-fade-in {
   animation: fadeIn 0.7s ease-out forwards;
 }
-
-    
