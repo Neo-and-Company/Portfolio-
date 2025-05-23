@@ -23,6 +23,7 @@ const AboutMe = () => {
   const animationFrameRef = useRef<number | null>(null);
   const [fontChangeCounter, setFontChangeCounter] = useState(0);
   const [activeLetterIndex, setActiveLetterIndex] = useState(0);
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
 
   // Physics animation setup
   useEffect(() => {
@@ -172,8 +173,24 @@ const AboutMe = () => {
         const rect = sectionRef.current.getBoundingClientRect();
         const sectionTop = rect.top;
         const viewportHeight = window.innerHeight;
-        const scrollProgress = Math.min(Math.max(-sectionTop / (viewportHeight * 0.7), 0), 1);
-        setScrollY(scrollProgress);
+        
+        // Detect if we're scrolling into the professional experience section
+        const professionalSection = document.getElementById('experience');
+        if (professionalSection) {
+          const profRect = professionalSection.getBoundingClientRect();
+          // Check if professional section is coming into view
+          const isScrollingToExperience = profRect.top < viewportHeight * 1.2;
+          setIsScrollingDown(isScrollingToExperience);
+          
+          if (isScrollingToExperience) {
+            // Calculate how far we've scrolled into the professional section
+            const scrollProgress = Math.min(
+              Math.max((viewportHeight - profRect.top) / (viewportHeight * 0.7), 0), 
+              1
+            );
+            setScrollY(scrollProgress);
+          }
+        }
       }
     };
 
@@ -187,75 +204,56 @@ const AboutMe = () => {
 
   const imageScale = 1 - (scrollY * 0.2); 
   const imageOpacity = 1 - (scrollY * 0.2);
+  const sectionScale = isScrollingDown ? Math.max(0.85 - (scrollY * 0.25), 0.6) : 1;
+  const sectionOpacity = isScrollingDown ? Math.max(1 - (scrollY * 1.8), 0) : 1;
 
   return (
-    <section ref={sectionRef} className="w-full min-h-screen relative overflow-hidden section-fade-in">
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/AdobeStock_432194964.jpeg"
-          alt="About me background"
-          fill
-          className="object-cover opacity-100"
-          priority
-          sizes="100vw"
-          quality={100}
-          data-ai-hint="abstract texture"
-        />
-        <div className="absolute inset-0 bg-black/60"></div>
-      </div>
-      
+    <section 
+      ref={sectionRef} 
+      className="w-full min-h-screen relative overflow-hidden section-fade-in bg-background"
+      style={{
+        transform: `scale(${sectionScale})`,
+        opacity: sectionOpacity,
+        transition: 'transform 0.3s ease-out, opacity 0.3s ease-out'
+      }}
+    >
       <div className="relative h-screen z-10">
         <div className="absolute left-[5%] sm:left-[10%] top-[15%] sm:top-[22%] z-10">
           <div className="physics-text-container">
             {/* Added small text above name */}
-            <p className="text-white/70 text-sm sm:text-base mb-2 ml-1 tracking-wide">
+            <p className="text-gray-500 text-sm sm:text-base mb-2 ml-1 tracking-wide">
               hello, i am
             </p>
-            <h1 className="text-7xl sm:text-8xl md:text-[10rem] lg:text-[14rem] font-extrabold tracking-[-0.1em] leading-[0.8]">
-              <span className="physics-letter-container text-amber-300 opacity-90">
-                {'GABRIEL'.split('').map((letter, index) => (
-                  <span 
-                    key={`gabriel-${index}`} 
-                    className="physics-letter"
-                    data-physics-index={index}
-                    style={{ 
-                      display: 'inline-block',
-                      padding: '0.1em',
-                      position: 'relative',
-                      transition: 'transform 0.2s ease',
-                      color: '#F59E0B', 
-                      textShadow: '0 0 15px rgba(245, 158, 11, 0.5), 0 0 30px rgba(245, 158, 11, 0.3)'
-                    }}
-                  >
-                    {letter}
-                  </span>
-                ))}
-              </span>
-              <span className="block -mt-4 sm:-mt-5 md:-mt-8 lg:-mt-12 text-amber-300 opacity-90">
-                {'ELOHI'.split('').map((letter, index) => (
-                  <span 
-                    key={`elohi-${index}`} 
-                    className="physics-letter"
-                    data-physics-index={index + 7}
-                    style={{ 
-                      display: 'inline-block',
-                      padding: '0.1em',
-                      position: 'relative',
-                      transition: 'transform 0.2s ease',
-                      color: '#F59E0B', 
-                      textShadow: '0 0 15px rgba(245, 158, 11, 0.5), 0 0 30px rgba(245, 158, 11, 0.3)'
-                    }}
-                  >
-                    {letter}
-                  </span>
-                ))}
-              </span>
+            <h1 className="font-extrabold tracking-tighter leading-[0.8] break-words max-w-[90vw]">
+              <div className="flex flex-col items-start">
+                <span className="physics-letter-container text-primary opacity-90 inline-block text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] xl:text-[14rem]">
+                  {'Gabriel'.split('').map((letter, index) => (
+                    <span 
+                      key={`gabriel-${index}`} 
+                      className="physics-letter inline-block"
+                      style={{ display: 'inline-block' }}
+                    >
+                      {letter}
+                    </span>
+                  ))}
+                </span>
+                <span className="physics-letter-container text-primary opacity-90 inline-block text-2xl sm:text-3xl md:text-4xl lg:text-[5rem] xl:text-[7rem] mt-4 sm:mt-6 md:mt-8">
+                  {'Mancillas'.split('').map((letter, index) => (
+                    <span 
+                      key={`mancillas-${index}`} 
+                      className="physics-letter inline-block"
+                      style={{ display: 'inline-block' }}
+                    >
+                      {letter}
+                    </span>
+                  ))}
+                </span>
+              </div>
             </h1>
             {/* Subtitle below name */}
-            <p className="text-white/70 text-base sm:text-lg mt-2 ml-1 tracking-wide">
-                Data Scientist & Engineer
+            <p className="text-gray-500 text-base sm:text-lg mt-2 ml-1 tracking-wide">
+              Data Scientist & Engineer
             </p>
-            {/* Remove the education line */}
           </div>
         </div>
         
@@ -283,63 +281,34 @@ const AboutMe = () => {
           </div>
         </div>
         
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60 z-5 hidden md:block"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/30 z-5 md:hidden"></div>
-        
-        <div className="absolute md:right-0 md:top-0 md:bottom-0 md:w-[40%] w-full bottom-0 p-8 md:p-12 flex items-center z-30">
-          <div className="w-full">
-            <div className="bg-black/40 backdrop-blur-sm p-6 rounded-xl">
+        <div className="absolute md:right-0 md:top-0 md:bottom-0 md:w-[40%] w-full bottom-0 p-8 md:p-12 flex items-end md:items-center z-30">
+          <div className="w-full mb-16 md:mb-0">
+            <div className="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-sm border border-gray-100">
               {/* Add "this is what I am" above the title */}
-              <p className="text-white/70 text-base sm:text-lg mb-2 ml-1 tracking-wide">
+              <p className="text-gray-500 text-base sm:text-lg mb-2 ml-1 tracking-wide">
                 this is what I am
               </p>
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-amber-300 mb-2">
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-primary mb-2">
                 {'INNOVATIVE DATA SCIENTIST & ENGINEER'.split('').map((letter, index) => {
                   const isActive = index === activeLetterIndex;
                   const fontIndex = isActive ? (fontChangeCounter % fontStyles.length) : 0;
-                  
                   return (
                     <span 
-                      key={`title-${index}`} 
-                      className={`physics-title-letter ${fontStyles[fontIndex].font}`}
-                      data-physics-index={index + 12} 
+                      key={index} 
+                      className={isActive ? fontStyles[fontIndex].font : ''}
                       style={{ 
-                        display: 'inline-block',
-                        padding: '0.05em',
-                        position: 'relative',
-                        transition: 'all 0.3s ease-in-out',
-                        transform: isActive ? 'scale(1.2)' : 'scale(1)',
-                        textShadow: isActive ? '0 0 8px rgba(255, 215, 0, 0.5)' : 'none',
+                        fontFamily: isActive ? fontStyles[fontIndex].fontFamily : 'inherit',
+                        transition: 'color 0.3s ease'
                       }}
                     >
-                      {letter === ' ' ? '\u00A0' : letter}
+                      {letter}
                     </span>
                   );
                 })}
               </h2>
-              <p className="text-base md:text-lg text-amber-400 mb-4">
-                Transforming complex data into clear insights and actionable strategies.
+              <p className="text-gray-600 mt-4 mb-6">
+                Transforming complex data into actionable insights through advanced analytics and machine learning. Passionate about solving real-world problems with data-driven approaches.
               </p>
-              <p className="text-amber-100 mb-3 text-sm md:text-base leading-relaxed">
-                Analytical professional with strong expertise in data-driven marketing analytics, ETL pipelines, and advanced statistical modeling. Adept at transforming complex data sets into actionable strategic insights.
-              </p>
-              <p className="text-amber-100 mb-6 text-sm md:text-base leading-relaxed">
-                Proven ability to develop and implement analytical frameworks to optimize marketing performance, enhance audience engagement, and deliver impactful business results.
-              </p>
-
-              <div className="flex flex-col sm:flex-row justify-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6">
-                <Link href="#projects" className="btn-primary text-center">
-                  View Projects
-                </Link>
-                <Link 
-                  href="/Resume_25.pdf" 
-                  download 
-                  className="btn-secondary text-center"
-                >
-                  Download Resume
-                </Link>
-              </div>
-
               <div className="flex space-x-4">
                 <Link 
                   href="https://www.linkedin.com/in/gabriel-mancillas-gallardo-4a962320b/" 

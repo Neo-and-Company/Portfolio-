@@ -2,7 +2,7 @@
 import AboutMe from '@/components/sections/AboutMe'; // This is now the Hero section
 import ProfessionalSummary from '@/components/sections/ProfessionalSummary';
 import ProjectShowcase from '@/components/sections/ProjectShowcase';
-import ContactForm from '@/components/sections/ContactForm';
+import ContactSection from '@/components/sections/ContactSection';
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
       <AboutMe /> {/* Hero Section */}
       <ProfessionalSummary />
       <ProjectShowcase />
-      <ContactForm />
+      <ContactSection />
     </div>
   );
 }

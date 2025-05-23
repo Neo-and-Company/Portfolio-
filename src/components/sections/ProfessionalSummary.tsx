@@ -1,10 +1,10 @@
 
 "use client";
 
+import { useState, useEffect } from 'react';
 import type { Experience } from '@/types';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Briefcase } from 'lucide-react';
-import Image from 'next/image';
 
 const experiences: Experience[] = [
   {
@@ -36,84 +36,113 @@ const experiences: Experience[] = [
 ];
 
 const ProfessionalSummary = () => {
-  return (
-    <>
-      {/* Background image with cream overlay */}
-      <div className="w-full relative">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/AdobeStock_432194964.jpeg"
-            alt="Professional background"
-            fill
-            className="object-cover"
-            sizes="100vw"
-            quality={85}
-            data-ai-hint="abstract texture"
-          />
-          {/* Cream overlay with retro filter */}
-          <div className="absolute inset-0 bg-[#F5F5DC]/90"></div>
-          <div className="absolute inset-0 backdrop-sepia-[0.15] mix-blend-multiply"></div>
-        </div>
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-        {/* Enhanced Rainbow divider with Apple Intelligence style */}
-        <div className="w-full relative z-10">
-          <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
-            <div className="rainbow-divider-apple"></div>
-            <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl text-center mb-12 text-slate-800">
-              Professional Experience
-            </h2>
-          </div>
-        </div>
-      
-        <section id="experience" className="w-full py-6 md:py-12 relative z-10 section-fade-in">
-          <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
-            <div className="space-y-8">
-              {experiences.map((exp) => (
-                <Card key={exp.id} className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white/80 backdrop-blur-sm">
-                  <CardHeader>
-                    <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
-                      <CardTitle className="text-2xl flex items-center text-accent">
-                        <Briefcase className="mr-2 h-6 w-6 text-accent" />
-                        {exp.role}
-                      </CardTitle>
-                      <div className="text-slate-600 mt-2 sm:mt-0">
-                        {exp.dates}
-                      </div>
-                    </div>
-                    <div className="text-slate-700">
-                      {exp.company}
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3">
-                      {exp.description.map((item, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="text-secondary mr-2 mt-1">•</span>
-                          <span className="text-slate-800">{item}</span>
-                        </li>
+  useEffect(() => {
+    const handleScroll = () => {
+      const professionalSection = document.getElementById('experience');
+      if (professionalSection) {
+        const rect = professionalSection.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        
+        // Start the transition earlier for a smoother effect
+        if (rect.top < viewportHeight * 1.2) {
+          // Calculate progress as section approaches viewport
+          const progress = Math.min(
+            Math.max((viewportHeight * 1.2 - rect.top) / (viewportHeight * 0.8), 0), 
+            1
+          );
+          setScrollProgress(progress);
+        } else {
+          setScrollProgress(0);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial call
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <section id="experience" className="w-full py-16 md:py-24 relative z-10 section-fade-in bg-background">
+      <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
+        <h2 
+          className="text-3xl font-bold sm:text-4xl md:text-5xl text-center mb-4 text-foreground font-mono"
+          style={{ 
+            opacity: scrollProgress,
+            transform: `translateY(${(1 - scrollProgress) * 50}px)`,
+            transition: 'opacity 0.3s ease-out, transform 0.3s ease-out'
+          }}
+        >
+          Professional Experience
+        </h2>
+        {/* Simple divider */}
+        <div 
+          className="h-1 w-32 bg-primary mx-auto mb-12 rounded-full"
+          style={{ 
+            opacity: scrollProgress,
+            transform: `scaleX(${scrollProgress})`,
+            transition: 'opacity 0.3s ease-out, transform 0.3s ease-out'
+          }}
+        ></div>
+        
+        <div className="space-y-8">
+          {experiences.map((exp, index) => (
+            <Card 
+              key={exp.id} 
+              className="shadow-sm hover:shadow-md transition-shadow duration-300 bg-white border-gray-200"
+              style={{ 
+                opacity: Math.min(scrollProgress * 2 - (index * 0.2), 1),
+                transform: `translateY(${Math.max(0, (1 - scrollProgress) * 50)}px)`,
+                transition: 'opacity 0.5s ease-out, transform 0.5s ease-out'
+              }}
+            >
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
+                  <CardTitle className="text-2xl flex items-center text-primary font-mono">
+                    <Briefcase className="mr-2 h-6 w-6 text-primary" />
+                    {exp.role}
+                  </CardTitle>
+                  <div className="text-slate-500 mt-2 sm:mt-0 font-mono">
+                    {exp.dates}
+                  </div>
+                </div>
+                <div className="text-slate-700 font-mono">
+                  {exp.company}
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  {exp.description.map((item, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="text-primary mr-2 mt-1 font-mono">•</span>
+                      <span className="text-slate-800 font-mono">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+            
+                {exp.skills && exp.skills.length > 0 && (
+                  <div className="mt-6">
+                    <div className="text-sm text-slate-600 mb-2 font-mono">Key Skills:</div>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.skills.map((skill, index) => (
+                        <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary font-mono">
+                          {skill}
+                        </span>
                       ))}
-                    </ul>
-                
-                    {exp.skills && exp.skills.length > 0 && (
-                      <div className="mt-6">
-                        <div className="text-sm text-slate-600 mb-2">Key Skills:</div>
-                        <div className="flex flex-wrap gap-2">
-                          {exp.skills.map((skill, index) => (
-                            <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary">
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
-    </>
+    </section>
   );
 };
 
