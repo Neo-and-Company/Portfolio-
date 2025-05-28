@@ -23,7 +23,7 @@ export async function saveContactSubmission(data: {
 }) {
   try {
     await ensureDataDir();
-    
+
     const submission = {
       id: Date.now().toString(),
       ...data,
@@ -45,7 +45,7 @@ export async function saveContactSubmission(data: {
 
     // Save back to file
     await fs.writeFile(CONTACTS_FILE, JSON.stringify(contacts, null, 2));
-    
+
     console.log('✅ Contact saved to:', CONTACTS_FILE);
     return { success: true, id: submission.id };
   } catch (error) {
@@ -55,13 +55,14 @@ export async function saveContactSubmission(data: {
 }
 
 // Email subscription storage
-export async function saveEmailSubscription(email: string) {
+export async function saveEmailSubscription(email: string, phone?: string) {
   try {
     await ensureDataDir();
-    
+
     const subscription = {
       id: Date.now().toString(),
       email,
+      phone: phone ?? null,
       timestamp: new Date().toISOString(),
       source: 'Portfolio Newsletter',
     };
@@ -86,7 +87,7 @@ export async function saveEmailSubscription(email: string) {
 
     // Save back to file
     await fs.writeFile(SUBSCRIPTIONS_FILE, JSON.stringify(subscriptions, null, 2));
-    
+
     console.log('✅ Subscription saved to:', SUBSCRIPTIONS_FILE);
     return { success: true, id: subscription.id };
   } catch (error) {
@@ -119,10 +120,10 @@ export async function getEmailSubscriptions() {
 export async function markContactAsRead(id: string) {
   try {
     const contacts = await getContactSubmissions();
-    const updatedContacts = contacts.map(contact => 
+    const updatedContacts = contacts.map(contact =>
       contact.id === id ? { ...contact, read: true } : contact
     );
-    
+
     await fs.writeFile(CONTACTS_FILE, JSON.stringify(updatedContacts, null, 2));
     return { success: true };
   } catch (error) {

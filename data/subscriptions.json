@@ -1,5 +1,43 @@
 [
   {
+    "id": "1748462958772",
+    "email": "test.client@company.com",
+    "phone": "(555) 987-6543",
+    "timestamp": "2025-05-28T20:09:18.772Z",
+    "source": "Portfolio Newsletter"
+  },
+  {
+    "id": "1748462851279",
+    "email": "test.employer@company.com",
+    "phone": "+1-555-123-4567",
+    "timestamp": "2025-05-28T20:07:31.279Z",
+    "source": "Portfolio Newsletter"
+  },
+  {
+    "id": "1748462560027",
+    "email": "kaylarogers24@gmail.com",
+    "timestamp": "2025-05-28T20:02:40.027Z",
+    "source": "Portfolio Newsletter"
+  },
+  {
+    "id": "1748462526740",
+    "email": "gabrielmancillas1034@icloud.com",
+    "timestamp": "2025-05-28T20:02:06.740Z",
+    "source": "Portfolio Newsletter"
+  },
+  {
+    "id": "1748462479348",
+    "email": "elohimstudio.co@gmail.com",
+    "timestamp": "2025-05-28T20:01:19.348Z",
+    "source": "Portfolio Newsletter"
+  },
+  {
+    "id": "1748461899538",
+    "email": "test@example.com",
+    "timestamp": "2025-05-28T19:51:39.538Z",
+    "source": "Portfolio Newsletter"
+  },
+  {
     "id": "1748417667018",
     "email": "recruiter@bigtech.com",
     "timestamp": "2025-05-28T07:34:27.018Z",

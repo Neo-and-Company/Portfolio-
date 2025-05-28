@@ -25,7 +25,7 @@ export type ContactFormState = {
   }
 };
 
-const RECIPIENT_EMAIL = "gabrielleolukotun@gmail.com"; // Your main email where you'll receive contact forms
+const RECIPIENT_EMAIL = "gabrielmancillas1034@icloud.com"; // Your main email where you'll receive contact forms
 
 export async function submitContactForm(
   prevState: ContactFormState,

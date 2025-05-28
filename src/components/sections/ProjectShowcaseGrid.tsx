@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useTransition } from 'react';
+import React, { useState } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaExternalLinkAlt, FaCode, FaEye, FaTimes, FaPlay } from "react-icons/fa";
+import { FaShieldAlt, FaBolt, FaBullseye, FaRocket, FaLock, FaZap } from "react-icons/fa";
+import { MdSecurity, MdFlashOn, MdGpsFixed } from "react-icons/md";
 import AnimatedHeroModal from '@/components/ui/AnimatedHeroModal';
-import { submitContactForm, type ContactFormState } from '@/lib/actions';
-import { useActionState } from 'react';
 
 // --- Type Definitions ---
 interface Project {
@@ -447,14 +447,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   );
 };
 
-// Initial state for contact form
-const initialContactState: ContactFormState = {
-  message: "",
-  success: false,
-  errors: {},
-  fieldValues: { name: "", email: "", message: "" }
-};
-
 const ProjectShowcaseGrid: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -462,17 +454,9 @@ const ProjectShowcaseGrid: React.FC = () => {
 
   // Email subscription state
   const [subscriptionEmail, setSubscriptionEmail] = useState('');
+  const [subscriptionPhone, setSubscriptionPhone] = useState('');
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [subscriptionMessage, setSubscriptionMessage] = useState('');
-
-  // Contact form state
-  const [contactState, contactFormAction] = useActionState(submitContactForm, initialContactState);
-  const [isContactPending, startContactTransition] = useTransition();
-  const [contactFormData, setContactFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
@@ -487,42 +471,54 @@ const ProjectShowcaseGrid: React.FC = () => {
   // Email subscription handler
   const handleEmailSubscription = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!subscriptionEmail.trim()) return;
+    if (!subscriptionEmail.trim() || !subscriptionPhone.trim()) return;
 
     setSubscriptionStatus('loading');
 
-    // Simulate API call - replace with actual email service integration
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network delay
-      console.log('Email subscription:', subscriptionEmail);
-      setSubscriptionStatus('success');
-      setSubscriptionMessage('Thank you for subscribing! You\'ll hear from me soon about opportunities.');
-      setSubscriptionEmail('');
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: subscriptionEmail,
+          phone: subscriptionPhone
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubscriptionStatus('success');
+        setSubscriptionMessage(data.message);
+        setSubscriptionEmail('');
+        setSubscriptionPhone('');
+
+        // Log success for debugging
+        console.log('✅ Email subscription successful:', {
+          email: subscriptionEmail,
+          phone: subscriptionPhone,
+          subscriptionId: data.subscriptionId,
+          alreadySubscribed: data.alreadySubscribed
+        });
+      } else {
+        setSubscriptionStatus('error');
+        setSubscriptionMessage(data.error || 'Something went wrong. Please try again.');
+
+        // Log error for debugging
+        console.error('❌ Email subscription failed:', data.error);
+      }
     } catch (error) {
       setSubscriptionStatus('error');
-      setSubscriptionMessage('Something went wrong. Please try again.');
+      setSubscriptionMessage('Network error. Please check your connection and try again.');
+
+      // Log network error for debugging
+      console.error('❌ Network error during subscription:', error);
     }
   };
 
-  // Contact form handler
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('name', contactFormData.name);
-    formData.append('email', contactFormData.email);
-    formData.append('message', contactFormData.message);
 
-    startContactTransition(() => {
-      contactFormAction(formData);
-    });
-  };
-
-  // Reset contact form on success
-  React.useEffect(() => {
-    if (contactState.success) {
-      setContactFormData({ name: '', email: '', message: '' });
-    }
-  }, [contactState.success]);
   return (
     <div
       style={{
@@ -531,74 +527,7 @@ const ProjectShowcaseGrid: React.FC = () => {
         minHeight: '100vh'
       }}
     >
-      {/* Hero Section */}
-      <header
-        style={{
-          background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-          color: '#ffffff',
-          padding: '80px 24px 128px 24px',
-          textAlign: 'center'
-        }}
-      >
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h1
-            style={{
-              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-              fontWeight: '700',
-              marginBottom: '16px',
-              lineHeight: '1.1'
-            }}
-          >
-            Pioneering the Future of Data Intelligence
-          </h1>
-          <p
-            style={{
-              fontSize: 'clamp(1.125rem, 2vw, 1.25rem)',
-              marginBottom: '32px',
-              maxWidth: '700px',
-              margin: '0 auto 32px auto',
-              lineHeight: '1.6'
-            }}
-          >
-            Available for full-time opportunities and strategic partnerships. Specializing in advanced analytics, machine learning, and financial engineering solutions that deliver measurable ROI and competitive advantage for forward-thinking organizations.
-          </p>
 
-          {/* Animated Hero Modal Trigger */}
-          <button
-            onClick={() => setIsHeroModalOpen(true)}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '12px',
-              backgroundColor: 'rgba(255, 255, 255, 0.2)',
-              color: '#ffffff',
-              padding: '16px 32px',
-              border: '2px solid rgba(255, 255, 255, 0.3)',
-              borderRadius: '50px',
-              fontSize: '1.125rem',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              backdropFilter: 'blur(10px)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
-            }}
-          >
-            <FaPlay style={{ fontSize: '16px' }} />
-            Experience the Vision
-          </button>
-
-        </div>
-      </header>
 
       {/* Projects Section - increased sizing */}
       <section
@@ -787,508 +716,249 @@ const ProjectShowcaseGrid: React.FC = () => {
         </div>
       </section>
 
-
-
-      {/* Email Subscription Section */}
+      {/* Professional Network Section - Aligned with Portfolio Design System */}
       <section
+        id="network"
+        className="w-full py-28 md:py-40 relative z-10 section-fade-in bg-background"
         style={{
-          padding: '80px 24px',
-          backgroundColor: '#f1f5f9',
-          textAlign: 'center'
+          backgroundImage: 'url("/AdobeStock_432194964.jpeg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
-        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-          <h2
-            style={{
-              fontSize: '2.5rem',
-              fontWeight: '700',
-              color: '#1f2937',
-              marginBottom: '24px'
-            }}
-          >
-            Join the Innovation Network
-          </h2>
-          <p
-            style={{
-              color: '#6b7280',
-              marginBottom: '32px',
-              fontSize: '1.125rem',
-              lineHeight: '1.6'
-            }}
-          >
-            Connect with me for employment opportunities, consulting projects, and strategic partnerships in data science and analytics
-          </p>
-          <form onSubmit={handleEmailSubscription}>
-            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                value={subscriptionEmail}
-                onChange={(e) => setSubscriptionEmail(e.target.value)}
-                required
-                disabled={subscriptionStatus === 'loading'}
+        <div className="container mx-auto px-6 md:px-8 max-w-screen-xl">
+          <div className="text-center relative z-10">
+            {/* Icon with Portfolio Design Consistency */}
+            <div
+              className="w-24 h-24 mx-auto mb-12 flex items-center justify-center rounded-full transition-all duration-300 ease-in-out cursor-pointer"
+              style={{
+                backgroundColor: 'hsl(var(--card))',
+                border: '2px solid hsl(var(--primary))',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1) translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+              }}
+            >
+              <FaRocket
                 style={{
-                  padding: '12px 16px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  fontSize: '1rem',
-                  minWidth: '300px',
-                  outline: 'none',
-                  backgroundColor: subscriptionStatus === 'loading' ? '#f3f4f6' : '#ffffff',
-                  opacity: subscriptionStatus === 'loading' ? 0.7 : 1
+                  fontSize: '2.5rem',
+                  color: 'hsl(var(--primary))'
                 }}
               />
-              <button
-                type="submit"
-                disabled={subscriptionStatus === 'loading' || !subscriptionEmail.trim()}
-                style={{
-                  backgroundColor: subscriptionStatus === 'loading' ? '#9ca3af' : '#4f46e5',
-                  color: '#ffffff',
-                  padding: '12px 24px',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '1rem',
-                  fontWeight: '500',
-                  cursor: subscriptionStatus === 'loading' ? 'not-allowed' : 'pointer',
-                  transition: 'background-color 0.3s ease'
-                }}
-                onMouseEnter={(e) => {
-                  if (subscriptionStatus !== 'loading') {
-                    (e.target as HTMLButtonElement).style.backgroundColor = '#4338ca';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (subscriptionStatus !== 'loading') {
-                    (e.target as HTMLButtonElement).style.backgroundColor = '#4f46e5';
-                  }
-                }}
-              >
-                {subscriptionStatus === 'loading' ? 'Subscribing...' : 'Notify Me'}
-              </button>
             </div>
-          </form>
-          {subscriptionMessage && (
-            <div
-              style={{
-                marginTop: '16px',
-                padding: '12px 16px',
-                borderRadius: '8px',
-                backgroundColor: subscriptionStatus === 'success' ? '#ecfdf5' : '#fef2f2',
-                border: `1px solid ${subscriptionStatus === 'success' ? '#10b981' : '#ef4444'}`,
-                color: subscriptionStatus === 'success' ? '#065f46' : '#dc2626',
-                fontSize: '0.875rem',
-                fontWeight: '500'
-              }}
-            >
-              {subscriptionMessage}
-            </div>
-          )}
-          <p
-            style={{
-              color: '#9ca3af',
-              fontSize: '0.875rem',
-              marginTop: '16px'
-            }}
-          >
-            No spam, just project updates. Unsubscribe anytime.
-          </p>
-        </div>
-      </section>
 
-      {/* Get In Touch Section */}
-      <section
-        id="contact"
-        style={{
-          padding: '64px 24px',
-          backgroundColor: '#ffffff'
-        }}
-      >
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h2
-            style={{
-              fontSize: '2.25rem',
-              fontWeight: '700',
-              textAlign: 'center',
-              color: '#1f2937',
-              marginBottom: '24px'
-            }}
-          >
-            Ready to Hire or Partner?
-          </h2>
-          <p
-            style={{
-              textAlign: 'center',
-              color: '#6b7280',
-              marginBottom: '48px',
-              maxWidth: '600px',
-              margin: '0 auto 48px auto',
-              fontSize: '1.125rem',
-              lineHeight: '1.6'
-            }}
-          >
-            Seeking full-time data science roles or consulting partnerships. Let's discuss how my expertise in advanced analytics and machine learning can accelerate your organization's growth and innovation.
-          </p>
+            {/* Typography aligned with portfolio standards */}
+            <h2 className="text-5xl font-bold sm:text-6xl md:text-7xl text-center mb-8 text-foreground font-mono">
+              Ready to Transform Data into{' '}
+              <span style={{
+                background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
+                Impact?
+              </span>
+            </h2>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-              gap: '32px',
-              alignItems: 'start'
-            }}
-          >
-            {/* Contact Info Card */}
-            <div
-              style={{
-                background: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)',
-                padding: '32px',
-                borderRadius: '12px',
-                color: '#ffffff'
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: '1.5rem',
-                  fontWeight: '600',
-                  marginBottom: '24px'
-                }}
-              >
-                Contact Information
-              </h3>
-              <p
-                style={{
-                  marginBottom: '24px',
-                  lineHeight: '1.6',
-                  opacity: '0.9'
-                }}
-              >
-                Available for immediate hire or project collaboration. Let's discuss opportunities to work together.
+            {/* Divider consistent with other sections */}
+            <div className="h-2 w-48 bg-primary mx-auto mb-20 rounded-full"></div>
+
+            {/* Description with Card styling consistent with portfolio */}
+            <div className="bg-white/90 backdrop-blur-sm p-10 rounded-2xl shadow-sm border border-gray-100 max-w-4xl mx-auto mb-16">
+              <p className="text-slate-800 font-mono text-xl leading-relaxed text-center">
+                Join an exclusive network of forward-thinking leaders, innovative companies, and strategic partners.
+                Get priority access to collaboration opportunities, cutting-edge insights, and transformative data science solutions.
               </p>
-
-              <div style={{ marginBottom: '16px' }}>
-                <strong>Phone</strong>
-                <p style={{ margin: '4px 0' }}>
-                  <a
-                    href="tel:+15551234567"
-                    style={{
-                      color: '#ffffff',
-                      textDecoration: 'none',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.opacity = '0.8';
-                      e.currentTarget.style.transform = 'translateX(4px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.opacity = '1';
-                      e.currentTarget.style.transform = 'translateX(0)';
-                    }}
-                  >
-                    <FaPhone style={{ fontSize: '16px' }} />
-                    (555) 123-4567
-                  </a>
-                </p>
-              </div>
-
-              <div style={{ marginBottom: '16px' }}>
-                <strong>Email</strong>
-                <p style={{ margin: '4px 0' }}>
-                  <a
-                    href="mailto:gabrielleolukotun@gmail.com"
-                    style={{
-                      color: '#ffffff',
-                      textDecoration: 'none',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.opacity = '0.8';
-                      e.currentTarget.style.transform = 'translateX(4px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.opacity = '1';
-                      e.currentTarget.style.transform = 'translateX(0)';
-                    }}
-                  >
-                    <FaEnvelope style={{ fontSize: '16px' }} />
-                    gabrielleolukotun@gmail.com
-                  </a>
-                </p>
-              </div>
-
-              <div style={{ marginBottom: '16px' }}>
-                <strong>LinkedIn Profile</strong>
-                <p style={{ margin: '4px 0' }}>
-                  <a
-                    href="https://www.linkedin.com/in/gabriel-mancillas-gallardo-4a962320b/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      color: '#ffffff',
-                      textDecoration: 'none',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.opacity = '0.8';
-                      e.currentTarget.style.transform = 'translateX(4px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.opacity = '1';
-                      e.currentTarget.style.transform = 'translateX(0)';
-                    }}
-                  >
-                    <FaLinkedin style={{ fontSize: '16px', color: '#0077B5' }} />
-                    LinkedIn Profile
-                  </a>
-                </p>
-              </div>
-
-              <div>
-                <strong>GitHub Profile</strong>
-                <p style={{ margin: '4px 0' }}>
-                  <a
-                    href="https://github.com/Gabeleo24"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      color: '#ffffff',
-                      textDecoration: 'none',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.opacity = '0.8';
-                      e.currentTarget.style.transform = 'translateX(4px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.opacity = '1';
-                      e.currentTarget.style.transform = 'translateX(0)';
-                    }}
-                  >
-                    <FaGithub style={{ fontSize: '16px' }} />
-                    GitHub Profile
-                  </a>
-                </p>
-              </div>
+              <p className="text-slate-600 font-mono text-lg leading-relaxed text-center mt-4">
+                📞 <strong>Phone number required</strong> - I may call directly for time-sensitive opportunities and high-value partnerships.
+              </p>
             </div>
 
-            {/* Contact Form */}
-            <div
-              style={{
-                backgroundColor: '#ffffff',
-                padding: '32px',
-                borderRadius: '12px',
-                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: '1.5rem',
-                  fontWeight: '600',
-                  color: '#1f2937',
-                  marginBottom: '24px'
-                }}
-              >
-                📧 Contact Me
-              </h3>
-              <p
-                style={{
-                  color: '#6b7280',
-                  marginBottom: '24px',
-                  lineHeight: '1.6'
-                }}
-              >
-                Interested in hiring me or discussing a partnership? Let's connect!
-              </p>
-
-              <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div>
-                  <label
-                    htmlFor="fullName"
-                    style={{
-                      display: 'block',
-                      color: '#374151',
-                      fontWeight: '500',
-                      marginBottom: '8px'
-                    }}
-                  >
-                    Full Name
-                  </label>
+            {/* Form with Portfolio Design Consistency */}
+            <div className="bg-white/90 backdrop-blur-sm p-10 rounded-2xl shadow-sm border border-gray-100 max-w-2xl mx-auto mb-16">
+              <form onSubmit={handleEmailSubscription} className="space-y-6">
+                <div className="relative">
                   <input
-                    id="fullName"
-                    name="name"
-                    type="text"
-                    placeholder="John Doe"
-                    value={contactFormData.name}
-                    onChange={(e) => setContactFormData(prev => ({ ...prev, name: e.target.value }))}
-                    required
-                    disabled={isContactPending}
-                    style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      border: `1px solid ${contactState.errors?.name ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      outline: 'none',
-                      transition: 'border-color 0.3s ease',
-                      backgroundColor: isContactPending ? '#f3f4f6' : '#ffffff',
-                      opacity: isContactPending ? 0.7 : 1
-                    }}
-                    onFocus={(e) => (e.target as HTMLInputElement).style.borderColor = '#4f46e5'}
-                    onBlur={(e) => (e.target as HTMLInputElement).style.borderColor = contactState.errors?.name ? '#ef4444' : '#d1d5db'}
-                  />
-                  {contactState.errors?.name && (
-                    <p style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px' }}>
-                      {contactState.errors.name[0]}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="emailAddress"
-                    style={{
-                      display: 'block',
-                      color: '#374151',
-                      fontWeight: '500',
-                      marginBottom: '8px'
-                    }}
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    id="emailAddress"
-                    name="email"
                     type="email"
-                    placeholder="john.doe@email.com"
-                    value={contactFormData.email}
-                    onChange={(e) => setContactFormData(prev => ({ ...prev, email: e.target.value }))}
+                    placeholder="Enter your professional email"
+                    value={subscriptionEmail}
+                    onChange={(e) => setSubscriptionEmail(e.target.value)}
                     required
-                    disabled={isContactPending}
+                    disabled={subscriptionStatus === 'loading'}
+                    className="w-full px-6 py-4 rounded-xl border border-gray-200 text-lg font-mono text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 ease-in-out"
                     style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      border: `1px solid ${contactState.errors?.email ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      outline: 'none',
-                      transition: 'border-color 0.3s ease',
-                      backgroundColor: isContactPending ? '#f3f4f6' : '#ffffff',
-                      opacity: isContactPending ? 0.7 : 1
+                      opacity: subscriptionStatus === 'loading' ? 0.7 : 1
                     }}
-                    onFocus={(e) => (e.target as HTMLInputElement).style.borderColor = '#4f46e5'}
-                    onBlur={(e) => (e.target as HTMLInputElement).style.borderColor = contactState.errors?.email ? '#ef4444' : '#d1d5db'}
                   />
-                  {contactState.errors?.email && (
-                    <p style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px' }}>
-                      {contactState.errors.email[0]}
-                    </p>
-                  )}
                 </div>
 
-                <div>
-                  <label
-                    htmlFor="message"
-                    style={{
-                      display: 'block',
-                      color: '#374151',
-                      fontWeight: '500',
-                      marginBottom: '8px'
-                    }}
-                  >
-                    Your Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    placeholder="Hi! I'm interested in hiring you for... / Let's discuss a partnership for..."
-                    value={contactFormData.message}
-                    onChange={(e) => setContactFormData(prev => ({ ...prev, message: e.target.value }))}
+                <div className="relative">
+                  <input
+                    type="tel"
+                    placeholder="Enter your phone number (e.g., +1 555 123 4567)"
+                    value={subscriptionPhone}
+                    onChange={(e) => setSubscriptionPhone(e.target.value)}
                     required
-                    disabled={isContactPending}
+                    disabled={subscriptionStatus === 'loading'}
+                    className="w-full px-6 py-4 rounded-xl border border-gray-200 text-lg font-mono text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 ease-in-out"
                     style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      border: `1px solid ${contactState.errors?.message ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      outline: 'none',
-                      resize: 'vertical',
-                      transition: 'border-color 0.3s ease',
-                      backgroundColor: isContactPending ? '#f3f4f6' : '#ffffff',
-                      opacity: isContactPending ? 0.7 : 1
+                      opacity: subscriptionStatus === 'loading' ? 0.7 : 1
                     }}
-                    onFocus={(e) => (e.target as HTMLTextAreaElement).style.borderColor = '#4f46e5'}
-                    onBlur={(e) => (e.target as HTMLTextAreaElement).style.borderColor = contactState.errors?.message ? '#ef4444' : '#d1d5db'}
                   />
-                  {contactState.errors?.message && (
-                    <p style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px' }}>
-                      {contactState.errors.message[0]}
-                    </p>
-                  )}
                 </div>
 
                 <button
                   type="submit"
-                  disabled={isContactPending}
+                  disabled={subscriptionStatus === 'loading' || !subscriptionEmail.trim() || !subscriptionPhone.trim()}
+                  className={`w-full px-10 py-5 rounded-xl font-semibold transition-all duration-300 ease-in-out text-lg font-mono flex items-center justify-center gap-3 ${
+                    subscriptionStatus === 'loading'
+                      ? 'bg-gray-600 cursor-not-allowed'
+                      : 'bg-slate-800 hover:bg-slate-700 hover:shadow-md hover:-translate-y-0.5'
+                  }`}
                   style={{
-                    backgroundColor: isContactPending ? '#9ca3af' : '#10b981',
-                    color: '#ffffff',
-                    padding: '12px 24px',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '1rem',
-                    fontWeight: '500',
-                    cursor: isContactPending ? 'not-allowed' : 'pointer',
-                    transition: 'background-color 0.3s ease',
-                    marginTop: '8px'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isContactPending) {
-                      (e.target as HTMLButtonElement).style.backgroundColor = '#059669';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isContactPending) {
-                      (e.target as HTMLButtonElement).style.backgroundColor = '#10b981';
-                    }
+                    color: '#ffffff !important',
+                    textShadow: 'none !important'
                   }}
                 >
-                  {isContactPending ? '✉️ Sending...' : '✉️ Send Message'}
+                  {subscriptionStatus === 'loading' ? (
+                    <>
+                      <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <span style={{ color: '#ffffff !important', textShadow: 'none !important' }}>
+                        Joining Network...
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <MdGpsFixed
+                        className="text-xl"
+                        style={{ color: '#ffffff !important' }}
+                      />
+                      <span style={{ color: '#ffffff !important', textShadow: 'none !important' }}>
+                        Join Professional Network
+                      </span>
+                    </>
+                  )}
                 </button>
-
-                {/* Contact form status message */}
-                {contactState.message && (
-                  <div
-                    style={{
-                      marginTop: '16px',
-                      padding: '12px 16px',
-                      borderRadius: '8px',
-                      backgroundColor: contactState.success ? '#ecfdf5' : '#fef2f2',
-                      border: `1px solid ${contactState.success ? '#10b981' : '#ef4444'}`,
-                      color: contactState.success ? '#065f46' : '#dc2626',
-                      fontSize: '0.875rem',
-                      fontWeight: '500'
-                    }}
-                  >
-                    {contactState.message}
-                  </div>
-                )}
               </form>
+            </div>
+
+            {/* Status Message with Portfolio Styling */}
+            {subscriptionMessage && (
+              <div className={`mt-6 p-4 rounded-xl font-mono text-center ${
+                subscriptionStatus === 'success'
+                  ? 'bg-green-50 border border-green-200 text-green-800'
+                  : 'bg-red-50 border border-red-200 text-red-800'
+              }`}>
+                {subscriptionMessage}
+              </div>
+            )}
+
+            {/* Trust Indicators with Portfolio Card Design */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mt-16">
+              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 cursor-pointer">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                    <MdSecurity className="text-3xl text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-primary font-mono mb-2">
+                      Privacy Protected
+                    </h3>
+                    <p className="text-slate-600 font-mono">
+                      Your data is completely secure
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 cursor-pointer">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center">
+                    <MdFlashOn className="text-3xl text-amber-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-primary font-mono mb-2">
+                      Instant Access
+                    </h3>
+                    <p className="text-slate-600 font-mono">
+                      Join the network immediately
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 cursor-pointer">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
+                    <MdGpsFixed className="text-3xl text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-primary font-mono mb-2">
+                      Exclusive Opportunities
+                    </h3>
+                    <p className="text-slate-600 font-mono">
+                      Premium access to partnerships
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Text with Portfolio Styling */}
+            <div className="text-center mt-16">
+              <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-gray-100 inline-block">
+                <p className="font-mono text-lg">
+                  <span className="font-bold text-primary">
+                    Join 500+ industry leaders
+                  </span>
+                  <br />
+                  <span className="text-slate-500 text-sm">
+                    Unsubscribe anytime • No spam, ever • Premium insights only
+                  </span>
+                </p>
+              </div>
+            </div>
+
+            {/* Email Validation Disclaimer - Small Print - Cross-Platform Responsive */}
+            <div className="text-center mt-6 sm:mt-8 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto px-4 sm:px-6">
+              <p
+                className="font-mono text-xs sm:text-xs md:text-sm leading-relaxed sm:leading-relaxed md:leading-loose break-words hyphens-auto"
+                style={{
+                  color: '#ffffff !important',
+                  textShadow: 'none !important',
+                  fontWeight: 'normal !important',
+                  textDecoration: 'none !important',
+                  fontStyle: 'normal !important',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                  lineHeight: '1.6',
+                  fontSize: 'clamp(10px, 2vw, 14px)'
+                }}
+              >
+                Email Validation Notice: This portfolio uses a custom email API. Email addresses must be 100% accurate and correctly formatted for successful delivery. Please ensure: (1) Email addresses are spelled correctly with no typos, (2) Email format follows standard conventions (e.g., user@domain.com), (3) The domain exists and can receive emails, (4) There are no extra spaces or special characters. This custom-built system may be more sensitive to formatting errors than commercial email services. Please double-check email addresses before submitting forms to ensure successful delivery.
+              </p>
             </div>
           </div>
         </div>
+
+        {/* CSS Animation for loading spinner */}
+        <style>
+          {`
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+          `}
+        </style>
       </section>
 
       {/* Project Details Modal */}

@@ -451,20 +451,23 @@ const GlobalStyles = () => (
     .project-item h4 {
         padding: 1.5rem 1.5rem 0.75rem; /* Increased padding for spaciousness */
         font-size: 1.25rem; /* Slightly larger font */
-        font-weight: 600;
+        font-weight: 700; /* Increased font weight for better readability */
         font-family: var(--font-geist-mono), monospace;
-        color: #f5f5f7;
+        color: #1a1a1a; /* Dark text for better contrast against bright background */
         line-height: 1.25; /* Tighter line height for Apple-like typography */
         letter-spacing: -0.01em; /* Subtle letter spacing */
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8); /* White text shadow for readability */
     }
 
     .project-item p {
         padding: 0 1.5rem 1.5rem; /* Increased padding */
         font-size: 1rem; /* Slightly larger description text */
-        color: #86868b;
+        color: #374151; /* Dark gray for better readability */
         font-family: var(--font-geist-mono), monospace;
         line-height: 1.4;
         letter-spacing: -0.005em;
+        font-weight: 500; /* Slightly bolder for better visibility */
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6); /* Subtle text shadow */
     }
 
     /* Apple-Style Responsive Content Sizing */
@@ -904,22 +907,25 @@ const GlobalStyles = () => (
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(255, 255, 255, 0.08); /* More subtle background */
-      color: #a1a1a6; /* Slightly lighter text */
+      background-color: rgba(0, 0, 0, 0.08); /* Dark background for better contrast */
+      color: #1f2937; /* Dark text for readability */
       font-size: 0.8rem; /* Slightly larger text */
       padding: 0.4rem 0.75rem; /* Increased padding for Apple-like proportions */
       border-radius: 12px; /* Larger border radius */
       font-family: var(--font-geist-mono), monospace;
       white-space: nowrap;
       height: auto; /* Remove fixed height */
-      border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
+      border: 1px solid rgba(0, 0, 0, 0.1); /* Dark border for definition */
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); /* Apple easing */
+      font-weight: 600; /* Bolder for better visibility */
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5); /* Light text shadow */
     }
 
     .tech-tag:hover {
-      background-color: rgba(255, 255, 255, 0.12);
-      color: #d1d1d6;
+      background-color: rgba(0, 0, 0, 0.15);
+      color: #111827;
       transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     /* Project Detail Panel Styles */

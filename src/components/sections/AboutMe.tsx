@@ -331,7 +331,7 @@ const AboutMe = () => {
                   </Link>
                 </div>
                 <a
-                  href="#journey"
+                  href="#projects"
                   className="btn-primary inline-flex items-center px-6 py-3 rounded-lg font-semibold text-lg transition-all duration-300 hover:transform hover:scale-105"
                   style={{
                     backgroundColor: '#4f46e5',
@@ -356,103 +356,8 @@ const AboutMe = () => {
         </div>
       </div>
 
-      {/* Journey Section - Pioneering the Future of Data Intelligence */}
-      <div id="journey" className="w-full min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
-        </div>
 
-        <div className="relative z-10 container mx-auto px-6 py-20 lg:py-32">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl lg:text-7xl font-bold text-white mb-6 tracking-tight">
-              Pioneering the Future of Data Intelligence
-            </h2>
-            <p className="text-xl lg:text-2xl text-indigo-100 max-w-4xl mx-auto leading-relaxed">
-              A transformative journey from curiosity to expertise, specializing in advanced analytics, machine learning, and financial
-              engineering solutions that deliver measurable ROI and competitive advantage for forward-thinking organizations.
-            </p>
-          </div>
 
-          {/* Journey Timeline */}
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-              {/* Left Column - The Story */}
-              <div className="space-y-8">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                  <h3 className="text-2xl font-bold text-white mb-4">The Spark of Discovery</h3>
-                  <p className="text-indigo-100 leading-relaxed">
-                    My journey began with a simple question: <em>"How can data transform the way we understand and predict the world?"</em>
-                    What started as curiosity about patterns in everyday phenomena evolved into a passion for uncovering insights
-                    that drive strategic business decisions.
-                  </p>
-                </div>
-
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                  <h3 className="text-2xl font-bold text-white mb-4">The Academic Foundation</h3>
-                  <p className="text-indigo-100 leading-relaxed">
-                    Pursuing my Data Science graduate degree wasn't just about acquiring technical skills—it was about developing
-                    a systematic approach to problem-solving. From statistical modeling to machine learning algorithms,
-                    each course built upon the last, creating a comprehensive toolkit for tackling complex analytical challenges.
-                  </p>
-                </div>
-
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                  <h3 className="text-2xl font-bold text-white mb-4">The Professional Vision</h3>
-                  <p className="text-indigo-100 leading-relaxed">
-                    Today, I stand at the intersection of technology and business strategy, where data science meets real-world impact.
-                    My focus extends beyond traditional analytics to encompass financial engineering, risk mitigation,
-                    and GDPR compliance—ensuring solutions that are both innovative and responsible.
-                  </p>
-                </div>
-              </div>
-
-              {/* Right Column - Skills & Expertise */}
-              <div className="space-y-6">
-                <div className="text-center mb-8">
-                  <h3 className="text-3xl font-bold text-white mb-4">Core Expertise</h3>
-                  <p className="text-indigo-100">Specialized skills that drive measurable business outcomes</p>
-                </div>
-
-                <div className="grid gap-4">
-                  {[
-                    { skill: "Fraud Detection", description: "Advanced algorithms for financial security", icon: "🛡️" },
-                    { skill: "Risk Mitigation", description: "Predictive models for strategic planning", icon: "📊" },
-                    { skill: "Advanced Analytics", description: "Machine learning and statistical modeling", icon: "🔬" },
-                    { skill: "Payment Systems", description: "Secure transaction processing solutions", icon: "💳" },
-                    { skill: "GDPR Compliance", description: "Data privacy and regulatory adherence", icon: "🔒" },
-                    { skill: "Data Analytics", description: "Transforming raw data into actionable insights", icon: "📈" }
-                  ].map((item, index) => (
-                    <div key={index} className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                      <div className="flex items-center space-x-4">
-                        <span className="text-3xl">{item.icon}</span>
-                        <div>
-                          <h4 className="text-lg font-semibold text-white">{item.skill}</h4>
-                          <p className="text-indigo-100 text-sm">{item.description}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Call to Action */}
-            <div className="text-center mt-16">
-              <a
-                href="#projects"
-                className="inline-flex items-center px-8 py-4 bg-white text-indigo-600 rounded-xl font-semibold text-lg hover:bg-indigo-50 transition-all duration-300 hover:transform hover:scale-105 shadow-lg"
-              >
-                <span className="mr-2">▶</span>
-                Experience the Vision
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
   );
 };

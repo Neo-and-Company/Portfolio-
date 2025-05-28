@@ -100,12 +100,12 @@
     line-height: 0.9;
   }
 
-  /* Font style classes for AboutMe component - HARMONIZED TO DARK COLORS */
-  .font-style-1 { font-family: var(--font-roboto), sans-serif; @apply text-gray-900; }
-  .font-style-2 { font-family: var(--font-lora), serif; @apply text-gray-800; }
-  .font-style-3 { font-family: var(--font-source-code-pro), monospace; @apply text-gray-700; }
-  .font-style-4 { font-family: var(--font-playfair-display), serif; @apply text-gray-800; }
-  .font-style-5 { font-family: var(--font-dancing-script), cursive; @apply text-gray-900; }
+  /* Font style classes for AboutMe component - ENHANCED FOR MAXIMUM READABILITY */
+  .font-style-1 { font-family: var(--font-roboto), sans-serif; @apply text-gray-900; font-weight: 700; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8); }
+  .font-style-2 { font-family: var(--font-lora), serif; @apply text-gray-800; font-weight: 700; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8); }
+  .font-style-3 { font-family: var(--font-source-code-pro), monospace; @apply text-gray-700; font-weight: 700; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8); }
+  .font-style-4 { font-family: var(--font-playfair-display), serif; @apply text-gray-800; font-weight: 700; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8); }
+  .font-style-5 { font-family: var(--font-dancing-script), cursive; @apply text-gray-900; font-weight: 700; text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8); }
 }
 
 @layer components {
@@ -127,7 +127,7 @@
     @apply py-28 md:py-40 w-full bg-background;
   }
 
-  /* Project showcase background styling */
+  /* Project showcase background styling - Updated for 100% opacity and better text readability */
   .project-showcase-bg {
     position: relative;
   }
@@ -143,15 +143,72 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.15;
+    opacity: 1.0; /* Set to 100% opacity as requested */
     z-index: -1;
   }
 
   @media (max-width: 768px) {
     .project-showcase-bg::before {
       background-position: 70% center;
-      opacity: 0.12;
+      opacity: 1.0; /* Set to 100% opacity on mobile as well */
     }
+  }
+
+  /* Text readability improvements for sections with background image */
+  .project-showcase-bg .text-white,
+  .project-showcase-bg h1,
+  .project-showcase-bg h2,
+  .project-showcase-bg h3,
+  .project-showcase-bg p {
+    color: #1a1a1a !important; /* Dark text for better contrast */
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8); /* White text shadow for readability */
+    font-weight: 600; /* Slightly bolder for better visibility */
+  }
+
+  /* Specific styling for project showcase headers */
+  .project-showcase-bg .main-content-wrapper h1 {
+    color: #0f172a !important; /* Very dark blue-gray */
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
+    font-weight: 700;
+  }
+
+  .project-showcase-bg .main-content-wrapper p {
+    color: #334155 !important; /* Dark slate gray */
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+  }
+
+  /* Enhanced text readability for all sections with background images */
+  section[style*="background-image"] h1,
+  section[style*="background-image"] h2,
+  section[style*="background-image"] h3,
+  section[style*="background-image"] p {
+    color: #1a1a1a !important;
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+  }
+
+  /* Ensure high contrast for all text elements on background images */
+  .bg-cover h1, .bg-cover h2, .bg-cover h3, .bg-cover h4, .bg-cover h5, .bg-cover h6 {
+    color: #0f172a !important;
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
+    font-weight: 700;
+  }
+
+  .bg-cover p, .bg-cover span {
+    color: #374151 !important;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+  }
+
+  /* Specific improvements for better accessibility */
+  .text-white {
+    color: #1a1a1a !important;
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+  }
+
+  /* Ensure buttons and interactive elements maintain good contrast */
+  button, .btn-primary, .btn-secondary {
+    text-shadow: none !important; /* Remove text shadow from buttons */
   }
 }
 
