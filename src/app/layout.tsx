@@ -84,8 +84,45 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'LinkPro - Professional Portfolio',
-  description: 'Showcase your professional experience, projects, and skills with LinkPro.',
+  title: 'Gabriel Mancillas - Data Science Portfolio',
+  description: 'Data Science Graduate Student & Website Developer. Explore my projects, experience, and professional journey in data science and web development.',
+  keywords: 'Gabriel Mancillas, Data Science, Web Development, Portfolio, Graduate Student, Data Engineer, Website Developer',
+  authors: [{ name: 'Gabriel Mancillas' }],
+  creator: 'Gabriel Mancillas',
+  publisher: 'Gabriel Mancillas',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
+  openGraph: {
+    title: 'Gabriel Mancillas - Data Science Portfolio',
+    description: 'Data Science Graduate Student & Website Developer. Explore my projects, experience, and professional journey.',
+    url: 'https://gabriel-mancillas-portfolio-a0huuqr98-gabeleo24s-projects.vercel.app',
+    siteName: 'Gabriel Mancillas Portfolio',
+    images: [
+      {
+        url: '/AdobeStock_432194964.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Gabriel Mancillas Portfolio',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Gabriel Mancillas - Data Science Portfolio',
+    description: 'Data Science Graduate Student & Website Developer',
+    images: ['/AdobeStock_432194964.jpeg'],
+  },
 };
 
 export default function RootLayout({

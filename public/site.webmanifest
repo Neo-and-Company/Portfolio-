@@ -1,0 +1,32 @@
+{
+  "name": "Gabriel Mancillas Portfolio",
+  "short_name": "GM Portfolio",
+  "description": "Data Science Graduate Student & Website Developer Portfolio",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/AdobeStock_432194964.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "theme_color": "#4f46e5",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}
