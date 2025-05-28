@@ -1,7 +1,6 @@
 
 import type { Metadata } from 'next';
-import { Inter, Roboto, Lora, Source_Code_Pro, Playfair_Display, Dancing_Script } from 'next/font/google';
-import { Geist_Mono } from 'next/font/google'; // Retaining Geist Mono for other uses if any
+import { Inter, Roboto, Lora, Source_Code_Pro, Playfair_Display, Dancing_Script, Roboto_Mono, JetBrains_Mono, Fira_Code, Space_Mono, IBM_Plex_Mono, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -10,7 +9,7 @@ import { Toaster } from '@/components/ui/toaster';
 // Setup Inter font (already exists, keeping)
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter', 
+  variable: '--font-inter',
   display: 'swap',
 });
 
@@ -51,6 +50,39 @@ const dancingScript = Dancing_Script({
   display: 'swap',
 });
 
+// Additional monospace fonts for project cards
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  variable: '--font-roboto-mono',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+});
+
+const firaCode = Fira_Code({
+  subsets: ['latin'],
+  variable: '--font-fira-code',
+  display: 'swap',
+});
+
+const spaceMono = Space_Mono({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-space-mono',
+  display: 'swap',
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-ibm-plex-mono',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   title: 'LinkPro - Professional Portfolio',
   description: 'Showcase your professional experience, projects, and skills with LinkPro.',
@@ -62,9 +94,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html 
-      lang="en" 
-      className={`${inter.variable} ${geistMono.variable} ${roboto.variable} ${lora.variable} ${sourceCodePro.variable} ${playfairDisplay.variable} ${dancingScript.variable} scroll-smooth`}
+    <html
+      lang="en"
+      className={`${inter.variable} ${geistMono.variable} ${roboto.variable} ${lora.variable} ${sourceCodePro.variable} ${playfairDisplay.variable} ${dancingScript.variable} ${robotoMono.variable} ${jetbrainsMono.variable} ${firaCode.variable} ${spaceMono.variable} ${ibmPlexMono.variable} scroll-smooth`}
     >
       <body className="antialiased flex flex-col min-h-screen">
         <Header />

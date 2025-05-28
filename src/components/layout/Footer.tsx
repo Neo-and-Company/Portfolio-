@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Github, Linkedin, Twitter } from 'lucide-react';
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -14,14 +14,14 @@ const Footer = () => {
           </p>
         </div>
         <div className="flex gap-4">
-          <Link href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <Github className="h-5 w-5 text-muted-foreground hover:text-accent transition-colors" />
+          <Link href="https://github.com/Gabeleo24" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <FaGithub className="h-5 w-5 text-muted-foreground hover:text-[#333333] hover:scale-110 transition-all duration-300" />
           </Link>
           <Link href="https://www.linkedin.com/in/gabriel-mancillas-gallardo-4a962320b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <Linkedin className="h-5 w-5 text-muted-foreground hover:text-accent transition-colors" />
+            <FaLinkedin className="h-5 w-5 text-muted-foreground hover:text-[#0077B5] hover:scale-110 transition-all duration-300" />
           </Link>
-          <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-            <Twitter className="h-5 w-5 text-muted-foreground hover:text-accent transition-colors" />
+          <Link href="mailto:gabrielleolukotun@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email">
+            <FaEnvelope className="h-5 w-5 text-muted-foreground hover:text-[#EA4335] hover:scale-110 transition-all duration-300" />
           </Link>
         </div>
       </div>

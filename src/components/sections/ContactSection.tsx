@@ -11,7 +11,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Mail, Send, Loader2, AlertCircle, CheckCircle, Phone, Linkedin, Github } from 'lucide-react';
+import { Mail, Send, Loader2, AlertCircle, CheckCircle, Phone } from 'lucide-react';
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { submitContactForm, type ContactFormState } from "@/lib/actions";
 import { useToast } from "@/hooks/use-toast";
 import Link from 'next/link';
@@ -67,7 +68,7 @@ const ContactSection = () => {
 
     if (state.success) {
       form.reset({ name: "", email: "", message: "" });
-      form.clearErrors(); 
+      form.clearErrors();
     } else if (state.errors) {
       Object.entries(state.errors).forEach(([fieldName, fieldErrors]) => {
         if (fieldErrors && fieldErrors.length > 0) {
@@ -101,7 +102,7 @@ const ContactSection = () => {
         <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl text-center mb-12 text-foreground font-mono">
           Get In Touch
         </h2>
-        
+
         {/* Contact Section with CTA and Form side by side */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* CTA Box - Styled to match Card component structure */}
@@ -115,7 +116,7 @@ const ContactSection = () => {
                 If I don't respond to your message within 24 hours, please call me directly!
               </p>
             </div>
-            
+
             <div className="px-6 py-6 flex-grow flex flex-col justify-between"> {/* Matches CardContent padding */}
               <div className="space-y-6"> {/* Matches form field spacing */}
                 <div className="space-y-2"> {/* Matches FormItem spacing */}
@@ -125,7 +126,7 @@ const ContactSection = () => {
                     <span className="font-mono">+1 (555) 123-4567</span>
                   </div>
                 </div>
-                
+
                 <div className="space-y-2">
                   <p className="text-sm font-medium font-mono">Email</p>
                   <div className="flex items-center text-white/90 h-10">
@@ -133,26 +134,26 @@ const ContactSection = () => {
                     <span className="font-mono">gabrielmancillas1034@icloud.com</span>
                   </div>
                 </div>
-                
+
                 <div className="space-y-2">
                   <p className="text-sm font-medium font-mono">Social</p>
                   <div className="space-y-3">
-                    <Link 
-                      href="https://www.linkedin.com/in/gabriel-mancillas-gallardo-4a962320b/" 
-                      target="_blank" 
+                    <Link
+                      href="https://www.linkedin.com/in/gabriel-mancillas-gallardo-4a962320b/"
+                      target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center text-white/90 hover:text-white transition-colors font-mono h-10"
+                      className="flex items-center text-white/90 hover:text-white hover:scale-105 transition-all duration-300 font-mono h-10"
                     >
-                      <Linkedin className="h-5 w-5 mr-3 flex-shrink-0" />
+                      <FaLinkedin className="h-5 w-5 mr-3 flex-shrink-0 text-[#0077B5]" />
                       <span>LinkedIn Profile</span>
                     </Link>
-                    <Link 
-                      href="https://github.com/Gabeleo24" 
-                      target="_blank" 
+                    <Link
+                      href="https://github.com/Gabeleo24"
+                      target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center text-white/90 hover:text-white transition-colors font-mono h-10"
+                      className="flex items-center text-white/90 hover:text-white hover:scale-105 transition-all duration-300 font-mono h-10"
                     >
-                      <Github className="h-5 w-5 mr-3 flex-shrink-0" />
+                      <FaGithub className="h-5 w-5 mr-3 flex-shrink-0 text-white" />
                       <span>GitHub Profile</span>
                     </Link>
                   </div>
@@ -172,7 +173,7 @@ const ContactSection = () => {
                 Have a question or want to work together? Fill out the form below.
               </CardDescription>
             </CardHeader>
-            
+
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col h-full">
                 <CardContent className="px-6 py-6 flex-grow">
@@ -190,7 +191,7 @@ const ContactSection = () => {
                         </FormItem>
                       )}
                     />
-                    
+
                     <FormField
                       control={form.control}
                       name="email"
@@ -204,7 +205,7 @@ const ContactSection = () => {
                         </FormItem>
                       )}
                     />
-                    
+
                     <FormField
                       control={form.control}
                       name="message"
@@ -212,10 +213,10 @@ const ContactSection = () => {
                         <FormItem className="space-y-2">
                           <FormLabel htmlFor="message" className="text-sm font-medium font-mono">Your Message</FormLabel>
                           <FormControl>
-                            <Textarea 
-                              id="message" 
-                              placeholder="Hi there, I'd like to discuss..." 
-                              {...field} 
+                            <Textarea
+                              id="message"
+                              placeholder="Hi there, I'd like to discuss..."
+                              {...field}
                               className="min-h-[120px] resize-none font-mono"
                             />
                           </FormControl>
@@ -225,7 +226,7 @@ const ContactSection = () => {
                     />
                   </div>
                 </CardContent>
-                
+
                 <CardFooter className="px-6 py-6 border-t border-border/40">
                   <SubmitButton isLoading={isTransitionPending} />
                 </CardFooter>

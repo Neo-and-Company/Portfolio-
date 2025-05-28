@@ -44,12 +44,12 @@ const ProfessionalSummary = () => {
       if (professionalSection) {
         const rect = professionalSection.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
-        
+
         // Start the transition earlier for a smoother effect
         if (rect.top < viewportHeight * 1.2) {
           // Calculate progress as section approaches viewport
           const progress = Math.min(
-            Math.max((viewportHeight * 1.2 - rect.top) / (viewportHeight * 0.8), 0), 
+            Math.max((viewportHeight * 1.2 - rect.top) / (viewportHeight * 0.8), 0),
             1
           );
           setScrollProgress(progress);
@@ -61,76 +61,76 @@ const ProfessionalSummary = () => {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Initial call
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
-    <section id="experience" className="w-full py-16 md:py-24 relative z-10 section-fade-in bg-background">
-      <div className="container mx-auto px-4 md:px-6 max-w-screen-lg">
-        <h2 
-          className="text-3xl font-bold sm:text-4xl md:text-5xl text-center mb-4 text-foreground font-mono"
-          style={{ 
+    <section id="experience" className="w-full py-28 md:py-40 relative z-10 section-fade-in bg-background">
+      <div className="container mx-auto px-6 md:px-8 max-w-screen-xl">
+        <h2
+          className="text-5xl font-bold sm:text-6xl md:text-7xl text-center mb-8 text-foreground font-mono"
+          style={{
             opacity: scrollProgress,
             transform: `translateY(${(1 - scrollProgress) * 50}px)`,
             transition: 'opacity 0.3s ease-out, transform 0.3s ease-out'
           }}
         >
-          Professional Experience
+          Strategic Leadership in Action
         </h2>
-        {/* Simple divider */}
-        <div 
-          className="h-1 w-32 bg-primary mx-auto mb-12 rounded-full"
-          style={{ 
+        {/* Simple divider - increased sizing */}
+        <div
+          className="h-2 w-48 bg-primary mx-auto mb-20 rounded-full"
+          style={{
             opacity: scrollProgress,
             transform: `scaleX(${scrollProgress})`,
             transition: 'opacity 0.3s ease-out, transform 0.3s ease-out'
           }}
         ></div>
-        
-        <div className="space-y-8">
+
+        <div className="space-y-12">
           {experiences.map((exp, index) => (
-            <Card 
-              key={exp.id} 
+            <Card
+              key={exp.id}
               className="shadow-sm hover:shadow-md transition-shadow duration-300 bg-white border-gray-200"
-              style={{ 
+              style={{
                 opacity: Math.min(scrollProgress * 2 - (index * 0.2), 1),
                 transform: `translateY(${Math.max(0, (1 - scrollProgress) * 50)}px)`,
                 transition: 'opacity 0.5s ease-out, transform 0.5s ease-out'
               }}
             >
-              <CardHeader>
-                <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
-                  <CardTitle className="text-2xl flex items-center text-primary font-mono">
-                    <Briefcase className="mr-2 h-6 w-6 text-primary" />
+              <CardHeader className="p-8">
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-4">
+                  <CardTitle className="text-3xl flex items-center text-primary font-mono">
+                    <Briefcase className="mr-4 h-8 w-8 text-primary" />
                     {exp.role}
                   </CardTitle>
-                  <div className="text-slate-500 mt-2 sm:mt-0 font-mono">
+                  <div className="text-slate-500 mt-3 sm:mt-0 font-mono text-lg">
                     {exp.dates}
                   </div>
                 </div>
-                <div className="text-slate-700 font-mono">
+                <div className="text-slate-700 font-mono text-xl">
                   {exp.company}
                 </div>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
+              <CardContent className="p-8 pt-0">
+                <ul className="space-y-5">
                   {exp.description.map((item, index) => (
                     <li key={index} className="flex items-start">
-                      <span className="text-primary mr-2 mt-1 font-mono">•</span>
-                      <span className="text-slate-800 font-mono">{item}</span>
+                      <span className="text-primary mr-4 mt-1 font-mono text-lg">•</span>
+                      <span className="text-slate-800 font-mono text-lg leading-relaxed">{item}</span>
                     </li>
                   ))}
                 </ul>
-            
+
                 {exp.skills && exp.skills.length > 0 && (
-                  <div className="mt-6">
-                    <div className="text-sm text-slate-600 mb-2 font-mono">Key Skills:</div>
-                    <div className="flex flex-wrap gap-2">
+                  <div className="mt-8">
+                    <div className="text-lg text-slate-600 mb-4 font-mono">Key Skills:</div>
+                    <div className="flex flex-wrap gap-3">
                       {exp.skills.map((skill, index) => (
-                        <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary font-mono">
+                        <span key={index} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary/20 text-primary font-mono">
                           {skill}
                         </span>
                       ))}

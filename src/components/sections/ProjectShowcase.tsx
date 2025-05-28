@@ -3,21 +3,18 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Switch } from "@/components/ui/switch";
-import { usePathname } from 'next/navigation'; // Import for path checking
-import { ChevronLeft, ChevronRight, X, ExternalLink, Github } from 'lucide-react';
-import Image from 'next/image';
+import { X, ExternalLink, Github } from 'lucide-react';
 
 // --- Type Definitions ---
 interface Project {
   id: string;
   title: string;
   description: string;
-  technologies?: string[]; 
+  technologies?: string[];
   image: string; // Mapped from imageUrl
   repoUrl?: string;
   demoUrl?: string;
-  mediaType?: string; 
+  mediaType?: string;
   imageUrls?: string[];
   // New fields for detailed view
   detailedDescription?: string;
@@ -74,7 +71,7 @@ const projectData: Project[] = [
     technologies: ['Python', 'SQL', 'ETL Pipelines', 'Data Modeling', 'Data Warehousing', 'Business Intelligence', 'Predictive Analytics', 'Cloud Data Platforms'],
     image: 'https://placehold.co/600x400.png', // Was imageUrl
     repoUrl: 'https://github.com/Neo-and-Company/Dove',
-    demoUrl: '#', 
+    demoUrl: '#',
     mediaType: 'image',
   },
   {
@@ -85,7 +82,7 @@ const projectData: Project[] = [
     image: 'https://placehold.co/600x400.png', // Was imageUrl
     repoUrl: 'https://github.com/Gabeleo24/Portfolio-Optimization-Algorithmic-Trading-Engine',
     demoUrl: '#',
-    mediaType: 'image', 
+    mediaType: 'image',
   },
   {
     id: 'proj6',
@@ -174,7 +171,7 @@ const GlobalStyles = () => (
         transform: scale(1.1);
         box-shadow: 0 0 12px rgba(0, 113, 227, 0.7);
     }
-    
+
     /* Add a track progress indicator */
     .slider-container {
         position: relative;
@@ -195,77 +192,329 @@ const GlobalStyles = () => (
     .video-placeholder {
         position: relative;
         width: 100%;
-        height: 0;
-        padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        background-color: #1d1d1f;
+        height: auto;
+        min-height: 600px; /* Increased minimum height for more space */
+        background-color: transparent;
         border-radius: 12px;
-        overflow: hidden;
-        margin-bottom: 1rem;
-    }
-    .video-placeholder-pattern {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.1;
-        color: #666;
-    }
-    .playback-controls {
+        overflow: visible;
+        margin-bottom: 2rem; /* Increased margin for better separation */
+        padding: 0;
         display: flex;
-        align-items: center;
-        gap: 1rem;
-        color: #86868b;
+        flex-direction: column;
     }
-    .timeline-bar {
-        flex-grow: 1;
-        height: 4px;
-        background-color: #333;
-        border-radius: 2px;
+
+    /* Override for financial analysis container specifically */
+    .financial-analysis-container.video-placeholder {
+        height: auto;
+        min-height: 700px; /* Even larger minimum height for demo content */
+        padding: 2rem 0; /* Add vertical padding for better spacing */
+        overflow: visible;
+        background-color: transparent;
+        gap: 2rem; /* Add gap between demo content and overlay */
+    }
+
+    /* Fallback styling for projects without demo content */
+    .video-placeholder:not(.financial-analysis-container) {
+        min-height: 400px; /* Smaller height for projects without demo content */
+        background: linear-gradient(135deg, rgba(15, 15, 20, 0.8), rgba(30, 30, 35, 0.6));
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Ensure overlay is always visible */
+    .video-placeholder .video-overlay-container {
+        margin-top: auto;
+        flex-shrink: 0; /* Prevent shrinking */
+    }
+
+    /* Apple-Style Projects Slider Container */
+    .projects-slider-container {
         position: relative;
+        width: 100%;
+        max-width: 100vw;
+        margin: 0 auto;
+        overflow: hidden;
+        padding: 0 3rem; /* Increased padding for better spacing */
+        background: transparent;
     }
-    .timeline-progress {
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 35%;
-        background-color: #0071e3;
-        border-radius: 2px;
+
+    /* Responsive container sizing with Apple-like proportions */
+    @media (min-width: 640px) {
+        .projects-slider-container {
+            max-width: calc(100vw - 6rem);
+            padding: 0 4rem;
+        }
     }
+
+    @media (min-width: 1024px) {
+        .projects-slider-container {
+            max-width: 1400px; /* Increased max width */
+            padding: 0 6rem;
+        }
+    }
+
+    @media (min-width: 1400px) {
+        .projects-slider-container {
+            max-width: 1600px; /* Even larger for big screens */
+            padding: 0 8rem;
+        }
+    }
+
+    /* Apple-Style Projects Track with Smooth Physics */
     .projects-track {
         display: flex;
-        gap: 1.5rem;
-        transition: transform 0.5s ease;
+        gap: 2rem; /* Increased gap for Apple-like spacing */
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Apple's signature easing */
+        padding: 2rem 0; /* Increased vertical padding */
+        will-change: transform;
+        cursor: grab;
+        user-select: none; /* Prevent text selection during drag */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
     }
+
+    .projects-track:active {
+        cursor: grabbing;
+    }
+
+    /* Apple-style momentum and physics during auto-scroll */
+    .projects-track.auto-scrolling {
+        transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother auto-scroll */
+    }
+
+    /* Enhanced dragging state */
+    .projects-track.dragging {
+        transition: none !important; /* Immediate response during drag */
+        cursor: grabbing;
+    }
+
+    .projects-track.dragging .project-item {
+        pointer-events: none; /* Prevent clicks during drag */
+    }
+
+    /* Manual mode visual feedback */
+    .projects-track.manual-mode {
+        cursor: grab;
+        position: relative;
+    }
+
+    .projects-track.manual-mode::before {
+        content: 'Manual Mode - Double-tap to exit';
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 113, 227, 0.9);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+        z-index: 20;
+        pointer-events: none;
+        opacity: 0.8;
+        animation: fadeInManualMode 0.3s ease-out;
+    }
+
+    @keyframes fadeInManualMode {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-10px);
+        }
+        to {
+            opacity: 0.8;
+            transform: translateX(-50%) translateY(0);
+        }
+    }
+
+    /* Subtle Apple-Style Left Fade Gradient */
+    .projects-slider-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px; /* Reduced for more subtle effect */
+        height: 100%;
+        background: linear-gradient(
+            to right,
+            rgba(17, 17, 18, 0.95) 0%,
+            rgba(17, 17, 18, 0.6) 40%,
+            rgba(17, 17, 18, 0) 100%
+        );
+        z-index: 10;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Subtle Apple-Style Right Fade Gradient */
+    .projects-slider-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px; /* Reduced for more subtle effect */
+        height: 100%;
+        background: linear-gradient(
+            to left,
+            rgba(17, 17, 18, 0.95) 0%,
+            rgba(17, 17, 18, 0.6) 40%,
+            rgba(17, 17, 18, 0) 100%
+        );
+        z-index: 10;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Responsive fade widths - more subtle */
+    @media (max-width: 640px) {
+        .projects-slider-container::before,
+        .projects-slider-container::after {
+            width: 60px;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .projects-slider-container::before,
+        .projects-slider-container::after {
+            width: 120px;
+        }
+    }
+    /* Apple-Style Project Items with Enhanced Dimensions */
     .project-item {
         flex: 0 0 auto;
-        width: 320px;
+        width: 380px; /* Increased width for Apple-like proportions */
         background-color: #1d1d1f;
-        border-radius: 12px;
+        border-radius: 24px; /* Larger border radius like Apple */
         overflow: hidden;
         cursor: pointer;
-        transition: transform 0.3s ease, outline 0.2s ease;
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); /* Apple's signature easing */
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.12),
+            0 2px 8px rgba(0, 0, 0, 0.08),
+            0 1px 2px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        position: relative;
+        backdrop-filter: blur(20px);
+        transform: scale(1);
     }
+
     .project-item:hover {
-        transform: translateY(-5px);
+        transform: translateY(-6px) scale(1.015); /* Subtle Apple-like hover */
+        box-shadow:
+            0 16px 48px rgba(0, 0, 0, 0.18),
+            0 6px 20px rgba(0, 0, 0, 0.12),
+            0 2px 8px rgba(0, 0, 0, 0.06);
+        border-color: rgba(255, 255, 255, 0.12);
     }
+
+    /* Apple-Style Responsive Project Item Sizing */
+    @media (max-width: 640px) {
+        .project-item {
+            width: 300px; /* Larger on mobile for better touch targets */
+            border-radius: 20px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .project-item {
+            width: 360px;
+            border-radius: 22px;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .project-item {
+            width: 400px; /* Even larger for desktop */
+            border-radius: 24px;
+        }
+    }
+
+    @media (min-width: 1400px) {
+        .project-item {
+            width: 420px; /* Maximum size for large screens */
+            border-radius: 26px;
+        }
+    }
+    /* Apple-Style Project Item Content */
     .project-item img {
         width: 100%;
-        height: 180px;
+        height: 240px; /* Increased height for better proportions */
         object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
+
+    .project-item:hover img {
+        transform: scale(1.03); /* More subtle image scaling */
+    }
+
     .project-item h4 {
-        padding: 1rem 1rem 0.5rem;
-        font-size: 1.1rem;
+        padding: 1.5rem 1.5rem 0.75rem; /* Increased padding for spaciousness */
+        font-size: 1.25rem; /* Slightly larger font */
         font-weight: 600;
         font-family: var(--font-geist-mono), monospace;
+        color: #f5f5f7;
+        line-height: 1.25; /* Tighter line height for Apple-like typography */
+        letter-spacing: -0.01em; /* Subtle letter spacing */
     }
+
     .project-item p {
-        padding: 0 1rem 1rem;
-        font-size: 0.9rem;
+        padding: 0 1.5rem 1.5rem; /* Increased padding */
+        font-size: 1rem; /* Slightly larger description text */
         color: #86868b;
         font-family: var(--font-geist-mono), monospace;
+        line-height: 1.4;
+        letter-spacing: -0.005em;
+    }
+
+    /* Apple-Style Responsive Content Sizing */
+    @media (max-width: 640px) {
+        .project-item img {
+            height: 200px; /* Larger on mobile */
+        }
+
+        .project-item h4 {
+            padding: 1.25rem 1.25rem 0.5rem;
+            font-size: 1.15rem; /* Larger mobile text */
+            line-height: 1.2;
+        }
+
+        .project-item p {
+            padding: 0 1.25rem 1.25rem;
+            font-size: 0.95rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .project-item img {
+            height: 260px; /* Increased for tablet */
+        }
+
+        .project-item h4 {
+            font-size: 1.3rem;
+            padding: 1.75rem 1.75rem 0.75rem;
+        }
+
+        .project-item p {
+            font-size: 1.05rem;
+            padding: 0 1.75rem 1.75rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .project-item img {
+            height: 280px; /* Even larger for desktop */
+        }
+
+        .project-item h4 {
+            font-size: 1.4rem; /* Larger desktop text */
+            padding: 2rem 2rem 0.75rem;
+        }
+
+        .project-item p {
+            font-size: 1.1rem;
+            padding: 0 2rem 2rem;
+        }
     }
     .highlight-link {
         color: #0071e3;
@@ -297,99 +546,178 @@ const GlobalStyles = () => (
         box-shadow: 0 6px 16px rgba(0, 113, 227, 0.4);
         transform: translateY(-2px);
     }
+    /* Video overlay container - positioned at bottom of container */
+    .video-overlay-container {
+        position: relative;
+        width: 100%;
+        min-height: 140px; /* Increased for better spacing */
+        margin-top: auto; /* Push to bottom of flex container */
+        padding: 2.5rem; /* Increased padding for more spacious feel */
+        background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.5), rgba(0,0,0,0.1));
+        border-radius: 0 0 12px 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 3rem; /* Increased gap for better separation */
+        backdrop-filter: blur(8px); /* Add subtle blur effect */
+        border-top: 1px solid rgba(255,255,255,0.1); /* Subtle separator */
+    }
+
     .video-text-overlay {
-        position: absolute;
+        position: relative; /* Changed from absolute to relative */
         color: white;
         z-index: 10;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        max-width: 45%; /* Give a bit more space */
+        text-shadow: 0 3px 6px rgba(0,0,0,0.8); /* Enhanced text shadow for better readability */
+        flex: 1; /* Allow flexible sizing */
+        max-width: 45%;
+        padding: 1.5rem 0; /* Increased vertical padding for better spacing */
+        min-height: 120px; /* Increased minimum height to accommodate longer content */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Changed to flex-start to allow content to flow naturally */
+        overflow-y: auto; /* Allow scrolling if content is too long */
+        max-height: 400px; /* Set maximum height to prevent overlay from becoming too large */
     }
     .video-text-overlay-left {
-        left: 20px; /* Adjust as needed */
-        bottom: 20px; /* Adjust as needed */
         text-align: left;
+        padding-right: 1.5rem; /* Increased padding for better separation */
     }
     .video-text-overlay-right {
-        right: 20px; /* Adjust as needed */
-        bottom: 20px; /* Adjust as needed */
         text-align: right;
-        max-width: 45%; /* Give a bit more space */
+        padding-left: 1.5rem; /* Increased padding for better separation */
+    }
+
+    /* Responsive adjustments for overlay text */
+    @media (max-width: 768px) {
+        .video-text-overlay {
+            max-width: 100%; /* Full width on mobile */
+            padding: 1rem 0;
+            min-height: 100px;
+            max-height: 300px; /* Reduced max height on mobile */
+        }
+        .video-text-overlay-left,
+        .video-text-overlay-right {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            text-align: left; /* Left align both on mobile for better readability */
+        }
+        .video-text-overlay p {
+            font-size: 1rem; /* Slightly smaller on mobile */
+            line-height: 1.5;
+        }
+        .video-text-overlay h3 {
+            font-size: 1.4rem; /* Smaller title on mobile */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .video-text-overlay p {
+            font-size: 0.9rem; /* Even smaller on very small screens */
+        }
+        .video-text-overlay h3 {
+            font-size: 1.2rem;
+        }
     }
     .video-text-overlay h3 {
-        font-size: 1.25rem; /* text-xl */
-        /* sm:font-size: 1.5rem; Tailwind class sm:text-2xl will handle this */
-        font-weight: 600; /* semibold */
-        margin-bottom: 0.25rem; /* mb-1 */
+        font-size: 1.6rem; /* Further increased for better visibility */
+        font-weight: 700; /* Bolder font weight for better contrast */
+        margin-bottom: 1rem; /* Increased margin for better separation */
         font-family: var(--font-geist-mono), monospace;
+        line-height: 1.2; /* Tighter line height for titles */
+        letter-spacing: -0.02em; /* Slight negative letter spacing for modern look */
     }
     .video-text-overlay p {
-        font-size: 0.875rem; /* text-base */
-        /* sm:font-size: 1rem; Tailwind class sm:text-lg will handle this */
-        color: #86868b; /* dim-text */
+        font-size: 1.1rem; /* Further increased for better readability */
+        color: #c0c0c0; /* Even lighter color for better contrast */
         font-family: var(--font-geist-mono), monospace;
+        line-height: 1.6; /* Increased line height for better readability of longer text */
+        margin: 0; /* Remove default margins */
+        opacity: 0.9; /* Slight transparency for hierarchy */
+        white-space: pre-line; /* Preserve line breaks from \n characters */
+        word-wrap: break-word; /* Ensure long words break properly */
+        overflow-wrap: break-word; /* Additional word breaking support */
     }
-    .project-item.active-project { 
-        outline: 2px solid #0071e3;
-        outline-offset: 2px;
+    /* Apple-Style Active Project Styling */
+    .project-item.active-project {
+        transform: translateY(-4px) scale(1.02); /* Subtle active scaling */
+        box-shadow:
+            0 12px 40px rgba(255, 255, 255, 0.08),
+            0 6px 20px rgba(0, 0, 0, 0.15),
+            0 2px 8px rgba(0, 0, 0, 0.1);
+        border-color: rgba(255, 255, 255, 0.15); /* Subtle white border */
+        background-color: #1f1f21; /* Slightly lighter background */
     }
-    .flashlight {
-        position: fixed;
-        border-radius: 50%;
-        width: 300px;
-        height: 300px;
-        pointer-events: none;
-        z-index: 9999;
-        background: radial-gradient(circle, rgba(220, 220, 200, 0.15) 0%, rgba(200, 200, 180, 0.1) 20%, rgba(0,0,0,0) 60%);
-        mix-blend-mode: overlay;
-        transition: transform 0.05s ease-out, opacity 0.3s ease-in-out;
-        opacity: 0;
+
+    /* Apple-style depth effect during auto-scroll */
+    .projects-track.auto-scrolling .project-item {
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .main-container:hover .flashlight {
+
+    .projects-track.auto-scrolling .project-item.active-project {
+        transform: translateY(-8px) scale(1.05); /* More pronounced during auto-scroll */
+        z-index: 10;
+    }
+
+    /* Smooth transitions during drag */
+    .projects-track.dragging .project-item {
+        transition: transform 0.1s ease-out;
+    }
+
+    /* Apple-style parallax effect for non-active items during movement */
+    .projects-track.auto-scrolling .project-item:not(.active-project) {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+
+    /* User-selected project styling - more prominent */
+    .project-item.user-selected {
+        transform: translateY(-6px) scale(1.03) !important;
+        box-shadow:
+            0 16px 48px rgba(255, 255, 255, 0.12),
+            0 8px 24px rgba(0, 0, 0, 0.18),
+            0 4px 12px rgba(0, 0, 0, 0.12);
+        border-color: rgba(255, 255, 255, 0.2);
+        background-color: #212123;
+        z-index: 15;
+    }
+
+    .project-item.user-selected::before {
         opacity: 1;
+        transform: scale(1.01);
+        background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(255, 255, 255, 0.08) 50%,
+            rgba(255, 255, 255, 0.15) 100%);
     }
-    
-    /* Hidden text effect styles */
-    .hidden-text-area {
-        position: relative;
-        overflow: hidden;
+
+    .project-item.active-project::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.05) 50%,
+            rgba(255, 255, 255, 0.1) 100%);
+        border-radius: 26px; /* Match the increased border radius */
+        z-index: -1;
+        opacity: 0.8;
+        animation: subtleGlow 3s ease-in-out infinite alternate;
     }
-    
-    /* Make text nearly invisible by default by matching text color to background */
-    .hidden-text-area h1, 
-    .hidden-text-area h2, 
-    .hidden-text-area h3, 
-    .hidden-text-area h4, 
-    .hidden-text-area p, 
-    .hidden-text-area span,
-    .hidden-text-area a,
-    .hidden-text-area .project-item h4,
-    .hidden-text-area .project-item p {
-        color: rgba(17, 17, 18, 0.7); /* Nearly invisible - close to background color */
-        transition: color 0.3s ease, text-shadow 0.3s ease;
+
+    @keyframes subtleGlow {
+        0% {
+            opacity: 0.6;
+            transform: scale(1);
+        }
+        100% {
+            opacity: 0.9;
+            transform: scale(1.005);
+        }
     }
-    
-    /* Special handling for links to ensure they're also hidden */
-    .hidden-text-area a.highlight-link {
-        color: rgba(17, 17, 18, 0.7) !important;
-        transition: color 0.3s ease, text-shadow 0.3s ease;
-    }
-    
-    /* Revealed text style */
-    .text-revealed {
-        color: #f5f5f7 !important; /* Bright white when revealed */
-        text-shadow: 0 0 8px rgba(245, 245, 247, 0.4);
-    }
-    
-    /* Special handling for links when revealed */
-    .text-revealed.highlight-link {
-        color: #0071e3 !important; /* Blue for links when revealed */
-        text-shadow: 0 0 8px rgba(0, 113, 227, 0.4);
-    }
-    
-    /* Keep some elements visible regardless of flashlight */
-    .always-visible {
-        color: #f5f5f7 !important;
-    }
+
     /* Call-to-action box styles */
     .cta-box {
       background: linear-gradient(135deg, #003049, #0071e3);
@@ -401,220 +729,199 @@ const GlobalStyles = () => (
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    
+
     .cta-box:hover {
       transform: translateY(-5px);
       box-shadow: 0 12px 40px rgba(0, 113, 227, 0.4);
     }
-    
+
     .cta-box h3 {
       font-size: 2rem;
       font-weight: 700;
       margin-bottom: 1rem;
       color: white;
     }
-    
+
     .cta-box p {
       font-size: 1.1rem;
       color: rgba(255, 255, 255, 0.9);
       margin-bottom: 1.5rem;
     }
-    /* Project dots navigation */
+    /* Apple-Style Project Dots Navigation */
     .project-dots-nav {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 12px;
-      margin-top: 2rem;
+      gap: 12px; /* Reduced gap for Apple-like spacing */
+      margin-top: 4rem; /* Increased margin for better separation */
+      padding: 2rem 0; /* Increased padding */
+      position: relative;
     }
-    
+
+    .project-dots-nav::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% + 3rem); /* Slightly wider */
+      height: 50px; /* Reduced height for subtlety */
+      background: rgba(0, 0, 0, 0.05); /* More subtle background */
+      border-radius: 25px;
+      backdrop-filter: blur(20px); /* Increased blur */
+      border: 1px solid rgba(255, 255, 255, 0.03); /* More subtle border */
+      z-index: -1;
+    }
+
     .project-dot {
-      width: 12px;
-      height: 12px;
+      width: 8px; /* Smaller, more Apple-like */
+      height: 8px;
       border-radius: 50%;
-      border: 2px solid #0071e3;
-      background-color: transparent;
+      border: none; /* Remove border for cleaner look */
+      background-color: rgba(255, 255, 255, 0.3); /* Subtle inactive state */
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); /* Apple's signature easing */
       padding: 0;
+      position: relative;
+      z-index: 1;
     }
-    
+
+    .project-dot::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
     .project-dot:hover {
-      transform: scale(1.2);
-      box-shadow: 0 0 8px rgba(0, 113, 227, 0.4);
+      transform: scale(1.5); /* Subtle hover scaling */
+      background-color: rgba(255, 255, 255, 0.6);
     }
-    
+
+    .project-dot:hover::before {
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
     .project-dot.active {
-      background-color: #0071e3;
-      background: linear-gradient(135deg, #003049, #0071e3);
-      transform: scale(1.1);
+      background: #ffffff; /* Clean white active state */
+      transform: scale(1.25); /* Subtle active scaling */
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Subtle glow */
     }
-    
+
+    .project-dot.active::before {
+      width: 16px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Apple-Style Responsive Dots Navigation */
     @media (max-width: 640px) {
       .project-dots-nav {
         gap: 10px;
+        margin-top: 3rem;
+        padding: 1.5rem 0;
       }
+
+      .project-dots-nav::before {
+        height: 40px;
+        border-radius: 20px;
+        width: calc(100% + 2rem);
+      }
+
+      .project-dot {
+        width: 6px;
+        height: 6px;
+      }
+
+      .project-dot:hover::before,
+      .project-dot.active::before {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .project-dots-nav {
+        gap: 14px;
+        margin-top: 4rem;
+      }
+
       .project-dot {
         width: 10px;
         height: 10px;
       }
+
+      .project-dot:hover::before {
+        width: 24px;
+        height: 24px;
+      }
+
+      .project-dot.active::before {
+        width: 20px;
+        height: 20px;
+      }
     }
-    /* Technology tags styling */
+
+    @media (min-width: 1024px) {
+      .project-dots-nav {
+        gap: 16px;
+        margin-top: 5rem;
+      }
+
+      .project-dot {
+        width: 10px;
+        height: 10px;
+      }
+
+      .project-dot:hover::before {
+        width: 28px;
+        height: 28px;
+      }
+
+      .project-dot.active::before {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    /* Apple-Style Technology Tags */
     .tech-tags-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      padding: 0 1rem 1rem;
+      gap: 0.75rem; /* Increased gap for better spacing */
+      padding: 0 1.5rem 1.5rem; /* Increased padding to match content */
     }
-    
+
     .tech-tag {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background-color: #2a2a2d;
-      color: #86868b;
-      font-size: 0.75rem;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
+      background-color: rgba(255, 255, 255, 0.08); /* More subtle background */
+      color: #a1a1a6; /* Slightly lighter text */
+      font-size: 0.8rem; /* Slightly larger text */
+      padding: 0.4rem 0.75rem; /* Increased padding for Apple-like proportions */
+      border-radius: 12px; /* Larger border radius */
       font-family: var(--font-geist-mono), monospace;
       white-space: nowrap;
-      height: 1.5rem;
+      height: auto; /* Remove fixed height */
+      border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); /* Apple easing */
     }
-    /* UV Mode Styles */
-    .uv-text-glow {
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 12px rgba(255, 255, 255, 0.6);
-      color: #f5f5f7 !important;
-      transition: text-shadow 0.5s ease, color 0.5s ease;
+
+    .tech-tag:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+      color: #d1d1d6;
+      transform: translateY(-1px);
     }
-    
-    /* Mode Toggle Styles */
-    .mode-toggle-container {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      z-index: 999; /* Increased from 50 */
-      display: flex;
-      align-items: center;
-      padding: 0.5rem;
-      background-color: rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(4px);
-      border-radius: 0.375rem;
-      transition: background-color 0.3s ease;
-    }
-    
-    .mode-toggle-container:hover {
-      background-color: rgba(0, 0, 0, 0.3);
-    }
-    
-    /* Adjust flashlight transition */
-    .flashlight {
-      transition: transform 0.05s ease-out, opacity 0.3s ease-in-out;
-    }
-    
-    /* Light Switch Styles */
-    .light-switch-container {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 60px;
-      padding: 10px;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    
-    .light-switch-container:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-    }
-    
-    .light-switch {
-      position: relative;
-      width: 40px;
-      height: 70px;
-      background-color: #222;
-      border-radius: 8px;
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8);
-      cursor: pointer;
-      overflow: hidden;
-    }
-    
-    .switch-toggle {
-      position: absolute;
-      width: 34px;
-      height: 30px;
-      left: 3px;
-      background-color: #ddd;
-      border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-      transition: top 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    
-    .switch-toggle.off {
-      top: 5px;
-    }
-    
-    .switch-toggle.on {
-      top: 35px;
-    }
-    
-    .switch-label {
-      margin-top: 8px;
-      font-size: 12px;
-      font-weight: 500;
-      color: #fff;
-      text-align: center;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-    }
-    
-    .switch-mode {
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-top: 2px;
-    }
-    
-    /* UV indicator - changed to white */
-    .uv-indicator {
-      position: absolute;
-      bottom: 5px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: #ffffff; /* Changed from #8a2be2 to white */
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Changed to white glow */
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .uv-indicator.active {
-      opacity: 1;
-    }
-    
-    /* Flashlight indicator */
-    .flashlight-indicator {
-      position: absolute;
-      top: 5px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: #ffcc00;
-      box-shadow: 0 0 8px #ffcc00;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .flashlight-indicator.active {
-      opacity: 1;
-    }
+
     /* Project Detail Panel Styles */
     .project-detail-overlay {
       position: fixed;
@@ -631,12 +938,12 @@ const GlobalStyles = () => (
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
-    
+
     .project-detail-overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
-    
+
     .project-detail-container {
       position: relative;
       width: 90%;
@@ -652,26 +959,26 @@ const GlobalStyles = () => (
       opacity: 0;
       transition: transform 0.4s ease, opacity 0.4s ease;
     }
-    
+
     .project-detail-overlay.active .project-detail-container {
       transform: translateY(0);
       opacity: 1;
     }
-    
+
     .project-detail-header {
       position: relative;
       height: 40%;
       overflow: hidden;
       background-color: #000;
     }
-    
+
     .project-detail-header-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
       opacity: 0.8;
     }
-    
+
     .project-detail-header-overlay {
       position: absolute;
       bottom: 0;
@@ -680,13 +987,13 @@ const GlobalStyles = () => (
       padding: 2rem;
       background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
     }
-    
+
     .project-detail-content {
       flex: 1;
       overflow-y: auto;
       padding: 2rem;
     }
-    
+
     .project-detail-nav {
       position: absolute;
       bottom: 1.5rem;
@@ -697,7 +1004,7 @@ const GlobalStyles = () => (
       align-items: center;
       gap: 1rem;
     }
-    
+
     .project-detail-dot {
       width: 8px;
       height: 8px;
@@ -706,12 +1013,12 @@ const GlobalStyles = () => (
       cursor: pointer;
       transition: background-color 0.2s ease, transform 0.2s ease;
     }
-    
+
     .project-detail-dot.active {
       background-color: #0071e3;
       transform: scale(1.5);
     }
-    
+
     .project-detail-close {
       position: absolute;
       top: 1rem;
@@ -727,18 +1034,18 @@ const GlobalStyles = () => (
       z-index: 10;
       transition: background-color 0.2s ease;
     }
-    
+
     .project-detail-close:hover {
       background-color: rgba(0, 0, 0, 0.8);
     }
-    
+
     .project-detail-gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 1rem;
       margin-top: 1.5rem;
     }
-    
+
     .gallery-image {
       width: 100%;
       height: 120px;
@@ -747,12 +1054,12 @@ const GlobalStyles = () => (
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    
+
     .gallery-image:hover {
       transform: translateY(-5px);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
-    
+
     .tech-badge {
       display: inline-block;
       padding: 0.25rem 0.75rem;
@@ -763,13 +1070,13 @@ const GlobalStyles = () => (
       font-size: 0.8rem;
       font-weight: 500;
     }
-    
+
     .feature-item, .challenge-item {
       margin-bottom: 1rem;
       padding-left: 1.5rem;
       position: relative;
     }
-    
+
     .feature-item:before, .challenge-item:before {
       content: '';
       position: absolute;
@@ -780,19 +1087,19 @@ const GlobalStyles = () => (
       border-radius: 50%;
       background-color: #0071e3;
     }
-    
+
     .challenge-solution {
       margin-top: 0.5rem;
       padding-left: 1.5rem;
       color: #86868b;
     }
-    
+
     .project-links {
       display: flex;
       gap: 1rem;
       margin-top: 1rem;
     }
-    
+
     .project-link-button {
       display: flex;
       align-items: center;
@@ -804,179 +1111,402 @@ const GlobalStyles = () => (
       font-size: 0.9rem;
       transition: background-color 0.2s ease;
     }
-    
+
     .project-link-button:hover {
       background-color: rgba(255, 255, 255, 0.2);
     }
+    /* Enhanced Financial Analysis Container Styles */
+    .financial-analysis-container {
+      max-width: 100% !important; /* Use full available width within container */
+      width: 100% !important;
+      margin: 0 auto;
+      overflow: visible; /* Ensure content is not clipped */
+    }
+
+    /* Responsive design for Financial Analysis section */
+    @media (max-width: 1600px) {
+      .chart-container {
+        max-width: 1200px;
+        padding: 3.5rem;
+      }
+
+      .project-demo-container {
+        padding: 3.5rem;
+        margin: 2.5rem 0;
+        min-height: 600px;
+      }
+
+      .chart-bars {
+        height: 350px;
+      }
+
+      .chart-year {
+        width: 100px;
+      }
+
+      .bar-container {
+        width: 70px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .chart-container {
+        max-width: 900px;
+        padding: 3rem;
+      }
+
+      .project-demo-container {
+        padding: 2.5rem;
+        margin: 0;
+        min-height: 400px;
+      }
+
+      .video-overlay-container {
+        padding: 1.75rem;
+        min-height: 110px;
+      }
+
+      .video-text-overlay h3 {
+        font-size: 1.4rem;
+      }
+
+      .video-text-overlay p {
+        font-size: 0.95rem;
+      }
+
+      .financial-analysis-container.video-placeholder {
+        min-height: 650px;
+      }
+
+      .demo-header h3 {
+        font-size: 2rem;
+      }
+
+      .demo-header p {
+        font-size: 1.1rem;
+      }
+
+      .chart-bars {
+        height: 300px;
+      }
+
+      .chart-year {
+        width: 90px;
+      }
+
+      .bar-container {
+        width: 60px;
+      }
+
+      .legend-item {
+        font-size: 1.25rem;
+      }
+
+      .legend-color {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .chart-container {
+        max-width: 100%;
+        padding: 2.5rem;
+        margin: 0 1rem;
+      }
+
+      .project-demo-container {
+        padding: 2rem;
+        margin: 0;
+        min-height: 350px;
+      }
+
+      .video-overlay-container {
+        padding: 1.5rem;
+        min-height: 100px;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .video-text-overlay {
+        max-width: 100%;
+        padding: 0.5rem 0;
+      }
+
+      .video-text-overlay h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .video-text-overlay p {
+        font-size: 0.9rem;
+      }
+
+      .financial-analysis-container.video-placeholder {
+        min-height: 550px;
+        padding: 1rem 0;
+      }
+
+      .demo-header h3 {
+        font-size: 1.75rem;
+      }
+
+      .demo-header p {
+        font-size: 1rem;
+      }
+
+      .chart-legend {
+        gap: 2rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .legend-item {
+        font-size: 1.1rem;
+      }
+
+      .legend-color {
+        width: 18px;
+        height: 18px;
+      }
+
+      .chart-bars {
+        height: 250px;
+      }
+
+      .chart-year {
+        width: 80px;
+        margin: 0 0.5rem;
+      }
+
+      .bar-container {
+        width: 50px;
+      }
+
+      .year-label {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .key-findings {
+        padding: 3rem;
+        margin-top: 3rem;
+      }
+
+      .key-findings h4 {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .key-findings ul {
+        font-size: 1rem;
+        padding-left: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .chart-container {
+        padding: 1.5rem;
+        margin: 0 0.5rem;
+      }
+
+      .project-demo-container {
+        padding: 1.5rem;
+        min-height: 350px;
+      }
+
+      .demo-header h3 {
+        font-size: 1.25rem;
+      }
+
+      .demo-header p {
+        font-size: 0.875rem;
+      }
+
+      .chart-legend {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .legend-color {
+        width: 14px;
+        height: 14px;
+        margin-right: 8px;
+      }
+
+      .key-findings {
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .key-findings h4 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+
+      .key-findings ul {
+        font-size: 0.875rem;
+        line-height: 1.8;
+        padding-left: 1.5rem;
+      }
+
+      .key-findings li {
+        margin-bottom: 0.75rem;
+      }
+    }
+
     .project-demo-container {
       display: flex;
       flex-direction: column;
-      height: 100%;
-      min-height: 450px; /* Set minimum height */
-      padding: 2rem; /* Increased padding */
+      height: auto;
+      min-height: 400px; /* Adequate minimum height for content */
+      padding: 3rem;
       background: rgba(15, 15, 20, 0.9);
-      border-radius: 8px;
+      border-radius: 16px 16px 0 0; /* Only round top corners to connect with overlay */
       color: #ffffff;
+      margin: 0; /* Remove margin to connect with overlay */
+      width: 100%;
+      flex: 1; /* Take available space in flex container */
     }
-    
+
     .demo-header {
-      margin-bottom: 1.5rem; /* Add more space below header */
+      margin-bottom: 2rem; /* Reduced space below header for better utilization */
+      text-align: center; /* Center align header text */
     }
-    
+
+    .demo-header h3 {
+      margin-bottom: 1.5rem; /* More space between title and description */
+      font-size: 2.5rem; /* Much larger title */
+      font-weight: 700; /* Bolder font weight */
+    }
+
+    .demo-header p {
+      font-size: 1.25rem; /* Much larger description text */
+      line-height: 1.8; /* Better line height for readability */
+      max-width: 800px; /* Limit width for better readability */
+      margin: 0 auto; /* Center the description */
+    }
+
     .demo-visualization {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 1.5rem 0; /* Increased margin */
-      min-height: 300px; /* Set minimum height */
+      margin: 2rem 0; /* Reduced margin for better space utilization */
+      min-height: auto; /* Let content determine height */
     }
-    
+
     .chart-container {
       width: 100%;
-      max-width: 700px; /* Increased from 500px */
-      background: rgba(30, 30, 40, 0.7);
-      padding: 2rem; /* Increased padding */
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: min(1400px, 90vw); /* Responsive max-width that doesn't exceed viewport */
+      background: rgba(30, 30, 40, 0.8); /* Slightly more opaque background */
+      padding: 4rem; /* Much larger padding for internal space */
+      border-radius: 16px; /* Larger border radius */
+      border: 1px solid rgba(255, 255, 255, 0.15); /* Slightly more visible border */
       margin: 0 auto; /* Center the container */
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4); /* Enhanced shadow for depth */
     }
-    
+
     .chart-legend {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem; /* Increased margin */
+      gap: 2rem; /* Reduced gap for better space utilization */
+      margin-bottom: 2rem; /* Reduced margin for better space utilization */
+      padding: 1rem 0; /* Reduced vertical padding */
     }
-    
+
     .legend-item {
       display: flex;
       align-items: center;
-      font-size: 0.875rem;
+      font-size: 1.5rem; /* Much larger font size */
       color: #e0e0e0;
+      font-weight: 600; /* Bolder font weight */
     }
-    
+
     .legend-color {
       display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-right: 6px;
-      border-radius: 2px;
+      width: 24px; /* Much larger size */
+      height: 24px; /* Much larger size */
+      margin-right: 15px; /* Increased margin */
+      border-radius: 4px; /* Larger border radius */
     }
-    
+
+
+
     .key-findings {
-      margin-top: 2rem; /* Increased margin */
-      padding: 1.5rem; /* Increased padding */
-      background: rgba(40, 40, 50, 0.7);
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-top: 2rem; /* Reduced margin for better space utilization */
+      padding: 2.5rem; /* Reduced padding for better space utilization */
+      background: rgba(40, 40, 50, 0.9); /* More opaque */
+      border-radius: 16px; /* Larger border radius to match container */
+      border: 1px solid rgba(255, 255, 255, 0.2); /* More visible border */
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
     }
-    
+
     .key-findings h4 {
-      margin-bottom: 0.75rem; /* Add space below heading */
+      margin-bottom: 2.5rem; /* Much more space below heading */
+      font-size: 2rem; /* Much larger heading */
+      color: #ffffff; /* Pure white for better contrast */
+      font-weight: 700; /* Bolder font weight */
+      text-align: center; /* Center the heading */
     }
-    
+
     .key-findings ul {
       list-style-type: disc;
-      padding-left: 1.5rem;
-      line-height: 1.8; /* Increased line height */
-      font-size: 0.875rem; /* Increased from 0.75rem */
+      padding-left: 3rem; /* Increased padding */
+      line-height: 2.2; /* Increased line height for better readability */
+      font-size: 1.125rem; /* Much larger font size */
+      max-width: 1000px; /* Limit width for better readability */
+      margin: 0 auto; /* Center the list */
     }
-    
+
     .key-findings li {
-      margin-bottom: 0.5rem; /* Add space between list items */
-    }
-    /* Project Demo Styles */
-    .project-demo-container {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      min-height: 450px; /* Set minimum height */
-      padding: 2rem; /* Increased padding */
-      background: rgba(15, 15, 20, 0.9);
-      border-radius: 8px;
-      color: #ffffff;
+      margin-bottom: 1.5rem; /* More space between list items */
+      color: #e0e0e0; /* Better color for list items */
     }
 
-    .demo-visualization {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .chart-container {
-      width: 100%;
-      max-width: 500px;
-    }
-
-    .chart-legend {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      font-size: 0.875rem;
-    }
-
-    .legend-color {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-right: 6px;
-      border-radius: 2px;
-    }
 
     .chart-bars {
       display: flex;
       justify-content: space-around;
-      height: 200px;
+      height: 350px; /* Optimized height for better space utilization */
+      margin: 2rem 0; /* Reduced margin for better space utilization */
+      padding: 1rem 0; /* Reduced padding for better space utilization */
     }
 
     .chart-year {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 60px;
+      width: 120px; /* Much wider for better spacing */
+      margin: 0 1rem; /* Increased horizontal margin between year columns */
     }
 
     .year-label {
-      margin-bottom: 0.5rem;
-      font-size: 0.75rem;
+      margin-bottom: 2rem; /* Much more space below year labels */
+      font-size: 1.25rem; /* Much larger font */
+      font-weight: 600; /* Bolder font weight */
+      color: #ffffff; /* Pure white for better contrast */
     }
 
     .bar-container {
       display: flex;
-      width: 40px;
+      width: 80px; /* Much wider for better visibility */
       height: 100%;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.2); /* More visible background */
+      border-radius: 8px; /* Larger border radius */
       overflow: hidden;
+      box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhanced inner shadow for depth */
     }
 
     .bar {
       width: 50%;
       transition: height 0.5s ease;
+      border-radius: 0 0 6px 6px; /* Larger rounding to bar tops */
     }
 
-    .key-findings {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 6px;
-    }
 
-    .key-findings ul {
-      list-style-type: disc;
-      padding-left: 1.5rem;
-      line-height: 1.4;
-    }
-    
+
     /* Stock chart styles */
     .stock-chart {
       position: relative;
@@ -984,12 +1514,12 @@ const GlobalStyles = () => (
       max-width: 600px;
       height: 200px;
     }
-    
+
     .chart-line {
       width: 100%;
       height: 100%;
     }
-    
+
     .prediction-overlay {
       position: absolute;
       top: 0;
@@ -998,7 +1528,7 @@ const GlobalStyles = () => (
       height: 100%;
       border-left: 1px dashed rgba(255, 255, 255, 0.3);
     }
-    
+
     .prediction-line {
       position: absolute;
       top: 2px;
@@ -1008,7 +1538,7 @@ const GlobalStyles = () => (
       background: rgba(118, 185, 0, 0.5);
       border-top: 1px dashed #76b900;
     }
-    
+
     .prediction-label {
       position: absolute;
       top: 10px;
@@ -1020,37 +1550,149 @@ const GlobalStyles = () => (
       font-size: 0.75rem;
       color: #76b900;
     }
-    
+
     .model-metrics {
       margin-top: 1.5rem;
       padding: 1rem;
       background: rgba(255, 255, 255, 0.05);
       border-radius: 6px;
     }
-    
+
     .metrics-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
       margin-top: 0.5rem;
     }
-    
+
     .metric {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
     }
-    
+
     .metric-label {
       font-size: 0.7rem;
       color: #999;
     }
-    
+
     .metric-value {
       font-size: 1rem;
       font-weight: 600;
       color: #76b900;
+    }
+
+    /* ETL Pipeline Diagram Styles */
+    .etl-pipeline-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .pipeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .step-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .step-icon::after {
+      content: '';
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 4px;
+    }
+
+    .step-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .pipeline-arrow {
+      font-size: 2rem;
+      color: #86868b;
+      font-weight: bold;
+    }
+
+    /* Analytics Dashboard Styles */
+    .analytics-dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .dashboard-metric {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .metric-title {
+      font-size: 0.75rem;
+      margin-bottom: 0.5rem;
+      opacity: 0.8;
+    }
+
+    .metric-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    /* Tech Showcase Styles */
+    .tech-showcase {
+      margin-top: 1.5rem;
+    }
+
+    /* Responsive adjustments for new components */
+    @media (max-width: 768px) {
+      .etl-pipeline-diagram {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .pipeline-arrow {
+        transform: rotate(90deg);
+        font-size: 1.5rem;
+      }
+
+      .analytics-dashboard {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .step-icon {
+        width: 50px;
+        height: 50px;
+      }
+
+      .step-icon::after {
+        width: 20px;
+        height: 20px;
+      }
     }
   `}</style>
 );
@@ -1066,44 +1708,43 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ titleLeft, descLeft, titleR
         return () => clearTimeout(timer);
     }, [titleLeft, descLeft, titleRight, descRight]);
 
-
   return (
-    <>
+    <div className="video-overlay-container">
       <div className={`video-text-overlay video-text-overlay-left transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-        <h3 className="text-xl sm:text-2xl font-semibold mb-1">{titleLeft}</h3>
-        <p className="text-base sm:text-lg dim-text">{descLeft}</p>
+        <h3>{titleLeft}</h3>
+        <p>{descLeft}</p>
       </div>
       <div className={`video-text-overlay video-text-overlay-right transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-        <h3 className="text-xl sm:text-2xl font-semibold mb-1">{titleRight}</h3>
-        <p className="text-base sm:text-lg dim-text">{descRight}</p>
+        <h3>{titleRight}</h3>
+        <p>{descRight}</p>
       </div>
-    </>
+    </div>
   );
 };
 
 // Add this component for the detailed project view
-const ProjectDetailView = ({ 
-  project, 
-  isOpen, 
-  onClose 
-}: { 
-  project: Project | null, 
-  isOpen: boolean, 
-  onClose: () => void 
+const ProjectDetailView = ({
+  project,
+  isOpen,
+  onClose
+}: {
+  project: Project | null,
+  isOpen: boolean,
+  onClose: () => void
 }) => {
   const [activePage, setActivePage] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // Close on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
-    
+
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
   }, [onClose]);
-  
+
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
@@ -1115,9 +1756,9 @@ const ProjectDetailView = ({
       document.body.style.overflow = '';
     };
   }, [isOpen]);
-  
+
   if (!project) return null;
-  
+
   // Ensure we have content for both pages
   const detailedDescription = project.detailedDescription || project.description;
   const keyFeatures = project.keyFeatures || ['Detailed information not available'];
@@ -1125,18 +1766,18 @@ const ProjectDetailView = ({
   const technologies = project.technologies || [];
   const accomplishments = project.accomplishments || [];
   const imageUrls = project.imageUrls || [project.image];
-  
+
   return (
     <div className={`project-detail-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}>
       <div className="project-detail-container" ref={containerRef} onClick={e => e.stopPropagation()}>
         <div className="project-detail-close" onClick={onClose}>
           <X size={20} color="white" />
         </div>
-        
+
         <div className="project-detail-header">
-          <img 
-            src={project.image} 
-            alt={project.title} 
+          <img
+            src={project.image}
+            alt={project.title}
             className="project-detail-header-image"
             onError={(e) => ((e.target as HTMLImageElement).src = 'https://placehold.co/1200x600/2a2a2d/555555?text=Image+Error')}
           />
@@ -1158,21 +1799,21 @@ const ProjectDetailView = ({
             </div>
           </div>
         </div>
-        
+
         <div className="project-detail-content">
           {activePage === 0 ? (
             // Page 1: Overview and Features
             <>
               <h3 className="text-xl font-semibold mb-4 text-white">Project Overview</h3>
               <p className="text-gray-300 mb-6">{detailedDescription}</p>
-              
+
               <h3 className="text-xl font-semibold mb-4 text-white">Technologies Used</h3>
               <div className="mb-6">
                 {technologies.map((tech, index) => (
                   <span key={index} className="tech-badge">{tech}</span>
                 ))}
               </div>
-              
+
               <h3 className="text-xl font-semibold mb-4 text-white">Key Features</h3>
               <div className="mb-6">
                 {keyFeatures.map((feature, index) => (
@@ -1196,7 +1837,7 @@ const ProjectDetailView = ({
               ) : (
                 <p className="text-gray-400 mb-6">Challenge information not available.</p>
               )}
-              
+
               <h3 className="text-xl font-semibold mb-4 text-white">Accomplishments</h3>
               {accomplishments.length > 0 ? (
                 <div className="mb-6">
@@ -1207,14 +1848,14 @@ const ProjectDetailView = ({
               ) : (
                 <p className="text-gray-400 mb-6">Accomplishment information not available.</p>
               )}
-              
+
               <h3 className="text-xl font-semibold mb-4 text-white">Gallery</h3>
               <div className="project-detail-gallery">
                 {imageUrls.map((url, index) => (
-                  <img 
+                  <img
                     key={index}
-                    src={url} 
-                    alt={`${project.title} screenshot ${index + 1}`} 
+                    src={url}
+                    alt={`${project.title} screenshot ${index + 1}`}
                     className="gallery-image"
                     onError={(e) => ((e.target as HTMLImageElement).src = 'https://placehold.co/400x300/2a2a2d/555555?text=Image+Error')}
                   />
@@ -1223,14 +1864,14 @@ const ProjectDetailView = ({
             </>
           )}
         </div>
-        
+
         <div className="project-detail-nav">
-          <div 
-            className={`project-detail-dot ${activePage === 0 ? 'active' : ''}`} 
+          <div
+            className={`project-detail-dot ${activePage === 0 ? 'active' : ''}`}
             onClick={() => setActivePage(0)}
           ></div>
-          <div 
-            className={`project-detail-dot ${activePage === 1 ? 'active' : ''}`} 
+          <div
+            className={`project-detail-dot ${activePage === 1 ? 'active' : ''}`}
             onClick={() => setActivePage(1)}
           ></div>
         </div>
@@ -1240,40 +1881,40 @@ const ProjectDetailView = ({
 };
 
 // Add this component for the highlights section with sliding panels
-const ProjectHighlights = ({ 
-  project 
-}: { 
-  project: Project 
+const ProjectHighlights = ({
+  project
+}: {
+  project: Project
 }) => {
   const [activePanel, setActivePanel] = useState(0);
-  
+
   // Basic info for first panel
   const basicInfo = {
     title: project.title,
     type: project.technologies?.[0] || "Project",
     image: project.image
   };
-  
+
   // Detailed info for second panel
   const detailedInfo = {
     description: project.description,
     technologies: project.technologies || [],
     keyPoints: project.keyFeatures || []
   };
-  
+
   return (
     <div className="highlights-container">
       <div className="highlights-panels-wrapper">
-        <div 
-          className="highlights-panels" 
+        <div
+          className="highlights-panels"
           style={{ transform: `translateX(-${activePanel * 50}%)` }}
         >
           {/* Panel 1: Basic Info */}
           <div className="highlights-panel">
             <div className="highlights-image-container">
-              <img 
-                src={basicInfo.image} 
-                alt={basicInfo.title} 
+              <img
+                src={basicInfo.image}
+                alt={basicInfo.title}
                 className="highlights-image"
                 onError={(e) => ((e.target as HTMLImageElement).src = 'https://placehold.co/600x400/2a2a2d/555555?text=Image+Error')}
               />
@@ -1283,7 +1924,7 @@ const ProjectHighlights = ({
               <h3 className="highlights-title">{basicInfo.title}</h3>
             </div>
           </div>
-          
+
           {/* Panel 2: Detailed Info */}
           <div className="highlights-panel">
             <div className="highlights-detail-content">
@@ -1310,15 +1951,15 @@ const ProjectHighlights = ({
           </div>
         </div>
       </div>
-      
+
       {/* Panel Navigation */}
       <div className="highlights-nav">
-        <button 
+        <button
           className={`highlights-nav-dot ${activePanel === 0 ? 'active' : ''}`}
           onClick={() => setActivePanel(0)}
           aria-label="View basic information"
         />
-        <button 
+        <button
           className={`highlights-nav-dot ${activePanel === 1 ? 'active' : ''}`}
           onClick={() => setActivePanel(1)}
           aria-label="View detailed information"
@@ -1337,82 +1978,52 @@ const ProjectShowcase: React.FC = () => {
     descRight: "Up to 24 hours.*"
   });
   const [currentActiveProjectIndex, setCurrentActiveProjectIndex] = useState(0);
-  const [geminiLoading, setGeminiLoading] = useState(false);
-  const [geminiResult, setGeminiResult] = useState<string | null>(null);
-  const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [isMouseInside, setIsMouseInside] = useState(false);
-  const [isUVMode, setIsUVMode] = useState(false);
-  const pathname = usePathname(); // Get current path
-  
-  // Check if we're on the projects page
-  const isProjectsPage = pathname === '/' || pathname === '/projects';
-  
+
+  // Apple-style slider state
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  const [isUserSelected, setIsUserSelected] = useState(false); // Track if user manually selected a project
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [dragStartScrollX, setDragStartScrollX] = useState(0);
+  const [momentum, setMomentum] = useState(0);
+  const [lastDragTime, setLastDragTime] = useState(0);
+  const [lastDragX, setLastDragX] = useState(0);
+
+  // Manual positioning control
+  const [isManualMode, setIsManualMode] = useState(false); // Track if user wants manual control
+  const [dragStartTime, setDragStartTime] = useState(0); // Track when drag started
+  const [dragHoldThreshold] = useState(500); // Milliseconds to hold before entering manual mode
+  const [lastTapTime, setLastTapTime] = useState(0); // For double-tap detection to exit manual mode
+
   const projectsTrackRef = useRef<HTMLDivElement>(null);
   const mainContainerRef = useRef<HTMLDivElement>(null); // Ref for the main container
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isDetailOpen, setIsDetailOpen] = useState(false);
-  
-  // Enhanced project data with detailed information
-  const enhancedProjectData: Project[] = [
-    {
-      id: 'proj1',
-      title: 'Financial Analysis of Transportation Trends (Capstone)',
-      description: 'Conducted a statistical analysis on the economic impact of Uber and rideshare platforms versus traditional taxis. Utilized R and Tableau to extract, clean, and visualize data, presenting findings on transportation disruption trends.',
-      technologies: ['R', 'Tableau', 'Statistical Analysis', 'Data Visualization'],
-      image: 'https://placehold.co/600x400.png',
-      repoUrl: 'https://github.com',
-      demoUrl: '#',
-      mediaType: 'image',
-      // New detailed fields
-      detailedDescription: 'This capstone project involved a comprehensive statistical analysis of how ride-sharing platforms like Uber have disrupted the traditional taxi industry. The study examined economic indicators, consumer behavior patterns, and market share shifts over a five-year period across major metropolitan areas. The analysis revealed significant correlations between ride-sharing adoption rates and decreased taxi revenue, while also identifying unexpected patterns in consumer preferences based on demographic factors.',
-      keyFeatures: [
-        'Comprehensive data collection from multiple transportation authorities and financial reports',
-        'Advanced statistical modeling using R to identify correlation patterns and economic trends',
-        'Interactive Tableau dashboards allowing stakeholders to explore data through multiple dimensions',
-        'Predictive analysis of future market share distribution based on current adoption trends'
-      ],
-      challenges: [
-        {
-          challenge: 'Inconsistent data formats across different transportation authorities',
-          solution: 'Developed custom ETL pipelines with data normalization procedures to create a unified dataset'
-        },
-        {
-          challenge: 'Limited access to proprietary rideshare company data',
-          solution: 'Implemented alternative data collection methods including public APIs and web scraping techniques'
-        }
-      ],
-      accomplishments: [
-        'Presented findings at the annual Transportation Economics Conference',
-        'Research cited in two industry publications on market disruption',
-        'Developed methodology now used by the city transportation department for quarterly analysis'
-      ],
-      imageUrls: [
-        'https://placehold.co/600x400.png',
-        'https://placehold.co/600x400.png',
-        'https://placehold.co/600x400.png'
-      ]
-    },
-    // Add similar detailed information for other projects...
-    // For brevity, I'm only showing one fully detailed project
-  ];
-  
-  // Function to open project details
-  const openProjectDetails = (project: Project) => {
-    // Find the enhanced version of the project with detailed info
-    const enhancedProject = enhancedProjectData.find(p => p.id === project.id) || project;
-    setSelectedProject(enhancedProject);
-    setIsDetailOpen(true);
-  };
-  
+  const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const momentumAnimationRef = useRef<number | null>(null);
+
+
+
+
+
   const updateVideoOverlayText = useCallback((project: Project) => {
-    setVideoOverlayData({
-      titleLeft: project.title,
-      descLeft: project.description.substring(0, 100) + (project.description.length > 100 ? "..." : ""),
-      titleRight: "Project Details",
-      descRight: `Explore ${project.title}.`
-    });
+    // Special handling for Financial Analysis project
+    if (project.id === 'proj1') {
+      setVideoOverlayData({
+        titleLeft: project.title,
+        descLeft: "When rideshare platforms disrupted a $2.3 billion market overnight, the transportation industry needed answers. This comprehensive capstone analysis decoded the seismic shift—revealing how Uber and competitors achieved 67% consumer dominance while traditional taxis lost ground across every major metropolitan market. Through sophisticated R statistical modeling and dynamic Tableau storytelling, the research uncovers the precise economic levers, behavioral triggers, and strategic maneuvers that redefined urban mobility forever.",
+        titleRight: "Executive Intelligence",
+        descRight: "Transforms complex market dynamics into actionable strategic insights for C-suite executives, policy architects, and institutional investors steering the $180 billion mobility revolution."
+      });
+    } else {
+      // Default behavior for other projects
+      setVideoOverlayData({
+        titleLeft: project.title,
+        descLeft: project.description.substring(0, 100) + (project.description.length > 100 ? "..." : ""),
+        titleRight: "Project Details",
+        descRight: `Explore ${project.title}.`
+      });
+    }
   }, []);
-  
+
   const setActiveProjectStyle = useCallback((activeIndex: number) => {
     if (projectsTrackRef.current) {
       const projectItems = projectsTrackRef.current.children;
@@ -1426,29 +2037,7 @@ const ProjectShowcase: React.FC = () => {
     }
   }, []);
 
-  const handleProjectClick = useCallback((project: Project, index: number) => {
-    setCurrentActiveProjectIndex(index);
-    updateVideoOverlayText(project);
-    setActiveProjectStyle(index);
 
-    if (projectsTrackRef.current) {
-      const projectItems = projectsTrackRef.current.children;
-      if (projectItems.length === 0) return;
-      
-      const itemWidth = (projectItems[0] as HTMLElement).offsetWidth;
-      const gapStyle = getComputedStyle(projectsTrackRef.current).gap;
-      const gap = parseFloat(gapStyle) || (1.5 * 16); // 1.5rem default in px
-      
-      let scrollTarget = index * (itemWidth + gap);
-      
-      if (projectsTrackRef.current.parentElement) {
-        const maxScroll = projectsTrackRef.current.scrollWidth - projectsTrackRef.current.parentElement.offsetWidth;
-        scrollTarget = Math.min(Math.max(0, scrollTarget), maxScroll);
-      }
-
-      projectsTrackRef.current.style.transform = `translateX(-${scrollTarget}px)`;
-    }
-  }, [updateVideoOverlayText, setActiveProjectStyle]);
 
   const updateSliderScroll = useCallback(() => {
     if (!projectsTrackRef.current || !projectsTrackRef.current.parentElement) return;
@@ -1466,7 +2055,327 @@ const ProjectShowcase: React.FC = () => {
     // Reset transform
     projectsTrackRef.current.style.transform = `translateX(0px)`;
   }, [updateVideoOverlayText, setActiveProjectStyle]);
-  
+
+  // Apple-style auto-scroll functionality
+  const startAutoScroll = useCallback(() => {
+    if (autoScrollIntervalRef.current) {
+      clearInterval(autoScrollIntervalRef.current);
+    }
+
+    autoScrollIntervalRef.current = setInterval(() => {
+      if (!isAutoScrolling || isDragging || isUserSelected) return; // Don't auto-scroll if user has selected a project
+
+      setCurrentActiveProjectIndex(prevIndex => {
+        const nextIndex = (prevIndex + 1) % projectData.length;
+
+        // Trigger the project click to handle scrolling
+        if (projectData[nextIndex]) {
+          updateVideoOverlayText(projectData[nextIndex]);
+          setActiveProjectStyle(nextIndex);
+
+          // Smooth scroll to next project
+          if (projectsTrackRef.current) {
+            const projectItems = projectsTrackRef.current.children;
+            if (projectItems.length > 0) {
+              const itemWidth = (projectItems[0] as HTMLElement).offsetWidth;
+              const gapStyle = getComputedStyle(projectsTrackRef.current).gap;
+              const gap = parseFloat(gapStyle) || (2 * 16);
+
+              // Account for container padding in auto-scroll centering
+              const container = projectsTrackRef.current.parentElement;
+              const containerWidth = container?.offsetWidth || 0;
+
+              // Get container padding to calculate actual available space
+              let availableWidth = containerWidth;
+              if (container) {
+                const containerStyles = getComputedStyle(container);
+                const paddingLeft = parseFloat(containerStyles.paddingLeft) || 0;
+                const paddingRight = parseFloat(containerStyles.paddingRight) || 0;
+                availableWidth = containerWidth - paddingLeft - paddingRight;
+              }
+
+              const itemCenter = nextIndex * (itemWidth + gap) + (itemWidth / 2);
+              let scrollTarget = itemCenter - (availableWidth / 2);
+
+              if (projectsTrackRef.current.parentElement) {
+                const maxScroll = projectsTrackRef.current.scrollWidth - projectsTrackRef.current.parentElement.offsetWidth;
+                scrollTarget = Math.min(Math.max(0, scrollTarget), maxScroll);
+              }
+
+              // Apply Apple-style smooth transform
+              projectsTrackRef.current.style.transition = 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+              projectsTrackRef.current.style.transform = `translateX(-${scrollTarget}px)`;
+
+              setTimeout(() => {
+                if (projectsTrackRef.current) {
+                  projectsTrackRef.current.style.transition = '';
+                }
+              }, 1200);
+            }
+          }
+        }
+
+        return nextIndex;
+      });
+    }, 4000); // Auto-scroll every 4 seconds like Apple
+  }, [isAutoScrolling, isDragging, isUserSelected, projectData, updateVideoOverlayText, setActiveProjectStyle]);
+
+  const stopAutoScroll = useCallback(() => {
+    if (autoScrollIntervalRef.current) {
+      clearInterval(autoScrollIntervalRef.current);
+      autoScrollIntervalRef.current = null;
+    }
+  }, []);
+
+  // Function to exit manual mode and return to normal behavior
+  const exitManualMode = useCallback(() => {
+    setIsManualMode(false);
+    setIsUserSelected(false);
+    setIsAutoScrolling(true);
+    console.log('Manual positioning mode deactivated - returning to normal behavior');
+
+    // Optionally snap to nearest project when exiting manual mode
+    if (projectsTrackRef.current && projectsTrackRef.current.parentElement) {
+      const projectItems = projectsTrackRef.current.children;
+      if (projectItems.length > 0) {
+        const itemWidth = (projectItems[0] as HTMLElement).offsetWidth;
+        const gapStyle = getComputedStyle(projectsTrackRef.current).gap;
+        const gap = parseFloat(gapStyle) || (2 * 16);
+
+        const transform = projectsTrackRef.current.style.transform;
+        const translateX = transform.match(/translateX\((-?\d+(?:\.\d+)?)px\)/);
+        const currentScrollX = translateX ? parseFloat(translateX[1]) : 0;
+
+        const container = projectsTrackRef.current.parentElement;
+        const containerWidth = container.offsetWidth;
+        let availableWidth = containerWidth;
+        const containerStyles = getComputedStyle(container);
+        const paddingLeft = parseFloat(containerStyles.paddingLeft) || 0;
+        const paddingRight = parseFloat(containerStyles.paddingRight) || 0;
+        availableWidth = containerWidth - paddingLeft - paddingRight;
+
+        let nearestIndex = Math.round((currentScrollX + availableWidth / 2) / (itemWidth + gap));
+        nearestIndex = Math.max(0, Math.min(projectData.length - 1, nearestIndex));
+
+        setCurrentActiveProjectIndex(nearestIndex);
+        if (projectData[nearestIndex]) {
+          updateVideoOverlayText(projectData[nearestIndex]);
+          setActiveProjectStyle(nearestIndex);
+        }
+      }
+    }
+
+    // Restart auto-scroll after a delay
+    setTimeout(() => {
+      startAutoScroll();
+    }, 1000);
+  }, [projectData, updateVideoOverlayText, setActiveProjectStyle, startAutoScroll]);
+
+  const handleProjectClick = useCallback((project: Project, index: number) => {
+    // Mark as user selected - this will keep the project selected and stop auto-scroll
+    setIsUserSelected(true);
+    setIsAutoScrolling(false);
+    stopAutoScroll();
+
+    setCurrentActiveProjectIndex(index);
+    updateVideoOverlayText(project);
+    setActiveProjectStyle(index);
+
+    if (projectsTrackRef.current) {
+      const projectItems = projectsTrackRef.current.children;
+      if (projectItems.length === 0) return;
+
+      const itemWidth = (projectItems[0] as HTMLElement).offsetWidth;
+      const gapStyle = getComputedStyle(projectsTrackRef.current).gap;
+      const gap = parseFloat(gapStyle) || (2 * 16); // Updated to 2rem for Apple-like spacing
+
+      // Apple-style centering calculation - account for container padding
+      const container = projectsTrackRef.current.parentElement;
+      const containerWidth = container?.offsetWidth || 0;
+
+      // Get container padding to calculate actual available space
+      let availableWidth = containerWidth;
+      if (container) {
+        const containerStyles = getComputedStyle(container);
+        const paddingLeft = parseFloat(containerStyles.paddingLeft) || 0;
+        const paddingRight = parseFloat(containerStyles.paddingRight) || 0;
+        availableWidth = containerWidth - paddingLeft - paddingRight;
+      }
+
+      const itemCenter = index * (itemWidth + gap) + (itemWidth / 2);
+      let scrollTarget = itemCenter - (availableWidth / 2);
+
+      if (projectsTrackRef.current.parentElement) {
+        const maxScroll = projectsTrackRef.current.scrollWidth - projectsTrackRef.current.parentElement.offsetWidth;
+        scrollTarget = Math.min(Math.max(0, scrollTarget), maxScroll);
+      }
+
+      // Apply Apple-style smooth transform with momentum
+      projectsTrackRef.current.style.transition = 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+      projectsTrackRef.current.style.transform = `translateX(-${scrollTarget}px)`;
+
+      // Reset transition after animation completes
+      setTimeout(() => {
+        if (projectsTrackRef.current) {
+          projectsTrackRef.current.style.transition = '';
+        }
+      }, 800);
+    }
+
+    // Project stays selected until user selects another one - no auto-resume
+  }, [updateVideoOverlayText, setActiveProjectStyle, stopAutoScroll]);
+
+  // Apple-style drag functionality
+  const handleDragStart = useCallback((clientX: number) => {
+    const currentTime = Date.now();
+    setIsDragging(true);
+    setIsAutoScrolling(false);
+    stopAutoScroll();
+    setDragStartX(clientX);
+    setLastDragX(clientX);
+    setLastDragTime(currentTime);
+    setDragStartTime(currentTime); // Track when drag started for manual mode detection
+
+    if (projectsTrackRef.current) {
+      const transform = projectsTrackRef.current.style.transform;
+      const translateX = transform.match(/translateX\((-?\d+(?:\.\d+)?)px\)/);
+      setDragStartScrollX(translateX ? parseFloat(translateX[1]) : 0);
+
+      // Remove transition during drag for immediate response
+      projectsTrackRef.current.style.transition = 'none';
+    }
+  }, [stopAutoScroll]);
+
+  const handleDragMove = useCallback((clientX: number) => {
+    if (!isDragging || !projectsTrackRef.current) return;
+
+    const deltaX = clientX - dragStartX;
+    const newScrollX = dragStartScrollX - deltaX; // Negative because we're moving content opposite to drag
+
+    // Calculate momentum for later use
+    const currentTime = Date.now();
+    const timeDelta = currentTime - lastDragTime;
+    if (timeDelta > 0) {
+      const velocity = (clientX - lastDragX) / timeDelta;
+      setMomentum(velocity * 100); // Scale for better feel
+    }
+
+    // Check if user has been dragging long enough to enter manual mode
+    const dragDuration = currentTime - dragStartTime;
+    if (dragDuration > dragHoldThreshold && !isManualMode) {
+      setIsManualMode(true);
+      // Optional: Add visual feedback that manual mode is active
+      console.log('Manual positioning mode activated');
+    }
+
+    setLastDragX(clientX);
+    setLastDragTime(currentTime);
+
+    // Apply bounds checking
+    if (projectsTrackRef.current.parentElement) {
+      const maxScroll = projectsTrackRef.current.scrollWidth - projectsTrackRef.current.parentElement.offsetWidth;
+      const boundedScrollX = Math.min(Math.max(-50, newScrollX), maxScroll + 50); // Allow slight overscroll
+
+      projectsTrackRef.current.style.transform = `translateX(-${boundedScrollX}px)`;
+    }
+  }, [isDragging, dragStartX, dragStartScrollX, lastDragTime, lastDragX, dragStartTime, dragHoldThreshold, isManualMode]);
+
+  const handleDragEnd = useCallback(() => {
+    if (!isDragging || !projectsTrackRef.current) return;
+
+    setIsDragging(false);
+
+    // If in manual mode, preserve the current position without snapping
+    if (isManualMode) {
+      // Just ensure the position stays within bounds without snapping to projects
+      if (projectsTrackRef.current.parentElement) {
+        const transform = projectsTrackRef.current.style.transform;
+        const translateX = transform.match(/translateX\((-?\d+(?:\.\d+)?)px\)/);
+        const currentScrollX = translateX ? parseFloat(translateX[1]) : 0;
+
+        const maxScroll = projectsTrackRef.current.scrollWidth - projectsTrackRef.current.parentElement.offsetWidth;
+        const boundedScrollX = Math.min(Math.max(0, currentScrollX), maxScroll);
+
+        // Apply gentle transition to final position without snapping
+        projectsTrackRef.current.style.transition = 'transform 0.3s ease-out';
+        projectsTrackRef.current.style.transform = `translateX(-${boundedScrollX}px)`;
+
+        setTimeout(() => {
+          if (projectsTrackRef.current) {
+            projectsTrackRef.current.style.transition = '';
+          }
+        }, 300);
+      }
+
+      // Reset momentum but stay in manual mode
+      setMomentum(0);
+      setIsUserSelected(true); // Prevent auto-scroll from resuming
+      return; // Exit early, skip the normal snapping behavior
+    }
+
+    // Normal behavior: Apply momentum and snap to nearest project (when not in manual mode)
+    if (projectsTrackRef.current.parentElement) {
+      const projectItems = projectsTrackRef.current.children;
+      if (projectItems.length > 0) {
+        const itemWidth = (projectItems[0] as HTMLElement).offsetWidth;
+        const gapStyle = getComputedStyle(projectsTrackRef.current).gap;
+        const gap = parseFloat(gapStyle) || (2 * 16);
+
+        const transform = projectsTrackRef.current.style.transform;
+        const translateX = transform.match(/translateX\((-?\d+(?:\.\d+)?)px\)/);
+        const currentScrollX = translateX ? parseFloat(translateX[1]) : 0;
+
+        // Find nearest project index - account for container padding
+        const container = projectsTrackRef.current.parentElement;
+        const containerWidth = container.offsetWidth;
+
+        // Get container padding to calculate actual available space
+        let availableWidth = containerWidth;
+        const containerStyles = getComputedStyle(container);
+        const paddingLeft = parseFloat(containerStyles.paddingLeft) || 0;
+        const paddingRight = parseFloat(containerStyles.paddingRight) || 0;
+        availableWidth = containerWidth - paddingLeft - paddingRight;
+
+        let nearestIndex = Math.round((currentScrollX + availableWidth / 2) / (itemWidth + gap));
+
+        // Apply momentum to influence the target
+        if (Math.abs(momentum) > 0.5) {
+          if (momentum > 0) nearestIndex = Math.max(0, nearestIndex - 1);
+          else nearestIndex = Math.min(projectData.length - 1, nearestIndex + 1);
+        }
+
+        nearestIndex = Math.max(0, Math.min(projectData.length - 1, nearestIndex));
+
+        // Update active project and scroll to it
+        setCurrentActiveProjectIndex(nearestIndex);
+        setIsUserSelected(true); // Mark as user selected when dragged to a specific project
+        if (projectData[nearestIndex]) {
+          updateVideoOverlayText(projectData[nearestIndex]);
+          setActiveProjectStyle(nearestIndex);
+
+          // Calculate target position using available width
+          const itemCenter = nearestIndex * (itemWidth + gap) + (itemWidth / 2);
+          let scrollTarget = itemCenter - (availableWidth / 2);
+          const maxScroll = projectsTrackRef.current.scrollWidth - containerWidth;
+          scrollTarget = Math.min(Math.max(0, scrollTarget), maxScroll);
+
+          // Smooth snap with Apple-style easing
+          projectsTrackRef.current.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+          projectsTrackRef.current.style.transform = `translateX(-${scrollTarget}px)`;
+
+          setTimeout(() => {
+            if (projectsTrackRef.current) {
+              projectsTrackRef.current.style.transition = '';
+            }
+          }, 600);
+        }
+      }
+    }
+
+    // Reset momentum - don't restart auto-scroll since user made a selection
+    setMomentum(0);
+  }, [isDragging, momentum, projectData, updateVideoOverlayText, setActiveProjectStyle, startAutoScroll, isManualMode]);
+
   useEffect(() => {
     // Initial setup for projects and slider
     if (projectData.length > 0) {
@@ -1475,161 +2384,112 @@ const ProjectShowcase: React.FC = () => {
     }
     // Delay updateSliderScroll to ensure layout is calculated
     const timer = setTimeout(updateSliderScroll, 300);
+
+    // Start auto-scroll after initial setup
+    const autoScrollTimer = setTimeout(() => {
+      startAutoScroll();
+    }, 1000);
+
     window.addEventListener('resize', updateSliderScroll);
+
     return () => {
         clearTimeout(timer);
+        clearTimeout(autoScrollTimer);
+        stopAutoScroll();
         window.removeEventListener('resize', updateSliderScroll);
     };
-  }, [updateVideoOverlayText, setActiveProjectStyle, updateSliderScroll]);
+  }, [updateVideoOverlayText, setActiveProjectStyle, updateSliderScroll, startAutoScroll, stopAutoScroll]);
 
-  // Mousemove listener for flashlight effect
-  const handleMouseMove = useCallback((event: MouseEvent) => {
-    setMousePosition({ x: event.clientX, y: event.clientY });
-  }, []);
+  // Handle mouse and touch events for dragging
+  useEffect(() => {
+    const track = projectsTrackRef.current;
+    if (!track) return;
 
-  // Handle text reveal with UV mode consideration
-  const handleTextReveal = useCallback((event: MouseEvent) => {
-    if (isUVMode) return; // Skip if in UV mode
-    
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
-    const revealRadius = 150; // Half of flashlight width
-    
-    // Select all text elements that should be affected
-    const textElements = document.querySelectorAll('.hidden-text-area h1, .hidden-text-area h2, .hidden-text-area h3, .hidden-text-area h4, .hidden-text-area p, .hidden-text-area span, .hidden-text-area a, .project-item h4, .project-item p');
-    
-    textElements.forEach((element) => {
-      // Skip elements that should always be visible
-      if (element.classList.contains('always-visible')) {
+    // Mouse events
+    const handleMouseDown = (e: MouseEvent) => {
+      e.preventDefault();
+
+      // Check for double-click to exit manual mode
+      const currentTime = Date.now();
+      if (isManualMode && currentTime - lastTapTime < 300) {
+        // Double-click detected while in manual mode - exit manual mode
+        exitManualMode();
+        setLastTapTime(0); // Reset to prevent triple-click issues
         return;
       }
-      
-      const rect = element.getBoundingClientRect();
-      const elementCenterX = rect.left + rect.width / 2;
-      const elementCenterY = rect.top + rect.height / 2;
-      
-      // Calculate distance between mouse and element center
-      const distance = Math.sqrt(
-        Math.pow(mouseX - elementCenterX, 2) + 
-        Math.pow(mouseY - elementCenterY, 2)
-      );
-      
-      // If mouse is within reveal radius, add revealed class
-      if (distance < revealRadius) {
-        element.classList.add('text-revealed');
-      } else {
-        element.classList.remove('text-revealed');
-      }
-    });
-  }, [isUVMode]);
+      setLastTapTime(currentTime);
 
-  // Apply UV mode effect
-  useEffect(() => {
-    if (!mainContainerRef.current) return;
-    
-    const textElements = mainContainerRef.current.querySelectorAll('h1, h2, h3, h4, p, span, a, .project-item h4, .project-item p');
-    
-    if (isUVMode) {
-      // Remove hidden-text-area class from main container
-      mainContainerRef.current.classList.remove('hidden-text-area');
-      
-      // Add UV glow to all text elements
-      textElements.forEach(element => {
-        element.classList.add('uv-text-glow');
-        element.classList.remove('text-revealed');
-      });
-    } else {
-      // Add hidden-text-area class to main container
-      mainContainerRef.current.classList.add('hidden-text-area');
-      
-      // Remove UV glow from all text elements
-      textElements.forEach(element => {
-        element.classList.remove('uv-text-glow');
-      });
-    }
-  }, [isUVMode]);
+      handleDragStart(e.clientX);
+    };
 
-  // Only apply effects if we're on the projects page
-  useEffect(() => {
-    if (!isProjectsPage || !mainContainerRef.current) return;
-    
-    const currentMainContainer = mainContainerRef.current;
-    
-    if (currentMainContainer) {
-      currentMainContainer.addEventListener('mousemove', handleMouseMove);
-      currentMainContainer.addEventListener('mousemove', handleTextReveal);
-      currentMainContainer.addEventListener('mouseenter', () => setIsMouseInside(true));
-      currentMainContainer.addEventListener('mouseleave', () => {
-        setIsMouseInside(false);
-        // Remove revealed effect from all elements when mouse leaves container
-        if (!isUVMode) {
-          document.querySelectorAll('.text-revealed').forEach(el => {
-            el.classList.remove('text-revealed');
-          });
-        }
-      });
-    }
-
-    return () => {
-      if (currentMainContainer) {
-        currentMainContainer.removeEventListener('mousemove', handleMouseMove);
-        currentMainContainer.removeEventListener('mousemove', handleTextReveal);
-        currentMainContainer.removeEventListener('mouseenter', () => setIsMouseInside(true));
-        currentMainContainer.removeEventListener('mouseleave', () => setIsMouseInside(false));
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isDragging) {
+        e.preventDefault();
+        handleDragMove(e.clientX);
       }
     };
-  }, [handleMouseMove, handleTextReveal, isUVMode, isProjectsPage]);
 
-  const handleGenerateUseCases = async () => {
-    setGeminiLoading(true);
-    setGeminiResult(null);
-
-    const promptText = "Imagine the new MacBook Pro with incredibly powerful M4 series chips, a stunning high-resolution display, and exceptionally long battery life. Generate 5 creative and professional use cases that truly showcase its capabilities for power users, creative professionals, and innovators. Present them as a numbered list, where each item starts with the number followed by a period (e.g., '1. '), and has a short, compelling description (1-2 sentences).";
-    const chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
-    const payload = { contents: chatHistory };
-    const apiKey = ""; // Canvas will provide
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-    try {
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`API request failed: ${errorData.error?.message || response.status}`);
+    const handleMouseUp = () => {
+      if (isDragging) {
+        handleDragEnd();
       }
-      const result = await response.json();
-      if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
-        const text = result.candidates[0].content.parts[0].text;
-        const lines = text.split('\n').filter(line => line.trim() !== '');
-        let htmlList = '<ul>';
-        lines.forEach(line => {
-            const listItemText = line.replace(/^\d+\.\s*/, ''); 
-            if (listItemText) {
-               htmlList += `<li>${listItemText.trim()}</li>`;
-            }
-        });
-        htmlList += '</ul>';
-        setGeminiResult(htmlList);
-      } else {
-        throw new Error('Unexpected API response structure.');
+    };
+
+    // Touch events
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        // Check for double-tap to exit manual mode
+        const currentTime = Date.now();
+        if (isManualMode && currentTime - lastTapTime < 300) {
+          // Double-tap detected while in manual mode - exit manual mode
+          exitManualMode();
+          setLastTapTime(0); // Reset to prevent triple-tap issues
+          return;
+        }
+        setLastTapTime(currentTime);
+
+        handleDragStart(e.touches[0].clientX);
       }
-    } catch (error: any) {
-      console.error('Error fetching or processing use cases:', error);
-      setGeminiResult(`<p>An error occurred: ${error.message}. Please check the console.</p>`);
-    } finally {
-      setGeminiLoading(false);
-    }
-  };
+    };
 
-  // Toggle light mode
-  const toggleLightMode = () => {
-    setIsUVMode(prev => !prev);
-  };
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isDragging && e.touches.length === 1) {
+        e.preventDefault();
+        handleDragMove(e.touches[0].clientX);
+      }
+    };
 
-  const renderProjectDemo = useCallback((project: Project) => {
+    const handleTouchEnd = () => {
+      if (isDragging) {
+        handleDragEnd();
+      }
+    };
+
+    // No hover events - auto-scroll only stops when user actively selects a project
+
+    // Add event listeners
+    track.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    track.addEventListener('touchstart', handleTouchStart, { passive: false });
+    track.addEventListener('touchmove', handleTouchMove, { passive: false });
+    track.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      track.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+
+      track.removeEventListener('touchstart', handleTouchStart);
+      track.removeEventListener('touchmove', handleTouchMove);
+      track.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [isDragging, handleDragStart, handleDragMove, handleDragEnd, isManualMode, lastTapTime, exitManualMode]);
+
+
+
+  const renderProjectDemo = useCallback((project: Project): JSX.Element => {
     // For the Financial Analysis project
     if (project.id === 'proj1') {
       return (
@@ -1638,7 +2498,7 @@ const ProjectShowcase: React.FC = () => {
             <h3 className="text-xl font-semibold mb-2 text-white">Financial Analysis of Transportation Trends</h3>
             <p className="text-sm text-gray-200 mb-4">Interactive visualization of rideshare vs. taxi market trends (2018-2021)</p>
           </div>
-          
+
           <div className="demo-visualization">
             <div className="chart-container">
               <div className="chart-legend">
@@ -1677,7 +2537,7 @@ const ProjectShowcase: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="demo-footer">
             <div className="key-findings">
               <h4 className="text-sm font-medium mb-2 text-white">Key Findings:</h4>
@@ -1693,101 +2553,40 @@ const ProjectShowcase: React.FC = () => {
         </div>
       );
     }
-    
+
     // For the Stock Price Forecasting project
     if (project.id === 'proj2') {
       return (
         <div className="project-demo-container">
           <div className="demo-header">
-            <h3 className="text-xl font-semibold mb-2">Stock Price Forecasting (NVIDIA)</h3>
-            <p className="text-sm text-gray-300 mb-4">ML-powered price prediction model</p>
+            <h3 className="text-xl font-semibold mb-2 text-white">Stock Price Forecasting (NVIDIA)</h3>
+            <p className="text-sm text-gray-200 mb-4">ML-powered price prediction model</p>
           </div>
-          
+
           <div className="demo-visualization">
             <div className="stock-chart">
-              <div className="chart-line">
-                {/* Simplified stock chart visualization */}
-                <svg viewBox="0 0 100 40" className="w-full h-full">
-                  <defs>
-                    <pattern id="smallGrid" width="8" height="8" patternUnits="userSpaceOnUse">
-                      <path d="M 8 0 L 0 0 0 8" fill="none" stroke="currentColor" strokeWidth="0.2" opacity="0.3" />
-                    </pattern>
-                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                      <rect width="40" height="40" fill="url(#smallGrid)" />
-                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.5" />
-                    </pattern>
-                  </defs>
-                  
-                  {/* Background rectangle with grid pattern */}
-                  <rect width="100%" height="100%" fill="url(#grid)" />
-                  
-                  {/* Diagonal lines */}
-                  <line x1="0" y1="0" x2="100" y2="40" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
-                  <line x1="100" y1="0" x2="0" y2="40" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
-                  
-                  {/* Center circle */}
-                  <circle cx="50" cy="20" r="10" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.6" />
-                  <circle cx="50" cy="20" r="5" fill="none" stroke="currentColor" strokeWidth="0.3" opacity="0.4" />
-                  
-                  {/* Corner decorative elements */}
-                  <path d="M 10,10 L 10,20 L 20,20" fill="none" stroke="currentColor" strokeWidth="0.8" opacity="0.7" />
-                  <path d="M 90,10 L 90,20 L 80,20" fill="none" stroke="currentColor" strokeWidth="0.8" opacity="0.7" />
-                  <path d="M 10,30 L 10,20 L 20,20" fill="none" stroke="currentColor" strokeWidth="0.8" opacity="0.7" />
-                  <path d="M 90,30 L 90,20 L 80,20" fill="none" stroke="currentColor" strokeWidth="0.8" opacity="0.7" />
-                </svg>
-              </div>
+              <svg width="100%" height="60" viewBox="0 0 100 30" preserveAspectRatio="none">
+                <path d="M0,20 L10,18 L20,22 L30,15 L40,25 L50,20 L60,10 L70,15 L80,5 L90,8 L100,2"
+                      fill="none" stroke="#76b900" strokeWidth="1.5" />
+                <path d="M0,20 L10,18 L20,22 L30,15 L40,25 L50,20 L60,10 L70,15 L80,5 L90,8 L100,2"
+                      fill="url(#nvGradient)" strokeWidth="0" opacity="0.3" />
+                <defs>
+                  <linearGradient id="nvGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#76b900" />
+                    <stop offset="100%" stopColor="#76b900" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div className="prediction-overlay">
+              <div className="prediction-line"></div>
+              <div className="prediction-label">Predicted +12.4%</div>
             </div>
           </div>
-          
-          <div className="demo-footer">
-            <div className="key-findings">
-              <h4 className="text-sm font-medium mb-2 text-white">Key Findings:</h4>
-              <ul className="text-xs text-gray-200">
-                <li>47% market shift from taxis to rideshare platforms over the study period</li>
-                <li>32% average cost reduction for consumers using rideshare services</li>
-                <li>2.3x increase in driver flexibility and income potential with gig-economy model</li>
-                <li>Significant correlation between rideshare adoption and decreased urban congestion</li>
-                <li>Data suggests continued market consolidation through 2023</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      );
-    }
-    
-    // For the Stock Price Forecasting project
-    if (project.id === 'proj2') {
-      return (
-        <div className="project-demo-container">
-          <div className="demo-header">
-            <h3 className="text-xl font-semibold mb-2">Stock Price Forecasting (NVIDIA)</h3>
-            <p className="text-sm text-gray-300 mb-4">ML-powered price prediction model</p>
-          </div>
-          
-          <div className="demo-visualization">
-            <div className="stock-chart">
-                  <path d="M0,20 L10,18 L20,22 L30,15 L40,25 L50,20 L60,10 L70,15 L80,5 L90,8 L100,2" 
-                        fill="none" stroke="#76b900" strokeWidth="1.5" />
-                  <path d="M0,20 L10,18 L20,22 L30,15 L40,25 L50,20 L60,10 L70,15 L80,5 L90,8 L100,2" 
-                        fill="url(#nvGradient)" strokeWidth="0" opacity="0.3" />
-                  <defs>
-                    <linearGradient id="nvGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#76b900" />
-                      <stop offset="100%" stopColor="#76b900" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </div>
-              <div className="prediction-overlay">
-                <div className="prediction-line"></div>
-                <div className="prediction-label">Predicted +12.4%</div>
-              </div>
-            </div>
-          </div>
-          
+
           <div className="demo-footer">
             <div className="model-metrics">
-              <h4 className="text-sm font-medium mb-1">Model Performance:</h4>
+              <h4 className="text-sm font-medium mb-1 text-white">Model Performance:</h4>
               <div className="metrics-grid">
                 <div className="metric">
                   <span className="metric-label">Accuracy</span>
@@ -1807,13 +2606,107 @@ const ProjectShowcase: React.FC = () => {
         </div>
       );
     }
-    
-    // Return a placeholder for other projects
+
+    // For the ETL Schema and Pipeline project
+    if (project.id === 'proj3') {
+      return (
+        <div className="project-demo-container">
+          <div className="demo-header">
+            <h3 className="text-xl font-semibold mb-2 text-white">ETL Schema and Pipeline (AWS RDS)</h3>
+            <p className="text-sm text-gray-200 mb-4">Robust data pipeline with automated reporting and security</p>
+          </div>
+
+          <div className="demo-visualization">
+            <div className="etl-pipeline-diagram">
+              <div className="pipeline-step">
+                <div className="step-icon bg-blue-500"></div>
+                <span className="step-label text-white">Extract</span>
+              </div>
+              <div className="pipeline-arrow">→</div>
+              <div className="pipeline-step">
+                <div className="step-icon bg-green-500"></div>
+                <span className="step-label text-white">Transform</span>
+              </div>
+              <div className="pipeline-arrow">→</div>
+              <div className="pipeline-step">
+                <div className="step-icon bg-purple-500"></div>
+                <span className="step-label text-white">Load</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="demo-footer">
+            <div className="key-features">
+              <h4 className="text-sm font-medium mb-2 text-white">Key Features:</h4>
+              <ul className="text-xs text-gray-200">
+                <li>AWS RDS/MySQL database optimization</li>
+                <li>Automated ETL pipeline with Python</li>
+                <li>IAM and Secrets Manager integration</li>
+                <li>Real-time data processing and reporting</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // For the EM3 Wedding Services project
+    if (project.id === 'proj4') {
+      return (
+        <div className="project-demo-container">
+          <div className="demo-header">
+            <h3 className="text-xl font-semibold mb-2 text-white">EM3 Wedding Services: Data-Driven Insights Platform</h3>
+            <p className="text-sm text-gray-200 mb-4">Sophisticated ETL pipeline and analytics framework for wedding industry</p>
+          </div>
+
+          <div className="demo-visualization">
+            <div className="analytics-dashboard">
+              <div className="dashboard-metric">
+                <span className="metric-title text-white">Client Engagement</span>
+                <span className="metric-number text-green-400">+47%</span>
+              </div>
+              <div className="dashboard-metric">
+                <span className="metric-title text-white">Service Utilization</span>
+                <span className="metric-number text-blue-400">89%</span>
+              </div>
+              <div className="dashboard-metric">
+                <span className="metric-title text-white">Predictive Accuracy</span>
+                <span className="metric-number text-purple-400">92%</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="demo-footer">
+            <div className="platform-features">
+              <h4 className="text-sm font-medium mb-2 text-white">Platform Capabilities:</h4>
+              <ul className="text-xs text-gray-200">
+                <li>Customer segmentation and personalization</li>
+                <li>Predictive analytics for service optimization</li>
+                <li>Real-time business intelligence dashboards</li>
+                <li>Data quality monitoring and validation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Return a placeholder for remaining projects
     return (
       <div className="flex items-center justify-center h-full">
         <div className="text-center p-6">
-          <p className="text-lg mb-3">Select a project to view its demo</p>
-          <p className="text-sm text-gray-400">Click on any project card above to see details</p>
+          <h3 className="text-xl font-semibold mb-2 text-white">{project.title}</h3>
+          <p className="text-sm text-gray-200 mb-4">{project.description.substring(0, 150)}...</p>
+          <div className="tech-showcase">
+            <h4 className="text-sm font-medium mb-2 text-white">Technologies Used:</h4>
+            <div className="flex flex-wrap gap-2 justify-center">
+              {project.technologies?.slice(0, 6).map((tech, index) => (
+                <span key={index} className="px-2 py-1 bg-blue-600 text-white text-xs rounded">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -1822,68 +2715,46 @@ const ProjectShowcase: React.FC = () => {
   return (
     <>
       <GlobalStyles />
-      
-      {/* Custom Light Switch - Only shown on projects page */}
-      {isProjectsPage && (
-        <div className="light-switch-container">
-          <div className="light-switch" onClick={toggleLightMode}>
-            <div className={`switch-toggle ${isUVMode ? 'on' : 'off'}`}></div>
-            <div className={`flashlight-indicator ${!isUVMode ? 'active' : ''}`}></div>
-            <div className={`uv-indicator ${isUVMode ? 'active' : ''}`}></div>
-          </div>
-          <div className="switch-label">Light Mode</div>
-          <div className="switch-mode">{isUVMode ? 'UV' : 'Flashlight'}</div>
-        </div>
-      )}
-      
-      <div 
-        ref={mainContainerRef} 
-        className="min-h-screen flex flex-col items-center justify-center py-12 project-showcase-bg main-container hidden-text-area relative"
+
+      <div
+        ref={mainContainerRef}
+        className="min-h-screen flex flex-col items-center justify-center py-12 project-showcase-bg main-container relative"
       >
-        {/* Flashlight div - hidden in UV mode, only shown on projects page */}
-        {isProjectsPage && (
-          <div 
-            className="flashlight"
-            style={{
-              left: `${mousePosition.x}px`,
-              top: `${mousePosition.y}px`,
-              transform: 'translate(-50%, -50%)',
-              opacity: isUVMode ? 0 : (isMouseInside ? 1 : 0),
-              pointerEvents: 'none',
-            }}
-          />
-        )}
-        <div className="main-content-wrapper max-w-5xl w-full mx-auto">
+        <div className="main-content-wrapper max-w-7xl w-full mx-auto">
           <div className="space-y-12 px-4 sm:px-6 lg:px-8">
             <header className="text-center pt-12 sm:pt-16">
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight always-visible">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white">
                 Projects Showcase
               </h1>
-              <p className="mt-3 text-xl sm:text-2xl dim-text">
+              <p className="mt-3 text-xl sm:text-2xl text-white">
                 Discover the possibilities of what I can bring to your organization
               </p>
             </header>
 
             <section className="py-8 md:py-12">
-              <h2 className="text-3xl sm:text-4xl font-semibold text-center mb-8 font-mono">
+              <h2 className="text-3xl sm:text-4xl font-semibold text-center mb-8 font-mono text-white">
                 Featured Projects
               </h2>
-              <div className="projects-slider-container mx-auto max-w-4xl">
-                <div id="projectsTrack" ref={projectsTrackRef} className="projects-track">
+              <div className="projects-slider-container">
+                <div
+                  id="projectsTrack"
+                  ref={projectsTrackRef}
+                  className={`projects-track ${isDragging ? 'dragging' : ''} ${isAutoScrolling ? 'auto-scrolling' : ''} ${isManualMode ? 'manual-mode' : ''}`}
+                >
                   {projectData.map((project, index) => (
                     <div
                       key={project.id}
-                      className={`project-item ${index === currentActiveProjectIndex ? 'active-project' : ''}`}
+                      className={`project-item ${index === currentActiveProjectIndex ? 'active-project' : ''} ${index === currentActiveProjectIndex && isUserSelected ? 'user-selected' : ''}`}
                       onClick={() => handleProjectClick(project, index)}
                     >
-                      <img 
-                        src={project.image} 
-                        alt={project.title} 
-                        onError={(e) => ((e.target as HTMLImageElement).src = 'https://placehold.co/320x200/2a2a2d/555555?text=Image+Error')} 
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        onError={(e) => ((e.target as HTMLImageElement).src = 'https://placehold.co/320x200/2a2a2d/555555?text=Image+Error')}
                       />
                       <h4>{project.title}</h4>
                       <p>{project.description.substring(0, 50)}...</p>
-                      
+
                       {/* Technology tags with consistent alignment */}
                       {project.technologies && project.technologies.length > 0 && (
                         <div className="tech-tags-container">
@@ -1913,46 +2784,45 @@ const ProjectShowcase: React.FC = () => {
               </div>
             </section>
 
-            <section className="text-center space-y-4">
-              <h2 className="text-3xl sm:text-4xl font-semibold">
-                Get the highlights.
-              </h2>
-              <div className="flex justify-center items-center space-x-6 text-sm sm:text-base">
-                <a href="#" className="highlight-link">Watch the announcement</a>
-                <span className="dim-text text-xs">|</span>
-                <a href="#" className="highlight-link flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1"><path d="M17 11.5a5 5 0 1 0 0-3 5 5 0 0 0 0 3z"/><path d="M15 11.5a3 3 0 1 0 0-3 3 3 0 0 0 0 3z"/><path d="M2 13.5V10a4 4 0 0 1 4-4h2.5"/><path d="M22 10.5V14a4 4 0 0 1-4 4h2.5"/><path d="M2 10.5a4 4 0 0 0 4 4h2.5"/><path d="M22 13.5a4 4 0 0 0-4-4h-2.5"/><path d="M12 2a1 1 0 0 0-1 1v2a1 1 0 0 0 2 0V3a1 1 0 0 0-1-1z"/><path d="M12 19a1 1 0 0 0-1 1v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-1-1z"/></svg>
-                  Watch in ASL
-                </a>
-              </div>
-            </section>
+
 
             <section className="w-full mx-auto space-y-4">
-              <div className="video-placeholder">
-                <svg className="video-placeholder-pattern" width="100%" height="100%" viewBox="0 0 100 56.25" preserveAspectRatio="none">
-                  <line x1="0" y1="0" x2="100" y2="56.25" stroke="currentColor" strokeWidth="0.2"/>
-                  <line x1="100" y1="0" x2="0" y2="56.25" stroke="currentColor" strokeWidth="0.2"/>
-                </svg>
+              <div className="video-placeholder financial-analysis-container">
                 {/* Add the project demo here */}
                 {projectData.length > 0 && renderProjectDemo(projectData[currentActiveProjectIndex])}
                 <VideoOverlay {...videoOverlayData} />
               </div>
-              <div className="flex items-center justify-center playback-controls">
-                <button aria-label="Previous"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.5 4V2.75C12.5 2.17 11.83.5 11 .5S9.5 2.17 9.5 2.75V4H6.5V2.75C6.5 2.17 5.83.5 5 .5S3.5 2.17 3.5 2.75V4H2.5C1.67 4 1 4.67 1 5.5V10.5C1 11.33 1.67 12 2.5 12H3V14.5C3 15.12 3.32 15.5 3.75 15.5C4.18 15.5 4.5 15.12 4.5 14.5V12H11.5V14.5C11.5 15.12 11.82 15.5 12.25 15.5C12.68 15.5 13 15.12 13 14.5V12H13.5C14.33 12 15 11.33 15 10.5V5.5C15 4.67 14.33 4 13.5 4H12.5ZM4.5 5.5V10.5H3.5V5.5H4.5ZM12.5 5.5V10.5H11.5V5.5H12.5Z"/></svg></button>
-                <div className="timeline-bar"><div className="timeline-progress"></div></div>
-                <button aria-label="Play/Pause"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg></button>
+            </section>
+
+            {/* Email subscription section moved to bottom for better user flow */}
+            <section className="text-center space-y-8 py-16 md:py-24 border-t border-gray-700 mt-16">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-8 text-white">
+                  Stay Updated.
+                </h2>
+                <div className="flex flex-col items-center space-y-6">
+                  <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-2xl">
+                    Get notified when I add new projects to my portfolio
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 items-center">
+                    <input
+                      type="email"
+                      placeholder="Enter your email address"
+                      className="px-6 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-80 max-w-full"
+                    />
+                    <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300 whitespace-nowrap">
+                      Notify Me
+                    </button>
+                  </div>
+                  <p className="text-sm text-gray-500">
+                    No spam, just project updates. Unsubscribe anytime.
+                  </p>
+                </div>
               </div>
             </section>
 
-            <section className="py-8 md:py-12">
-              {/* Removing the CTA box that was here */}
-            </section>
-
             <footer className="text-center pb-12 sm:pb-16">
-              {/* Remove the following paragraph */}
-              {/* <p className="text-xs dim-text">
-                *Battery life varies by use and configuration. See apple.com/batteries for more information. Monthly pricing requires a 24-month installment loan with 0% APR from Apple Financial Services, LLC, an Apple Inc. subsidiary. Subject to credit approval and credit limit. Taxes and shipping are not included.
-              </p> */}
+              {/* Clean footer section */}
             </footer>
           </div>
         </div>

@@ -1,11 +1,8 @@
 
 "use client";
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Search, X } from 'lucide-react';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { Menu } from 'lucide-react';
 
 const navItems = [
   { label: 'Home', href: '/' }, // Points to AboutMe/Hero section
@@ -16,68 +13,205 @@ const navItems = [
 ];
 
 const Header = () => {
-  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  // Track active section based on scroll position
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'about', 'experience', 'projects', 'contact'];
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = section === 'home' ? document.body : document.getElementById(section);
+        if (element) {
+          const offsetTop = section === 'home' ? 0 : element.offsetTop;
+          const offsetBottom = offsetTop + (section === 'home' ? window.innerHeight : element.offsetHeight);
+
+          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="py-6 px-4 sm:px-6 lg:px-16 fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-3xl font-extrabold text-foreground">
-          G.
-        </Link>
+    <>
+      {/* Apple-Style Island Navigation - increased sizing */}
+      <header className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50">
+        <nav
+          style={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '50px',
+            padding: '12px 32px',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+          }}
+          className="hidden md:flex items-center space-x-2"
+        >
+          {navItems.map((item) => {
+            const isActive = (item.href === '/' && activeSection === 'home') ||
+                           (item.href.includes('#') && activeSection === item.href.replace('#', ''));
 
-        <nav className="hidden md:flex space-x-6 lg:space-x-8 items-center">
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={`text-sm ${
-                (pathname === item.href || (item.href === "/" && pathname.startsWith("/#"))) // Highlight "Home" if on root or hash link from root
-                  ? 'text-foreground font-semibold border-b-2 border-accent pb-1' // Example's active style (using accent)
-                  : 'text-muted-foreground hover:text-foreground transition-colors'
-              } transition-colors`}
-            >
-              {item.label}
-            </Link>
-          ))}
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                style={{
+                  padding: '12px 20px',
+                  borderRadius: '25px',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease',
+                  backgroundColor: isActive ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
+                  color: isActive ? '#1d1d1f' : '#6e6e73',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.04)';
+                    e.currentTarget.style.color = '#1d1d1f';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#6e6e73';
+                  }
+                }}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
-        <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="icon" aria-label="Search" className="text-muted-foreground hover:text-foreground">
-            <Search className="h-6 w-6" />
-          </Button>
+        {/* Mobile Island Menu */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            style={{
+              background: 'rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(20px)',
+              borderRadius: '50px',
+              padding: '12px 20px',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              fontSize: '14px',
+              fontWeight: '500',
+              color: '#1d1d1f',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+            }}
+          >
+            <Menu size={16} />
+            Menu
+          </button>
 
-          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" aria-label="Open menu" className="text-muted-foreground hover:text-foreground">
-                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="bg-background text-foreground w-[280px] p-0">
-              <SheetHeader className="p-6 border-b border-border/20">
-                <SheetTitle className="text-left text-2xl font-semibold text-foreground">G.</SheetTitle>
-              </SheetHeader>
-              <nav className="flex flex-col p-6 space-y-1">
-                {navItems.map((item) => (
+          {/* Mobile Menu Dropdown */}
+          {isMobileMenuOpen && (
+            <div
+              style={{
+                position: 'absolute',
+                top: '60px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: 'rgba(255, 255, 255, 0.9)',
+                backdropFilter: 'blur(20px)',
+                borderRadius: '20px',
+                padding: '16px',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                minWidth: '200px',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+              }}
+            >
+              {navItems.map((item) => {
+                const isActive = (item.href === '/' && activeSection === 'home') ||
+                               (item.href.includes('#') && activeSection === item.href.replace('#', ''));
+
+                return (
                   <Link
                     key={item.label}
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block text-lg py-3 px-3 rounded-md ${
-                      (pathname === item.href || (item.href === "/" && pathname.startsWith("/#")))
-                        ? 'bg-accent/20 text-accent font-semibold' // Active style for mobile
-                        : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
-                    } transition-colors`}
+                    style={{
+                      display: 'block',
+                      padding: '12px 16px',
+                      borderRadius: '12px',
+                      fontSize: '16px',
+                      fontWeight: '500',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                      backgroundColor: isActive ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
+                      color: isActive ? '#1d1d1f' : '#6e6e73',
+                      marginBottom: '4px'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.04)';
+                        e.currentTarget.style.color = '#1d1d1f';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = '#6e6e73';
+                      }
+                    }}
                   >
                     {item.label}
                   </Link>
-                ))}
-              </nav>
-            </SheetContent>
-          </Sheet>
+                );
+              })}
+            </div>
+          )}
         </div>
+      </header>
+
+      {/* Logo in top-left corner - increased sizing */}
+      <div
+        className="fixed top-8 left-8 z-40"
+        style={{
+          background: 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(20px)',
+          borderRadius: '50%',
+          width: '64px',
+          height: '64px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
+        }}
+      >
+        <Link
+          href="/"
+          style={{
+            fontSize: '24px',
+            fontWeight: '700',
+            color: '#1d1d1f',
+            textDecoration: 'none',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+          }}
+        >
+          G.
+        </Link>
       </div>
-    </header>
+    </>
   );
 };
 

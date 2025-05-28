@@ -14,21 +14,21 @@
 
     --popover: 0 0% 100%; /* Pure white for popovers */
     --popover-foreground: 0 0% 10%; /* Near black for popover text */
-    
+
     /* Primary: Deep Blue (#003049) -> HSL: 207, 100%, 15% */
-    --primary: 207 100% 15%; 
+    --primary: 207 100% 15%;
     --primary-foreground: 0 0% 100%; /* White text on primary */
 
     /* Secondary: Light Gray (#D3D3D3) -> HSL: 0, 0%, 83% */
-    --secondary: 0 0% 83%; 
+    --secondary: 0 0% 83%;
     --secondary-foreground: 0 0% 10%; /* Near black on secondary */
 
     /* Muted: Light gray for less important elements */
-    --muted: 0 0% 96%; 
+    --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%; /* Medium gray for muted text */
 
     /* Accent: Teal (#40E0D0) -> HSL: 174, 72%, 56% */
-    --accent: 174 72% 56%; 
+    --accent: 174 72% 56%;
     --accent-foreground: 0 0% 10%; /* Near black on accent */
 
     --destructive: 0 72% 51%; /* Red for destructive actions */
@@ -38,8 +38,8 @@
     --input: 0 0% 95%; /* Very light gray input background */
     --ring: 174 70% 56%; /* Teal for focus rings */
 
-    --chart-1: hsl(var(--accent)); 
-    --chart-2: hsl(var(--primary)); 
+    --chart-1: hsl(var(--accent));
+    --chart-2: hsl(var(--primary));
     --chart-3: hsl(174, 60%, 45%);
     --chart-4: hsl(207, 80%, 30%);
     --chart-5: hsl(var(--muted-foreground));
@@ -68,7 +68,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overscroll-behavior-y: none; 
+    overscroll-behavior-y: none;
   }
   main {
     flex-grow: 1;
@@ -78,25 +78,26 @@
     @apply text-foreground font-bold tracking-tight font-mono; /* Added font-mono */
   }
 
-  h1 { @apply text-6xl md:text-7xl; }
-  h2 { @apply text-5xl md:text-6xl; }
-  h3 { @apply text-4xl md:text-5xl; }
-  h4 { @apply text-3xl md:text-4xl; }
-  h5 { @apply text-2xl md:text-3xl; }
-  h6 { @apply text-xl md:text-2xl; }
+  /* Increased font sizes by ~75% for 175% zoom preference */
+  h1 { @apply text-8xl md:text-9xl lg:text-[12rem]; }
+  h2 { @apply text-7xl md:text-8xl lg:text-[8rem]; }
+  h3 { @apply text-6xl md:text-7xl lg:text-[6rem]; }
+  h4 { @apply text-5xl md:text-6xl lg:text-[4rem]; }
+  h5 { @apply text-4xl md:text-5xl lg:text-[3rem]; }
+  h6 { @apply text-3xl md:text-4xl lg:text-[2rem]; }
 
-  /* Divider for specific headers - simplified for clean design */
-  .header-divider { 
-    @apply relative pb-2 mb-4;
+  /* Divider for specific headers - simplified for clean design - increased sizing */
+  .header-divider {
+    @apply relative pb-4 mb-8;
   }
   .header-divider::after {
     content: '';
-    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-[2px] bg-primary rounded-full;
+    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-28 h-[4px] bg-primary rounded-full;
   }
-  
+
   /* Custom line height for the large name display */
   .hero-name-display h1 {
-    line-height: 0.9; 
+    line-height: 0.9;
   }
 
   /* Font style classes for AboutMe component - HARMONIZED TO DARK COLORS */
@@ -108,29 +109,29 @@
 }
 
 @layer components {
-  /* Button styles for the clean design */
+  /* Button styles for the clean design - increased sizing */
   .btn-primary {
-    @apply inline-block px-6 py-3 rounded-lg font-semibold transition-colors duration-300 ease-in-out;
-    @apply bg-primary text-white hover:bg-primary/90; 
+    @apply inline-block px-10 py-5 rounded-xl font-semibold transition-colors duration-300 ease-in-out text-lg;
+    @apply bg-primary text-white hover:bg-primary/90;
   }
   .btn-secondary {
-    @apply inline-block px-6 py-3 rounded-lg font-semibold transition-colors duration-300 ease-in-out;
+    @apply inline-block px-10 py-5 rounded-xl font-semibold transition-colors duration-300 ease-in-out text-lg;
     @apply border border-primary text-primary hover:bg-primary hover:text-white;
   }
   .icon-link {
     @apply transition-colors duration-300 ease-in-out text-primary hover:text-primary/80;
   }
-  
-  /* Clean, minimal section styling */
+
+  /* Clean, minimal section styling - increased padding */
   .section-container {
-    @apply py-16 md:py-24 w-full bg-background;
+    @apply py-28 md:py-40 w-full bg-background;
   }
-  
+
   /* Project showcase background styling */
   .project-showcase-bg {
     position: relative;
   }
-  
+
   .project-showcase-bg::before {
     content: '';
     position: absolute;
@@ -145,7 +146,7 @@
     opacity: 0.15;
     z-index: -1;
   }
-  
+
   @media (max-width: 768px) {
     .project-showcase-bg::before {
       background-position: 70% center;
