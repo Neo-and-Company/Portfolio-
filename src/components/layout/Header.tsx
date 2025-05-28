@@ -6,7 +6,7 @@ import { Menu } from 'lucide-react';
 
 const navItems = [
   { label: 'Home', href: '/' }, // Points to AboutMe/Hero section
-  { label: 'About', href: '#about' }, // Or a dedicated about section if one exists later
+  { label: 'Journey', href: '#journey' }, // The new journey section
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
@@ -19,7 +19,7 @@ const Header = () => {
   // Track active section based on scroll position
   React.useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'experience', 'projects', 'contact'];
+      const sections = ['home', 'journey', 'experience', 'projects', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
