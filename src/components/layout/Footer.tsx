@@ -20,7 +20,7 @@ const Footer = () => {
           <Link href="https://www.linkedin.com/in/gabriel-mancillas-gallardo-4a962320b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <FaLinkedin className="h-5 w-5 text-muted-foreground hover:text-[#0077B5] hover:scale-110 transition-all duration-300" />
           </Link>
-          <Link href="mailto:gabrielleolukotun@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email">
+          <Link href="mailto:gabrielmancillas1034@icloud.com" target="_blank" rel="noopener noreferrer" aria-label="Email">
             <FaEnvelope className="h-5 w-5 text-muted-foreground hover:text-[#EA4335] hover:scale-110 transition-all duration-300" />
           </Link>
         </div>

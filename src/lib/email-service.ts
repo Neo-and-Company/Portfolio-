@@ -27,7 +27,7 @@ export async function sendContactEmailWithResend(data: ContactFormData) {
 
     const { data: emailData, error } = await resend.emails.send({
       from: 'Portfolio Contact <noreply@yourdomain.com>', // Use your domain
-      to: ['gabrielleolukotun@gmail.com'],
+      to: ['gabrielmancillas1034@icloud.com'],
       subject: `New Contact Form Submission from ${data.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -80,7 +80,7 @@ export async function sendContactEmailWithEmailJS(data: ContactFormData) {
       from_name: data.name,
       from_email: data.email,
       message: data.message,
-      to_email: 'gabrielleolukotun@gmail.com',
+      to_email: 'gabrielmancillas1034@icloud.com',
     };
 
     const result = await emailjs.send(
