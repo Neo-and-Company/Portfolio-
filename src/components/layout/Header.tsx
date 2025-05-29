@@ -5,11 +5,12 @@ import Link from 'next/link';
 import { Menu } from 'lucide-react';
 
 const navItems = [
-  { label: 'Home', href: '/' }, // Points to AboutMe/Hero section
-  { label: 'Journey', href: '#career-journey' }, // Points to Career Journey Timeline
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/', description: 'About Gabriel Mancillas' }, // Points to AboutMe/Hero section
+  { label: 'Journey', href: '#career-journey', description: 'Career Timeline' }, // Points to CareerRoadmap section
+  { label: 'Experience', href: '#experience', description: 'Professional Background' }, // Points to ProfessionalSummary section
+  { label: 'Projects', href: '#projects', description: 'Portfolio Showcase' }, // Points to ProjectShowcaseGrid section
+  { label: 'Resume', href: '#resume', description: 'Download CV' }, // Points to ResumeDownload section
+  { label: 'Contact', href: '#contact', description: 'Get In Touch' }, // Points to ContactSection
 ];
 
 const Header = () => {
@@ -19,7 +20,7 @@ const Header = () => {
   // Track active section based on scroll position
   React.useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'career-journey', 'experience', 'projects', 'contact'];
+      const sections = ['home', 'career-journey', 'experience', 'projects', 'resume', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -65,6 +66,7 @@ const Header = () => {
               <Link
                 key={item.label}
                 href={item.href}
+                title={item.description}
                 style={{
                   padding: '12px 20px',
                   borderRadius: '25px',
@@ -147,6 +149,7 @@ const Header = () => {
                   <Link
                     key={item.label}
                     href={item.href}
+                    title={item.description}
                     onClick={() => setIsMobileMenuOpen(false)}
                     style={{
                       display: 'block',
