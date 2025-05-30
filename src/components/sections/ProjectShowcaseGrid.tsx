@@ -59,7 +59,7 @@ const projectData: Project[] = [
     technologies: ['Python', 'Flask', 'NLP', 'Machine Learning', 'Text Mining', 'Data Analytics'],
     image: 'https://placehold.co/600x400/6366f1/ffffff?text=Text+Mining+Analytics',
     repoUrl: 'https://github.com/Gabeleo24/Text-Mining',
-    demoUrl: 'https://github.com/Gabeleo24/Text-Mining/tree/main/src',
+    demoUrl: 'https://1937-2600-1700-6de4-c400-84fb-ca58-12d-3807.ngrok-free.app/',
     mediaType: 'image',
     fontFamily: '"Source Code Pro", "Monaco", monospace',
   },
