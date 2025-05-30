@@ -46,17 +46,19 @@ const projectData: Project[] = [
   {
     id: 'proj2',
     title: 'Real-time Data Processing & Analytics Framework',
-    description: 'Comprehensive ADS509 News Text Analytics project featuring 15,718 articles with advanced text mining, sentiment analysis, and Flask web application. Includes professional documentation, data analysis pipelines, and machine learning models for news content processing.',
-    summary: 'Advanced text mining and analytics framework for processing large-scale news datasets with real-time sentiment analysis, topic modeling, and interactive web interface for data exploration.',
+    description: 'ADS509 News Text Analytics Project - A comprehensive news text analytics system that successfully collected and analyzed 15,859 high-quality articles from Guardian API and NewsAPI, achieving a 70x scale increase from the original target. Features complete text processing pipeline, machine learning models (Logistic Regression, Random Forest, SVM, Naive Bayes), topic modeling (LDA, NMF, LSA), and Flask web application with real-time article categorization. Includes professional documentation, comprehensive EDA with visualizations, and research-grade dataset creation with 99.7% collection success rate.',
+    summary: 'Production-ready ADS509 News Text Analytics system achieving 70x scale increase from original target. Complete implementation with 15,859 articles from Guardian API and NewsAPI, featuring comprehensive text processing pipeline, multiple ML models, topic modeling, and Flask web application.',
     keyFeatures: [
-      'Text mining and sentiment analysis on 15,718 news articles',
-      'Flask web application with interactive data visualization',
-      'Advanced NLP models for topic classification and sentiment scoring',
-      'Professional documentation and reproducible analysis pipelines',
-      'Real-time data processing and analytics dashboard'
+      'Successfully collected and analyzed 15,859 high-quality articles (70x scale increase)',
+      'Multi-API integration: Guardian API + NewsAPI with 99.7% success rate',
+      'Complete ML pipeline: Logistic Regression, Random Forest, SVM, Naive Bayes',
+      'Advanced topic modeling: LDA, NMF, LSA with multiple configurations',
+      'Flask web application with real-time article categorization interface',
+      'Comprehensive EDA with professional visualizations and word clouds',
+      'Research-grade dataset spanning 6 categories and 11 years (2014-2025)'
     ],
-    impact: 'Successfully processed and analyzed 15,718+ news articles, providing actionable insights for media analysis and content strategy with 92% sentiment classification accuracy.',
-    technologies: ['Python', 'Flask', 'NLP', 'Machine Learning', 'Text Mining', 'Data Analytics'],
+    impact: 'Achieved 15,859 articles vs 8,000 target (98% over-delivery), 25x content quality improvement (5,248 vs 214 characters), 99.7% collection success rate, and production-ready Flask application with real-time text classification capabilities.',
+    technologies: ['Python 3.11+', 'Flask', 'pandas', 'numpy', 'scikit-learn', 'NLTK', 'matplotlib', 'seaborn', 'wordcloud', 'Guardian API', 'NewsAPI', 'Bootstrap'],
     image: 'https://placehold.co/600x400/6366f1/ffffff?text=Text+Mining+Analytics',
     repoUrl: 'https://github.com/Gabeleo24/Text-Mining',
     demoUrl: 'https://1937-2600-1700-6de4-c400-84fb-ca58-12d-3807.ngrok-free.app/',
