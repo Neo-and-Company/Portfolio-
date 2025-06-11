@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'build-i713sg81u-gabeleo24s-projects.vercel.app',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

@@ -40,6 +40,17 @@
 - Infrastructure (Docker, Kubernetes)
 - Business impact (34% ROI, 28% conversion increase)
 
+✅ UPDATED LINKS:
+- Demo: https://build-i713sg81u-gabeleo24s-projects.vercel.app/personalization
+- GitHub: https://github.com/Neo-and-Company/EcommerceAI-enhancedA-P
+
+✅ ENHANCED FEATURES:
+- EcommerceAI Personalization Engine with Brazilian Olist dataset
+- Dynamic confidence threshold controls (70%-99%)
+- Interactive Apple-style interface with real-time analytics
+- Production deployment on Vercel with 99.9% uptime
+- Comprehensive business intelligence dashboards
+
 🔄 VISUAL NEEDS:
 - Interactive dashboard mockups
 - ML model performance charts
