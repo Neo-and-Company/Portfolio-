@@ -41,7 +41,7 @@
 - Business impact (34% ROI, 28% conversion increase)
 
 ✅ UPDATED LINKS:
-- Demo: https://build-i713sg81u-gabeleo24s-projects.vercel.app/dashboard
+- Demo: https://build-i713sg81u-gabeleo24s-projects.vercel.app
 - GitHub: https://github.com/Neo-and-Company/EcommerceAI-enhancedA-P
 
 ✅ ENHANCED FEATURES:

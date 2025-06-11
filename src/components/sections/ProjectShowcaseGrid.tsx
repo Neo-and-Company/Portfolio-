@@ -127,7 +127,7 @@ const projectData: Project[] = [
     technologies: ['React 18', 'Material-UI (MUI)', 'Recharts', 'Vercel', 'Brazilian Olist Dataset', 'Real-time Analytics', 'Apple Design System', 'Global CDN', 'Static Site Generation', 'Interactive Visualizations'],
     image: 'https://placehold.co/600x400/10b981/ffffff?text=Analytics+Dashboard',
     repoUrl: 'https://github.com/Neo-and-Company/EcommerceAI-enhancedA-P',
-    demoUrl: 'https://build-i713sg81u-gabeleo24s-projects.vercel.app/dashboard',
+    demoUrl: 'https://build-i713sg81u-gabeleo24s-projects.vercel.app',
     mediaType: 'image',
     fontFamily: '"Space Mono", "Lucida Console", monospace',
   },
