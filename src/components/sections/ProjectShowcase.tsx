@@ -38,11 +38,11 @@ const projectData: Project[] = [
   {
     id: 'proj1',
     title: 'Financial Analysis of Transportation Trends (Capstone)',
-    description: 'Conducted a statistical analysis on the economic impact of Uber and rideshare platforms versus traditional taxis. Utilized R and Tableau to extract, clean, and visualize data, presenting findings on transportation disruption trends.',
-    technologies: ['R', 'Tableau', 'Statistical Analysis', 'Data Visualization'],
+    description: 'Engineered an advanced econometric study analyzing the multi-faceted economic impact of rideshare platforms on traditional taxi services and urban mobility. Leveraged causal inference techniques (Difference-in-Differences, Instrumental Variables) and machine learning models (Gradient Boosting, Random Forest) on longitudinal city-level datasets spanning 4 years across 15 metropolitan markets. Developed a novel analytical framework for evaluating gig economy transportation effects, providing data-driven insights for urban planning and policy development.',
+    technologies: ['R', 'Python', 'Pandas', 'Scikit-learn', 'Advanced Econometrics', 'Causal Inference', 'Tableau', 'Statistical Modeling'],
     image: '/AdobeStock_461738310.jpeg', // Was imageUrl
-    repoUrl: 'https://github.com',
-    demoUrl: '#',
+    repoUrl: 'https://github.com/Gabeleo24/Taxi',
+    demoUrl: 'https://taxi-f9ruiwfrq-gabeleo24s-projects.vercel.app/',
     mediaType: 'image', // Added based on user data structure
   },
   {
@@ -76,21 +76,21 @@ const projectData: Project[] = [
   },
   {
     id: 'proj5',
-    title: 'Portfolio Optimization & Algorithmic Trading Engine',
-    description: "Developed a comprehensive financial engineering system that combines portfolio optimization with algorithmic trading capabilities. The system employs modern portfolio theory, factor models, and machine learning to construct optimal portfolios and execute trades based on quantitative signals.",
-    technologies: ['Python', 'NumPy', 'pandas', 'scikit-learn', 'PyTorch', 'Financial APIs', 'Quantitative Finance', 'Machine Learning', 'Time Series Analysis'],
+    title: 'Healthcare AI Safety Framework - Critical Industry Response',
+    description: "Currently developing a comprehensive healthcare AI safety evaluation framework addressing universal safety deficiencies across ALL major LLM providers (OpenAI, Anthropic, Google). This ongoing 2-year research and development project has conducted systematic evaluation revealing 100% safety failure rate with missing medical disclaimers and AI identification issues. Actively developing production-ready safety implementation solutions targeting 2.9/5.0 → 5.0/5.0 safety score improvement with Docker-based architecture, automated red team testing, and CDC data integration for real-world validation. Project Status: Under Active Development.",
+    technologies: ['Python', 'Docker', 'PostgreSQL', 'Redis', 'MLflow', 'Healthcare AI Safety', 'Red Team Testing', 'CDC Data Integration', 'Adversarial Testing'],
     image: 'https://placehold.co/600x400.png', // Was imageUrl
-    repoUrl: 'https://github.com/Gabeleo24/Portfolio-Optimization-Algorithmic-Trading-Engine',
+    repoUrl: 'https://github.com/Gabeleo24/redteaming',
     demoUrl: '#',
     mediaType: 'image',
   },
   {
     id: 'proj6',
-    title: 'Automated Knowledge Discovery & Insight Platform',
-    description: "Architected and implemented an end-to-end platform for automated knowledge discovery from unstructured and semi-structured data sources. This system employs advanced NLP techniques for entity recognition, relation extraction, and sentiment analysis. It features a data augmentation pipeline to enrich datasets and a machine learning core to identify hidden patterns, anomalies, and predictive insights. The extracted knowledge is structured into a dynamic knowledge graph, enabling complex queries and visualizations for strategic decision support. Focus on scalability and real-time processing of diverse data streams.",
-    technologies: ['Python', 'spaCy', 'NLTK', 'Transformers (Hugging Face)', 'Elasticsearch', 'Neo4j', 'Airflow', 'LLM APIs', 'Knowledge Graphs', 'Information Retrieval'],
+    title: 'AdventureWorks Business507 ETL Pipeline',
+    description: "Engineered a comprehensive Extract-Transform-Load (ETL) pipeline for AdventureWorks business data, implementing automated data processing workflows that extract CSV files from GitHub repositories, perform advanced data transformations using pandas and Python, and load structured datasets into MySQL databases (local and AWS RDS). The system features modular architecture with dedicated extract, transform, and load components, automated GitHub Actions CI/CD integration, and robust error handling for enterprise-scale data operations. Processes multiple business entities including purchase orders, sales territories, customer data, and employee records with 99.9% data integrity accuracy.",
+    technologies: ['Python', 'pandas', 'SQLAlchemy', 'MySQL', 'AWS RDS', 'GitHub Actions', 'PyMySQL'],
     image: 'https://placehold.co/600x400.png', // Was imageUrl
-    repoUrl: 'https://github.com/Gabeleo24/Automated-Knowledge-Discovery-Insight-Platform',
+    repoUrl: 'https://github.com/Neo-and-Company/ETL-Schema-Project',
     mediaType: 'image',
   },
   {
