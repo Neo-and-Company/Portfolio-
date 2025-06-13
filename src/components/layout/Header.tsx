@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
 
@@ -17,12 +17,18 @@ const navItems = [
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [showScrollHint, setShowScrollHint] = useState(true);
 
   // Track active section based on scroll position
   React.useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'career-journey', 'experience', 'projects', 'resume', 'contact'];
       const scrollPosition = window.scrollY + 100;
+
+      // Hide scroll hint after user scrolls
+      if (scrollPosition > 100 && showScrollHint) {
+        setShowScrollHint(false);
+      }
 
       for (const section of sections) {
         const element = section === 'home' ? document.body : document.getElementById(section);
@@ -41,7 +47,32 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial call
     return () => window.removeEventListener('scroll', handleScroll);
+  }, [showScrollHint]);
+
+  // Hide scroll hint after a few seconds or on user interaction
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowScrollHint(false);
+    }, 8000); // Hide after 8 seconds for better visibility
+
+    const handleUserInteraction = () => {
+      setShowScrollHint(false);
+    };
+
+    // Hide on any user interaction
+    window.addEventListener('click', handleUserInteraction);
+    window.addEventListener('keydown', handleUserInteraction);
+    window.addEventListener('touchstart', handleUserInteraction);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('click', handleUserInteraction);
+      window.removeEventListener('keydown', handleUserInteraction);
+      window.removeEventListener('touchstart', handleUserInteraction);
+    };
   }, []);
+
+
 
   return (
     <>
@@ -186,9 +217,9 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Logo in top-left corner - increased sizing */}
+      {/* Logo in top-left corner - increased sizing with scroll-to-top functionality */}
       <div
-        className="fixed top-8 left-8 z-40"
+        className="fixed top-8 left-8 z-40 cursor-pointer transition-all duration-300 hover:scale-105"
         style={{
           background: 'rgba(255, 255, 255, 0.8)',
           backdropFilter: 'blur(20px)',
@@ -201,19 +232,31 @@ const Header = () => {
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
           border: '1px solid rgba(255, 255, 255, 0.2)'
         }}
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setShowScrollHint(false);
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08)';
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)';
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+        }}
+        title="Click to return to top"
       >
-        <Link
-          href="/"
+        <span
           style={{
             fontSize: '24px',
             fontWeight: '700',
             color: '#1d1d1f',
-            textDecoration: 'none',
-            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+            userSelect: 'none'
           }}
         >
           G.
-        </Link>
+        </span>
       </div>
     </>
   );

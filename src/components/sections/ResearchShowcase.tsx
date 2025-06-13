@@ -179,11 +179,11 @@ const ResearchShowcase: React.FC = () => {
         >
           {/* Header */}
           <motion.div variants={itemVariants} className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               Research & Publications
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Academic research and scholarly contributions in Data Science, Machine Learning, 
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Academic research and scholarly contributions in Data Science, Machine Learning,
               and Analytics with real-world applications and measurable impact.
             </p>
           </motion.div>
@@ -252,82 +252,82 @@ const ResearchShowcase: React.FC = () => {
                 className="bg-white rounded-lg shadow-soft p-8 hover:shadow-medium transition-shadow"
               >
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0 overflow-hidden">
                     {/* Paper Header */}
                     <div className="flex items-start justify-between mb-4">
-                      <div className="flex-1">
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 leading-tight break-words">
                           {paper.title}
                         </h3>
-                        <div className="flex items-center space-x-4 text-sm text-gray-600 mb-2">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600 mb-2">
                           <span className="flex items-center">
-                            <Users className="h-4 w-4 mr-1" />
-                            {paper.authors.join(', ')}
+                            <Users className="h-4 w-4 mr-1 flex-shrink-0" />
+                            <span className="truncate">{paper.authors.join(', ')}</span>
                           </span>
                           <span className="flex items-center">
-                            <Calendar className="h-4 w-4 mr-1" />
+                            <Calendar className="h-4 w-4 mr-1 flex-shrink-0" />
                             {paper.year}
                           </span>
                           {paper.citations !== undefined && (
                             <span className="flex items-center">
-                              <Award className="h-4 w-4 mr-1" />
+                              <Award className="h-4 w-4 mr-1 flex-shrink-0" />
                               {paper.citations} citations
                             </span>
                           )}
                         </div>
                         <div className="text-sm text-gray-600 mb-3">
-                          <span className="font-medium">{paper.journal}</span>
+                          <span className="font-medium break-words">{paper.journal}</span>
                         </div>
                       </div>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[paper.status]}`}>
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 ${statusColors[paper.status]}`}>
                         {paper.status.replace('-', ' ').toUpperCase()}
                       </span>
                     </div>
 
                     {/* Abstract */}
-                    <p className="text-gray-700 mb-4 leading-relaxed">
+                    <p className="text-gray-700 mb-4 leading-relaxed break-words">
                       {paper.abstract}
                     </p>
 
                     {/* Impact */}
                     <div className="bg-primary-50 border border-primary-200 rounded-lg p-4 mb-4">
-                      <h4 className="font-semibold text-primary-900 mb-2">Research Impact</h4>
-                      <p className="text-primary-800 text-sm">{paper.impact}</p>
+                      <h4 className="text-sm font-semibold text-primary-900 mb-2">Research Impact</h4>
+                      <p className="text-primary-800 text-sm leading-relaxed break-words">{paper.impact}</p>
                     </div>
 
                     {/* Keywords */}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-1.5 mb-4">
                       {paper.keywords.map((keyword, idx) => (
                         <span
                           key={idx}
-                          className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
+                          className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 whitespace-nowrap"
                         >
-                          <Tag className="h-3 w-3 mr-1" />
-                          {keyword}
+                          <Tag className="h-2.5 w-2.5 mr-1 flex-shrink-0" />
+                          <span className="truncate max-w-24 text-xs">{keyword}</span>
                         </span>
                       ))}
                     </div>
 
                     {/* Methodology & Datasets */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">Methodology</h4>
+                      <div className="min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 mb-2">Methodology</h4>
                         <ul className="text-sm text-gray-600 space-y-1">
                           {paper.methodology.map((method, idx) => (
-                            <li key={idx} className="flex items-center">
-                              <div className="w-1.5 h-1.5 bg-primary-600 rounded-full mr-2"></div>
-                              {method}
+                            <li key={idx} className="flex items-start">
+                              <div className="w-1.5 h-1.5 bg-primary-600 rounded-full mr-2 mt-2 flex-shrink-0"></div>
+                              <span className="break-words text-xs">{method}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">Datasets</h4>
+                      <div className="min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 mb-2">Datasets</h4>
                         <ul className="text-sm text-gray-600 space-y-1">
                           {paper.datasets.map((dataset, idx) => (
-                            <li key={idx} className="flex items-center">
-                              <div className="w-1.5 h-1.5 bg-green-600 rounded-full mr-2"></div>
-                              {dataset}
+                            <li key={idx} className="flex items-start">
+                              <div className="w-1.5 h-1.5 bg-green-600 rounded-full mr-2 mt-2 flex-shrink-0"></div>
+                              <span className="break-words text-xs">{dataset}</span>
                             </li>
                           ))}
                         </ul>
@@ -341,9 +341,9 @@ const ResearchShowcase: React.FC = () => {
                           href={`https://doi.org/${paper.doi}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm"
+                          className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm whitespace-nowrap"
                         >
-                          <ExternalLink className="h-4 w-4 mr-2" />
+                          <ExternalLink className="h-4 w-4 mr-2 flex-shrink-0" />
                           View Publication
                         </a>
                       )}
@@ -352,9 +352,9 @@ const ResearchShowcase: React.FC = () => {
                           href={`https://arxiv.org/abs/${paper.arxivId}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm"
+                          className="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm whitespace-nowrap"
                         >
-                          <FileText className="h-4 w-4 mr-2" />
+                          <FileText className="h-4 w-4 mr-2 flex-shrink-0" />
                           arXiv Preprint
                         </a>
                       )}
@@ -363,9 +363,9 @@ const ResearchShowcase: React.FC = () => {
                           href={paper.pdfUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
+                          className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm whitespace-nowrap"
                         >
-                          <Download className="h-4 w-4 mr-2" />
+                          <Download className="h-4 w-4 mr-2 flex-shrink-0" />
                           Download PDF
                         </a>
                       )}
