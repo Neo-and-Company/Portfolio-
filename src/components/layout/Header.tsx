@@ -9,6 +9,7 @@ const navItems = [
   { label: 'Journey', href: '#career-journey', description: 'Career Timeline' }, // Points to CareerRoadmap section
   { label: 'Experience', href: '#experience', description: 'Professional Background' }, // Points to ProfessionalSummary section
   { label: 'Projects', href: '#projects', description: 'Portfolio Showcase' }, // Points to ProjectShowcaseGrid section
+  { label: 'Research', href: '/research', description: 'Academic Research & Publications' }, // Points to Research page
   { label: 'Resume', href: '#resume', description: 'Download CV' }, // Points to ResumeDownload section
   { label: 'Contact', href: '#contact', description: 'Get In Touch' }, // Points to ContactSection
 ];
