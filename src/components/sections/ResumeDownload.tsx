@@ -168,7 +168,7 @@ const ResumeDownload = () => {
                 {/* Additional Info */}
                 <div className="text-center">
                   <p className="text-sm text-gray-500 font-mono">
-                    File size: ~250KB | Last updated: January 2025
+                    File size: ~250KB | Last updated: July 2025
                   </p>
                 </div>
               </div>
