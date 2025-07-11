@@ -79,7 +79,7 @@ const Header = () => {
     };
   }, []);
 
-  // Enhanced Mirror/Reflection Glassmorphism - Clean Single Layer
+  // Enhanced Mirror/Reflection Glassmorphism - Clean Single Layer Design
   const getMirrorReflectionStyles = (baseOpacity = 0.15, maxOpacity = 0.25) => {
     const scrollProgress = Math.min(scrollY / 150, 1); // Responsive scroll
     const opacity = baseOpacity + (maxOpacity - baseOpacity) * scrollProgress;
