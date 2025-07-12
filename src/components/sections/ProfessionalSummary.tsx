@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import type { Experience } from '@/types';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Briefcase } from 'lucide-react';
-import { LiquidGlassCard, LiquidGlassText } from '@/components/ui/LiquidGlass';
 
 const experiences: Experience[] = [
   {
@@ -71,10 +70,8 @@ const ProfessionalSummary = () => {
   return (
     <section id="experience" className="w-full py-28 md:py-40 relative z-10 section-fade-in bg-background">
       <div className="container mx-auto px-6 md:px-8 max-w-screen-xl">
-        <LiquidGlassText
-          variant="accent"
-          as="h2"
-          className="text-5xl font-bold sm:text-6xl md:text-7xl text-center mb-8 font-mono"
+        <h2
+          className="text-5xl font-bold sm:text-6xl md:text-7xl text-center mb-8 text-foreground font-mono"
           style={{
             opacity: scrollProgress,
             transform: `translateY(${(1 - scrollProgress) * 50}px)`,
@@ -82,7 +79,7 @@ const ProfessionalSummary = () => {
           }}
         >
           Strategic Leadership in Action
-        </LiquidGlassText>
+        </h2>
         {/* Simple divider - increased sizing */}
         <div
           className="h-2 w-48 bg-primary mx-auto mb-20 rounded-full"
@@ -95,70 +92,53 @@ const ProfessionalSummary = () => {
 
         <div className="space-y-12">
           {experiences.map((exp, index) => (
-            <LiquidGlassCard
+            <Card
               key={exp.id}
-              className="transition-all duration-500"
+              className="shadow-sm hover:shadow-md transition-shadow duration-300 bg-white border-gray-200"
               style={{
                 opacity: Math.min(scrollProgress * 2 - (index * 0.2), 1),
                 transform: `translateY(${Math.max(0, (1 - scrollProgress) * 50)}px)`,
                 transition: 'opacity 0.5s ease-out, transform 0.5s ease-out'
               }}
-              config={{
-                opacity: 0.16,
-                blur: 30,
-                saturation: 128,
-                brightness: 109,
-                shadowIntensity: 0.05
-              }}
             >
-              <div className="p-8">
+              <CardHeader className="p-8">
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-4">
-                  <LiquidGlassText variant="accent" as="h3" className="text-3xl flex items-center font-mono">
-                    <Briefcase className="mr-4 h-8 w-8" style={{ color: '#4f46e5' }} />
+                  <CardTitle className="text-3xl flex items-center text-primary font-mono">
+                    <Briefcase className="mr-4 h-8 w-8 text-primary" />
                     {exp.role}
-                  </LiquidGlassText>
-                  <LiquidGlassText variant="secondary" className="mt-3 sm:mt-0 font-mono text-lg">
+                  </CardTitle>
+                  <div className="text-slate-500 mt-3 sm:mt-0 font-mono text-lg">
                     {exp.dates}
-                  </LiquidGlassText>
+                  </div>
                 </div>
-                <LiquidGlassText variant="primary" className="font-mono text-xl">
+                <div className="text-slate-700 font-mono text-xl">
                   {exp.company}
-                </LiquidGlassText>
-              </div>
-              <div className="p-8 pt-0">
+                </div>
+              </CardHeader>
+              <CardContent className="p-8 pt-0">
                 <ul className="space-y-5">
                   {exp.description.map((item, index) => (
                     <li key={index} className="flex items-start">
-                      <LiquidGlassText variant="accent" className="mr-4 mt-1 font-mono text-lg">•</LiquidGlassText>
-                      <LiquidGlassText variant="primary" className="font-mono text-lg leading-relaxed">{item}</LiquidGlassText>
+                      <span className="text-primary mr-4 mt-1 font-mono text-lg">•</span>
+                      <span className="text-slate-800 font-mono text-lg leading-relaxed">{item}</span>
                     </li>
                   ))}
                 </ul>
 
                 {exp.skills && exp.skills.length > 0 && (
                   <div className="mt-8">
-                    <LiquidGlassText variant="secondary" className="text-lg mb-4 font-mono">Key Skills:</LiquidGlassText>
+                    <div className="text-lg text-slate-600 mb-4 font-mono">Key Skills:</div>
                     <div className="flex flex-wrap gap-3">
                       {exp.skills.map((skill, index) => (
-                        <LiquidGlassCard
-                          key={index}
-                          className="inline-flex items-center px-4 py-2 text-sm font-medium font-mono"
-                          config={{
-                            opacity: 0.2,
-                            blur: 20,
-                            saturation: 135,
-                            brightness: 115,
-                            shadowIntensity: 0.04
-                          }}
-                        >
-                          <LiquidGlassText variant="accent" className="text-sm">{skill}</LiquidGlassText>
-                        </LiquidGlassCard>
+                        <span key={index} className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary/20 text-primary font-mono">
+                          {skill}
+                        </span>
                       ))}
                     </div>
                   </div>
                 )}
-              </div>
-            </LiquidGlassCard>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>

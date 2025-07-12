@@ -15,7 +15,6 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { submitContactForm, type ContactFormState } from "@/lib/actions";
 import { useToast } from "@/hooks/use-toast";
 import Link from 'next/link';
-import { LiquidGlassCard, LiquidGlassButton, LiquidGlassText } from '@/components/ui/LiquidGlass';
 
 // Contact form schema
 const formSchema = z.object({
@@ -92,32 +91,24 @@ const ContactSection = () => {
       <div className="container mx-auto px-6 md:px-8 max-w-6xl">
         {/* Header Section */}
         <div className="text-center mb-20">
-          <LiquidGlassText variant="accent" as="h2" className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl mb-6 font-mono">
+          <h2 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl md:text-7xl mb-6 font-mono">
             Ready to Hire or Partner?
-          </LiquidGlassText>
+          </h2>
           <div className="h-2 w-48 bg-primary mx-auto mb-8 rounded-full" />
-          <LiquidGlassText variant="primary" as="p" className="text-xl md:text-2xl max-w-4xl mx-auto font-mono leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto font-mono leading-relaxed">
             Seeking full-time data science roles or consulting partnerships. Let's discuss how my expertise in advanced analytics and machine learning can accelerate your organization's growth and innovation.
-          </LiquidGlassText>
+          </p>
         </div>
 
         {/* Contact Section with improved layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-5xl mx-auto">
           {/* Contact Information Card */}
-          <LiquidGlassCard className="p-8"
-            config={{
-              opacity: 0.18,
-              blur: 28,
-              saturation: 125,
-              brightness: 110,
-              shadowIntensity: 0.08
-            }}
-          >
+          <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
             <div className="mb-8">
-              <LiquidGlassText variant="accent" as="h3" className="text-3xl font-bold mb-4 font-mono">Contact Information</LiquidGlassText>
-              <LiquidGlassText variant="primary" as="p" className="font-mono leading-relaxed">
+              <h3 className="text-3xl font-bold text-gray-900 mb-4 font-mono">Contact Information</h3>
+              <p className="text-gray-600 font-mono leading-relaxed">
                 Available for immediate hire or project collaboration. Let's discuss opportunities to work together.
-              </LiquidGlassText>
+              </p>
             </div>
 
             <div className="space-y-8">
@@ -175,28 +166,20 @@ const ContactSection = () => {
                 </Link>
               </div>
             </div>
-          </LiquidGlassCard>
+          </div>
 
           {/* Contact Form Card */}
-          <LiquidGlassCard className="p-8"
-            config={{
-              opacity: 0.18,
-              blur: 28,
-              saturation: 125,
-              brightness: 110,
-              shadowIntensity: 0.08
-            }}
-          >
+          <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
             <div className="mb-8">
-              <LiquidGlassText variant="accent" as="h3" className="text-3xl font-bold mb-4 font-mono flex items-center">
+              <h3 className="text-3xl font-bold text-gray-900 mb-4 font-mono flex items-center">
                 <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center mr-3">
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
                 Contact Me
-              </LiquidGlassText>
-              <LiquidGlassText variant="primary" as="p" className="font-mono leading-relaxed">
+              </h3>
+              <p className="text-gray-600 font-mono leading-relaxed">
                 Interested in hiring me or discussing a partnership? Let's connect!
-              </LiquidGlassText>
+              </p>
             </div>
 
             <Form {...form}>
@@ -294,7 +277,7 @@ const ContactSection = () => {
                 </div>
               </form>
             </Form>
-          </LiquidGlassCard>
+          </div>
         </div>
       </div>
     </section>

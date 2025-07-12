@@ -5,7 +5,6 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaExternalLinkAlt, FaCode, F
 import { FaShieldAlt, FaBolt, FaBullseye, FaRocket, FaLock, FaZap } from "react-icons/fa";
 import { MdSecurity, MdFlashOn, MdGpsFixed } from "react-icons/md";
 import AnimatedHeroModal from '@/components/ui/AnimatedHeroModal';
-import { LiquidGlassCard, LiquidGlassButton, LiquidGlassText } from '@/components/ui/LiquidGlass';
 
 // --- Type Definitions ---
 interface Project {
@@ -554,31 +553,26 @@ const ProjectShowcaseGrid: React.FC = () => {
       <section
         id="projects"
         style={{
-          padding: '100px 32px 120px 32px',
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
+          padding: '96px 32px',
+          backgroundColor: '#f1f5f9' /* gray-100 */
         }}
       >
         <div style={{ maxWidth: '1600px', margin: '0 auto' }}>
-          <LiquidGlassText
-            variant="accent"
-            as="h2"
+          <h2
             style={{
               fontSize: '3.5rem',
               fontWeight: '700',
               textAlign: 'center',
+              color: '#1f2937', /* gray-800 */
               marginBottom: '32px'
             }}
           >
             Innovation Portfolio: Strategic Solutions in Action
-          </LiquidGlassText>
-          <LiquidGlassText
-            variant="primary"
-            as="p"
+          </h2>
+          <p
             style={{
               textAlign: 'center',
+              color: '#6b7280', /* gray-500 */
               marginBottom: '64px',
               maxWidth: '900px',
               margin: '0 auto 64px auto',
@@ -587,58 +581,49 @@ const ProjectShowcaseGrid: React.FC = () => {
             }}
           >
             A comprehensive showcase of enterprise-grade solutions that demonstrate strategic problem-solving, advanced technical implementation, and measurable business transformation. Each initiative represents a convergence of analytical rigor, innovative technology, and quantifiable organizational impact.
-          </LiquidGlassText>
+          </p>
 
-          {/* Enhanced Grid Layout with Better Spacing */}
+          {/* Grid Layout - increased sizing */}
           <div
-            className="project-grid"
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
-              gap: '32px',
-              padding: '0 20px',
-              maxWidth: '1400px',
-              margin: '0 auto'
+              gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
+              gap: '48px'
             }}
           >
             {projectData.map((project, index) => {
-              // Define accent colors for each project (for subtle highlights)
-              const accentColors = [
-                '#6366f1', // Indigo
-                '#10b981', // Green
-                '#f59e0b', // Amber
-                '#ef4444', // Red
-                '#3b82f6', // Blue
-                '#8b5cf6', // Purple
+              // Define color schemes for each project
+              const colorSchemes = [
+                { bg: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)', text: '#ffffff' }, // Indigo to Purple
+                { bg: 'linear-gradient(135deg, #10b981 0%, #059669 100%)', text: '#ffffff' }, // Green
+                { bg: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', text: '#ffffff' }, // Amber
+                { bg: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)', text: '#ffffff' }, // Red
+                { bg: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)', text: '#ffffff' }, // Blue
+                { bg: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)', text: '#ffffff' }, // Purple
               ];
-              const accentColor = accentColors[index % accentColors.length];
+              const colorScheme = colorSchemes[index % colorSchemes.length];
 
               return (
-              <LiquidGlassCard
+              <div
                 key={project.id}
-                className="project-card"
-                hoverEffect={true}
-                config={{
-                  opacity: 0.18,
-                  blur: 12,
-                  saturation: 140,
-                  brightness: 110,
-                  shadowIntensity: 0.12,
-                  // Set borderOpacity to 0 to prevent LiquidGlass from applying border styles
-                  borderOpacity: 0
-                }}
                 role="button"
                 tabIndex={0}
                 aria-label={`View details for ${project.title}`}
                 style={{
-                  cursor: 'pointer',
-                  transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                  // Use specific border properties instead of shorthand to avoid React conflict
-                  borderTop: '0.5px solid rgba(255, 255, 255, 0.3)',
-                  borderRight: '0.5px solid rgba(255, 255, 255, 0.3)',
-                  borderBottom: '0.5px solid rgba(255, 255, 255, 0.3)',
-                  borderLeft: `4px solid ${accentColor}`,
-                  minHeight: '320px'
+                  background: colorScheme.bg,
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                  transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
                 }}
                 onClick={() => handleProjectClick(project)}
                 onKeyDown={(e) => {
@@ -650,39 +635,37 @@ const ProjectShowcaseGrid: React.FC = () => {
               >
 
                 <div style={{ padding: '32px', fontFamily: project.fontFamily || 'inherit' }}>
-                  <LiquidGlassText
-                    variant="primary"
-                    as="h3"
+                  <h3
                     style={{
-                      fontSize: '1.5rem',
-                      fontWeight: '700',
-                      marginBottom: '16px',
+                      fontSize: '1.75rem',
+                      fontWeight: '600',
+                      color: colorScheme.text,
+                      marginBottom: '20px',
                       lineHeight: '1.3',
                       fontFamily: project.fontFamily || 'inherit'
                     }}
                   >
                     {project.title}
-                  </LiquidGlassText>
+                  </h3>
 
-                  {/* Technology Tags with Enhanced Glassmorphism */}
-                  <div style={{ marginBottom: '20px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                  {/* Technology Tags - increased sizing */}
+                  <div style={{ marginBottom: '20px' }}>
                     {project.technologies.slice(0, 3).map((tech) => (
                       <span
                         key={`${project.id}-${tech}`}
                         style={{
-                          background: 'rgba(255, 255, 255, 0.15)',
-                          backdropFilter: 'blur(8px)',
-                          WebkitBackdropFilter: 'blur(8px)',
-                          color: '#1f2937',
-                          padding: '8px 16px',
-                          borderRadius: '20px',
+                          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                          color: colorScheme.text,
+                          padding: '6px 16px',
+                          borderRadius: '9999px',
                           fontSize: '0.875rem',
-                          fontWeight: '600',
+                          fontWeight: '500',
+                          marginRight: '12px',
+                          marginBottom: '12px',
                           display: 'inline-block',
                           fontFamily: project.fontFamily || 'inherit',
-                          border: '1px solid rgba(255, 255, 255, 0.25)',
-                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                          textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)'
+                          backdropFilter: 'blur(10px)',
+                          border: '1px solid rgba(255, 255, 255, 0.3)'
                         }}
                       >
                         {tech}
@@ -691,19 +674,16 @@ const ProjectShowcaseGrid: React.FC = () => {
                     {project.technologies.length > 3 && (
                       <span
                         style={{
-                          background: 'rgba(255, 255, 255, 0.1)',
-                          backdropFilter: 'blur(8px)',
-                          WebkitBackdropFilter: 'blur(8px)',
-                          color: '#6b7280',
-                          padding: '8px 16px',
-                          borderRadius: '20px',
+                          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                          color: colorScheme.text,
+                          padding: '6px 16px',
+                          borderRadius: '9999px',
                           fontSize: '0.875rem',
-                          fontWeight: '600',
+                          fontWeight: '500',
                           display: 'inline-block',
                           fontFamily: project.fontFamily || 'inherit',
-                          border: '1px solid rgba(255, 255, 255, 0.2)',
-                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                          textShadow: '0 1px 2px rgba(255, 255, 255, 0.6)'
+                          backdropFilter: 'blur(10px)',
+                          border: '1px solid rgba(255, 255, 255, 0.3)'
                         }}
                       >
                         +{project.technologies.length - 3}
@@ -711,45 +691,295 @@ const ProjectShowcaseGrid: React.FC = () => {
                     )}
                   </div>
 
-                  <LiquidGlassText
-                    variant="secondary"
-                    as="p"
+                  <p
                     style={{
+                      color: 'rgba(255, 255, 255, 0.9)',
                       marginBottom: '24px',
-                      fontSize: '0.95rem',
+                      fontSize: '1rem',
                       lineHeight: '1.6',
                       fontFamily: project.fontFamily || 'inherit'
                     }}
                   >
-                    {project.description.length > 140
-                      ? `${project.description.substring(0, 140)}...`
-                      : project.description
-                    }
-                  </LiquidGlassText>
+                    {project.description.substring(0, 120)}...
+                  </p>
 
-                  <LiquidGlassButton
-                    hoverEffect={true}
+                  <button
                     onClick={() => handleProjectClick(project)}
                     style={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                      color: colorScheme.text,
                       padding: '12px 24px',
-                      fontSize: '0.95rem',
-                      fontWeight: '600',
-                      borderRadius: '12px',
-                      border: 'none',
-                      cursor: 'pointer'
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: '500',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      backdropFilter: 'blur(10px)'
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.target as HTMLButtonElement).style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+                      (e.target as HTMLButtonElement).style.transform = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.target as HTMLButtonElement).style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                      (e.target as HTMLButtonElement).style.transform = 'translateY(0)';
                     }}
                   >
                     View Details
-                  </LiquidGlassButton>
+                  </button>
                 </div>
-              </LiquidGlassCard>
+              </div>
               );
             })}
           </div>
         </div>
       </section>
 
+      {/* Professional Network Section - Aligned with Portfolio Design System */}
+      <section
+        id="network"
+        className="w-full py-28 md:py-40 relative z-10 section-fade-in bg-background"
+        style={{
+          backgroundImage: 'url("/AdobeStock_432194964.jpeg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        <div className="container mx-auto px-6 md:px-8 max-w-screen-xl">
+          <div className="text-center relative z-10">
+            {/* Icon with Portfolio Design Consistency */}
+            <div
+              className="w-24 h-24 mx-auto mb-12 flex items-center justify-center rounded-full transition-all duration-300 ease-in-out cursor-pointer"
+              style={{
+                backgroundColor: 'hsl(var(--card))',
+                border: '2px solid hsl(var(--primary))',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1) translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+              }}
+            >
+              <FaRocket
+                style={{
+                  fontSize: '2.5rem',
+                  color: 'hsl(var(--primary))'
+                }}
+              />
+            </div>
 
+            {/* Typography aligned with portfolio standards */}
+            <h2 className="text-5xl font-bold sm:text-6xl md:text-7xl text-center mb-8 text-foreground font-mono">
+              Ready to Transform Data into{' '}
+              <span style={{
+                background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
+                Impact?
+              </span>
+            </h2>
+
+            {/* Divider consistent with other sections */}
+            <div className="h-2 w-48 bg-primary mx-auto mb-20 rounded-full"></div>
+
+            {/* Description with Card styling consistent with portfolio */}
+            <div className="bg-white/90 backdrop-blur-sm p-10 rounded-2xl shadow-sm border border-gray-100 max-w-4xl mx-auto mb-16">
+              <p className="text-slate-800 font-mono text-xl leading-relaxed text-center">
+                Join an exclusive network of forward-thinking leaders, innovative companies, and strategic partners.
+                Get priority access to collaboration opportunities, cutting-edge insights, and transformative data science solutions.
+              </p>
+              <p className="text-slate-600 font-mono text-lg leading-relaxed text-center mt-4">
+                📞 <strong>Phone number required</strong> - I may call directly for time-sensitive opportunities and high-value partnerships.
+              </p>
+            </div>
+
+            {/* Form with Portfolio Design Consistency */}
+            <div className="bg-white/90 backdrop-blur-sm p-10 rounded-2xl shadow-sm border border-gray-100 max-w-2xl mx-auto mb-16">
+              <form onSubmit={handleEmailSubscription} className="space-y-6">
+                <div className="relative">
+                  <input
+                    type="email"
+                    placeholder="Enter your professional email"
+                    value={subscriptionEmail}
+                    onChange={(e) => setSubscriptionEmail(e.target.value)}
+                    required
+                    disabled={subscriptionStatus === 'loading'}
+                    className="w-full px-6 py-4 rounded-xl border border-gray-200 text-lg font-mono text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 ease-in-out"
+                    style={{
+                      opacity: subscriptionStatus === 'loading' ? 0.7 : 1
+                    }}
+                  />
+                </div>
+
+                <div className="relative">
+                  <input
+                    type="tel"
+                    placeholder="Enter your phone number (e.g., +1 555 123 4567)"
+                    value={subscriptionPhone}
+                    onChange={(e) => setSubscriptionPhone(e.target.value)}
+                    required
+                    disabled={subscriptionStatus === 'loading'}
+                    className="w-full px-6 py-4 rounded-xl border border-gray-200 text-lg font-mono text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 ease-in-out"
+                    style={{
+                      opacity: subscriptionStatus === 'loading' ? 0.7 : 1
+                    }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={subscriptionStatus === 'loading' || !subscriptionEmail.trim() || !subscriptionPhone.trim()}
+                  className={`w-full px-10 py-5 rounded-xl font-semibold transition-all duration-300 ease-in-out text-lg font-mono flex items-center justify-center gap-3 ${
+                    subscriptionStatus === 'loading'
+                      ? 'bg-gray-600 cursor-not-allowed'
+                      : 'bg-slate-800 hover:bg-slate-700 hover:shadow-md hover:-translate-y-0.5'
+                  }`}
+                  style={{
+                    color: '#ffffff !important',
+                    textShadow: 'none !important'
+                  }}
+                >
+                  {subscriptionStatus === 'loading' ? (
+                    <>
+                      <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <span style={{ color: '#ffffff !important', textShadow: 'none !important' }}>
+                        Joining Network...
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <MdGpsFixed
+                        className="text-xl"
+                        style={{ color: '#ffffff !important' }}
+                      />
+                      <span style={{ color: '#ffffff !important', textShadow: 'none !important' }}>
+                        Join Professional Network
+                      </span>
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+
+            {/* Status Message with Portfolio Styling */}
+            {subscriptionMessage && (
+              <div className={`mt-6 p-4 rounded-xl font-mono text-center ${
+                subscriptionStatus === 'success'
+                  ? 'bg-green-50 border border-green-200 text-green-800'
+                  : 'bg-red-50 border border-red-200 text-red-800'
+              }`}>
+                {subscriptionMessage}
+              </div>
+            )}
+
+            {/* Trust Indicators with Portfolio Card Design */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mt-16">
+              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 cursor-pointer">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                    <MdSecurity className="text-3xl text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-primary font-mono mb-2">
+                      Privacy Protected
+                    </h3>
+                    <p className="text-slate-600 font-mono">
+                      Your data is completely secure
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 cursor-pointer">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center">
+                    <MdFlashOn className="text-3xl text-amber-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-primary font-mono mb-2">
+                      Instant Access
+                    </h3>
+                    <p className="text-slate-600 font-mono">
+                      Join the network immediately
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 cursor-pointer">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
+                    <MdGpsFixed className="text-3xl text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-primary font-mono mb-2">
+                      Exclusive Opportunities
+                    </h3>
+                    <p className="text-slate-600 font-mono">
+                      Premium access to partnerships
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Text with Portfolio Styling */}
+            <div className="text-center mt-16">
+              <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-gray-100 inline-block">
+                <p className="font-mono text-lg">
+                  <span className="font-bold text-primary">
+                    Join 500+ industry leaders
+                  </span>
+                  <br />
+                  <span className="text-slate-500 text-sm">
+                    Unsubscribe anytime • No spam, ever • Premium insights only
+                  </span>
+                </p>
+              </div>
+            </div>
+
+            {/* Email Validation Disclaimer - Small Print - Cross-Platform Responsive */}
+            <div className="text-center mt-6 sm:mt-8 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto px-4 sm:px-6">
+              <p
+                className="font-mono text-xs sm:text-xs md:text-sm leading-relaxed sm:leading-relaxed md:leading-loose break-words hyphens-auto"
+                style={{
+                  color: '#ffffff !important',
+                  textShadow: 'none !important',
+                  fontWeight: 'normal !important',
+                  textDecoration: 'none !important',
+                  fontStyle: 'normal !important',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                  lineHeight: '1.6',
+                  fontSize: 'clamp(10px, 2vw, 14px)'
+                }}
+              >
+                Email Validation Notice: This portfolio uses a custom email API. Email addresses must be 100% accurate and correctly formatted for successful delivery. Please ensure: (1) Email addresses are spelled correctly with no typos, (2) Email format follows standard conventions (e.g., user@domain.com), (3) The domain exists and can receive emails, (4) There are no extra spaces or special characters. This custom-built system may be more sensitive to formatting errors than commercial email services. Please double-check email addresses before submitting forms to ensure successful delivery.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* CSS Animation for loading spinner */}
+        <style>
+          {`
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+          `}
+        </style>
+      </section>
 
       {/* Project Details Modal */}
       {selectedProject && (

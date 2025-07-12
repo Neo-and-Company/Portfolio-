@@ -8,7 +8,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { LiquidGlassCard, LiquidGlassText } from '@/components/ui/LiquidGlass';
 
 // Skill descriptions for tooltips
 const skillDescriptions: Record<string, string> = {
