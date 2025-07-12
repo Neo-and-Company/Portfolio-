@@ -18,19 +18,12 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [showScrollHint, setShowScrollHint] = useState(true);
-  const [scrollY, setScrollY] = useState(0);
-  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Track active section and scroll position for glassmorphism effects
+  // Track active section based on scroll position
   React.useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'career-journey', 'experience', 'projects', 'resume', 'contact'];
       const scrollPosition = window.scrollY + 100;
-      const currentScrollY = window.scrollY;
-
-      // Update scroll state for glassmorphism effects
-      setScrollY(currentScrollY);
-      setIsScrolled(currentScrollY > 50);
 
       // Hide scroll hint after user scrolls
       if (scrollPosition > 100 && showScrollHint) {
@@ -79,55 +72,21 @@ const Header = () => {
     };
   }, []);
 
-  // Dynamic glassmorphism styles based on scroll position
-  const getGlassmorphismStyles = (baseOpacity = 0.8, maxOpacity = 0.95) => {
-    const scrollProgress = Math.min(scrollY / 200, 1);
-    const opacity = baseOpacity + (maxOpacity - baseOpacity) * scrollProgress;
-    const blur = 20 + scrollProgress * 10; // Increase blur on scroll
 
-    return {
-      background: `rgba(255, 255, 255, ${opacity})`,
-      backdropFilter: `blur(${blur}px) saturate(180%)`,
-      WebkitBackdropFilter: `blur(${blur}px) saturate(180%)`,
-      borderRadius: '50px',
-      border: `1px solid rgba(255, 255, 255, ${0.2 + scrollProgress * 0.3})`,
-      boxShadow: isScrolled
-        ? '0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-        : '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-      transform: isScrolled ? 'translateY(0px)' : 'translateY(0px)',
-    };
-  };
-
-  // Enhanced logo glassmorphism styles
-  const getLogoGlassmorphismStyles = () => {
-    const scrollProgress = Math.min(scrollY / 200, 1);
-    const opacity = 0.8 + scrollProgress * 0.15;
-    const blur = 20 + scrollProgress * 10;
-
-    return {
-      background: `rgba(255, 255, 255, ${opacity})`,
-      backdropFilter: `blur(${blur}px) saturate(180%)`,
-      WebkitBackdropFilter: `blur(${blur}px) saturate(180%)`,
-      borderRadius: '50%',
-      border: `1px solid rgba(255, 255, 255, ${0.2 + scrollProgress * 0.3})`,
-      boxShadow: isScrolled
-        ? '0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6)'
-        : '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.4)',
-      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    };
-  };
 
   return (
     <>
-      {/* Apple-Style Island Navigation - Enhanced Glassmorphism */}
+      {/* Apple-Style Island Navigation - increased sizing */}
       <header className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50">
         <nav
           style={{
-            ...getGlassmorphismStyles(0.75, 0.95),
-            padding: '14px 36px',
-            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-            willChange: 'transform, opacity, backdrop-filter',
+            background: 'rgba(255, 255, 255, 0.8)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '50px',
+            padding: '12px 32px',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
           }}
           className="hidden md:flex items-center space-x-2"
         >
@@ -141,42 +100,27 @@ const Header = () => {
                 href={item.href}
                 title={item.description}
                 style={{
-                  padding: '14px 22px',
-                  borderRadius: '28px',
+                  padding: '12px 20px',
+                  borderRadius: '25px',
                   fontSize: '16px',
                   fontWeight: '500',
                   textDecoration: 'none',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  backgroundColor: isActive
-                    ? 'rgba(0, 0, 0, 0.1)'
-                    : 'transparent',
+                  transition: 'all 0.3s ease',
+                  backgroundColor: isActive ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
                   color: isActive ? '#1d1d1f' : '#6e6e73',
                   position: 'relative',
-                  overflow: 'hidden',
-                  backdropFilter: isActive ? 'blur(10px)' : 'none',
-                  border: isActive ? '1px solid rgba(0, 0, 0, 0.05)' : '1px solid transparent',
-                  boxShadow: isActive
-                    ? 'inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 3px rgba(0, 0, 0, 0.1)'
-                    : 'none',
+                  overflow: 'hidden'
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.06)';
+                    e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.04)';
                     e.currentTarget.style.color = '#1d1d1f';
-                    e.currentTarget.style.backdropFilter = 'blur(8px)';
-                    e.currentTarget.style.border = '1px solid rgba(0, 0, 0, 0.03)';
-                    e.currentTarget.style.boxShadow = 'inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.05)';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
                     e.currentTarget.style.backgroundColor = 'transparent';
                     e.currentTarget.style.color = '#6e6e73';
-                    e.currentTarget.style.backdropFilter = 'none';
-                    e.currentTarget.style.border = '1px solid transparent';
-                    e.currentTarget.style.boxShadow = 'none';
-                    e.currentTarget.style.transform = 'translateY(0px)';
                   }
                 }}
               >
@@ -186,52 +130,47 @@ const Header = () => {
           })}
         </nav>
 
-        {/* Mobile Island Menu - Enhanced Glassmorphism */}
+        {/* Mobile Island Menu */}
         <div className="md:hidden">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             style={{
-              ...getGlassmorphismStyles(0.8, 0.95),
-              padding: '14px 22px',
-              fontSize: '15px',
+              background: 'rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(20px)',
+              borderRadius: '50px',
+              padding: '12px 20px',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              fontSize: '14px',
               fontWeight: '500',
               color: '#1d1d1f',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '10px',
-              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-              willChange: 'transform, opacity, backdrop-filter',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-1px) scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0px) scale(1)';
-              e.currentTarget.style.boxShadow = isScrolled
-                ? '0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                : '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
+              gap: '8px',
+              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
             }}
           >
             <Menu size={16} />
             Menu
           </button>
 
-          {/* Mobile Menu Dropdown - Enhanced Glassmorphism */}
+          {/* Mobile Menu Dropdown */}
           {isMobileMenuOpen && (
             <div
               style={{
                 position: 'absolute',
-                top: '70px',
+                top: '60px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                ...getGlassmorphismStyles(0.9, 0.98),
-                padding: '20px',
-                minWidth: '220px',
-                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-                animation: 'fadeInScale 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                transformOrigin: 'top center',
+                background: 'rgba(255, 255, 255, 0.9)',
+                backdropFilter: 'blur(20px)',
+                borderRadius: '20px',
+                padding: '16px',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                minWidth: '200px',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
               }}
             >
               {navItems.map((item) => {
@@ -278,36 +217,32 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Logo in top-left corner - Enhanced Glassmorphism */}
+      {/* Logo in top-left corner - increased sizing with scroll-to-top functionality */}
       <div
-        className="fixed top-8 left-8 z-40 cursor-pointer transition-all duration-300"
+        className="fixed top-8 left-8 z-40 cursor-pointer transition-all duration-300 hover:scale-105"
         style={{
-          ...getLogoGlassmorphismStyles(),
-          width: '68px',
-          height: '68px',
+          background: 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(20px)',
+          borderRadius: '50%',
+          width: '64px',
+          height: '64px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          willChange: 'transform, opacity, backdrop-filter',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
         }}
         onClick={() => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
           setShowScrollHint(false);
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'scale(1.08) translateY(-2px)';
-          e.currentTarget.style.boxShadow = '0 16px 48px rgba(0, 0, 0, 0.18), 0 6px 16px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.7)';
-          const scrollProgress = Math.min(scrollY / 200, 1);
-          const hoverOpacity = 0.9 + scrollProgress * 0.08;
-          e.currentTarget.style.background = `rgba(255, 255, 255, ${hoverOpacity})`;
-          e.currentTarget.style.backdropFilter = `blur(${25 + scrollProgress * 10}px) saturate(200%)`;
+          e.currentTarget.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08)';
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'scale(1) translateY(0px)';
-          const currentStyles = getLogoGlassmorphismStyles();
-          e.currentTarget.style.boxShadow = currentStyles.boxShadow;
-          e.currentTarget.style.background = currentStyles.background;
-          e.currentTarget.style.backdropFilter = currentStyles.backdropFilter;
+          e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)';
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
         }}
         title="Click to return to top"
       >

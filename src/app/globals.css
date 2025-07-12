@@ -233,32 +233,6 @@
   }
 }
 
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-10px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0px) scale(1);
-  }
-}
-
 .section-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
-}
-
-/* Enhanced glassmorphism support */
-@supports (backdrop-filter: blur(20px)) {
-  .glassmorphism {
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-  }
-}
-
-/* Fallback for browsers that don't support backdrop-filter */
-@supports not (backdrop-filter: blur(20px)) {
-  .glassmorphism {
-    background: rgba(255, 255, 255, 0.9) !important;
-  }
 }
