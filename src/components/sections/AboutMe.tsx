@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { PhysicsPoint } from '@/lib/physics';
 import Link from "next/link";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { LiquidGlassCard, LiquidGlassButton, LiquidGlassText } from '@/components/ui/LiquidGlass';
 
 // Font style classes for hover effect - using the imported fonts
 const fontStyles = [
@@ -24,6 +25,8 @@ const AboutMe = () => {
   const [fontChangeCounter, setFontChangeCounter] = useState(0);
   const [activeLetterIndex, setActiveLetterIndex] = useState(0);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const [isStrategicVisionVisible, setIsStrategicVisionVisible] = useState(false);
+  const strategicVisionRef = useRef<HTMLDivElement>(null);
 
   // Physics animation setup
   useEffect(() => {
@@ -157,6 +160,33 @@ const AboutMe = () => {
     };
   }, []);
 
+  // Strategic Vision entrance animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsStrategicVisionVisible(true);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '0px 0px -100px 0px'
+      }
+    );
+
+    if (strategicVisionRef.current) {
+      observer.observe(strategicVisionRef.current);
+    }
+
+    return () => {
+      if (strategicVisionRef.current) {
+        observer.unobserve(strategicVisionRef.current);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     const titleText = 'ARCHITECTING TOMORROW\'S DATA SOLUTIONS';
     const fontChangeInterval = setInterval(() => {
@@ -210,7 +240,7 @@ const AboutMe = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-full min-h-screen relative overflow-hidden section-fade-in bg-background"
+      className="w-full min-h-screen relative overflow-hidden section-fade-in"
       style={{
         transform: `scale(${sectionScale})`,
         opacity: sectionOpacity,
@@ -283,12 +313,54 @@ const AboutMe = () => {
 
         <div className="absolute md:right-0 md:top-0 md:bottom-0 md:w-[40%] w-full bottom-0 p-12 md:p-16 flex items-end md:items-center z-30">
           <div className="w-full mb-20 md:mb-0">
-            <div className="bg-white/90 backdrop-blur-sm p-10 rounded-2xl shadow-sm border border-gray-100">
+            <LiquidGlassCard
+              ref={strategicVisionRef}
+              className="p-10"
+              config={{
+                opacity: 0.18,
+                blur: 28,
+                saturation: 125,
+                brightness: 110,
+                shadowIntensity: 0.06
+              }}
+              style={{
+                opacity: isStrategicVisionVisible ? 1 : 0,
+                transform: isStrategicVisionVisible
+                  ? 'translateY(0px) scale(1)'
+                  : 'translateY(40px) scale(0.95)',
+                transition: 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                transitionDelay: isStrategicVisionVisible ? '0.2s' : '0s'
+              }}
+            >
               {/* Editorial lead-in with professional authority */}
-              <p className="text-gray-500 text-xl sm:text-2xl mb-4 ml-2 tracking-wide">
+              <LiquidGlassText
+                variant="secondary"
+                as="p"
+                className="text-xl sm:text-2xl mb-4 ml-2 tracking-wide"
+                style={{
+                  opacity: isStrategicVisionVisible ? 1 : 0,
+                  transform: isStrategicVisionVisible
+                    ? 'translateY(0px)'
+                    : 'translateY(20px)',
+                  transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                  transitionDelay: isStrategicVisionVisible ? '0.4s' : '0s'
+                }}
+              >
                 The Strategic Vision
-              </p>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-4">
+              </LiquidGlassText>
+              <LiquidGlassText
+                variant="accent"
+                as="h2"
+                className="text-2xl md:text-3xl lg:text-4xl mb-4"
+                style={{
+                  opacity: isStrategicVisionVisible ? 1 : 0,
+                  transform: isStrategicVisionVisible
+                    ? 'translateY(0px)'
+                    : 'translateY(30px)',
+                  transition: 'all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                  transitionDelay: isStrategicVisionVisible ? '0.6s' : '0s'
+                }}
+              >
                 {'ARCHITECTING TOMORROW\'S DATA SOLUTIONS'.split('').map((letter, index) => {
                   const isActive = index === activeLetterIndex;
                   const fontIndex = isActive ? (fontChangeCounter % fontStyles.length) : 0;
@@ -305,10 +377,22 @@ const AboutMe = () => {
                     </span>
                   );
                 })}
-              </h2>
-              <p className="text-gray-600 mt-6 mb-8 text-lg leading-relaxed">
+              </LiquidGlassText>
+              <LiquidGlassText
+                variant="primary"
+                as="p"
+                className="mt-6 mb-8 text-lg leading-relaxed"
+                style={{
+                  opacity: isStrategicVisionVisible ? 1 : 0,
+                  transform: isStrategicVisionVisible
+                    ? 'translateY(0px)'
+                    : 'translateY(25px)',
+                  transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                  transitionDelay: isStrategicVisionVisible ? '0.8s' : '0s'
+                }}
+              >
                 Where cutting-edge analytics meets strategic business transformation. Leveraging advanced machine learning and data science methodologies to unlock competitive advantages and drive measurable organizational impact across complex enterprise environments.
-              </p>
+              </LiquidGlassText>
               <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
                 <div className="flex space-x-6">
                   <Link
@@ -330,28 +414,23 @@ const AboutMe = () => {
                     <FaGithub className="w-8 h-8 text-[#333333] dark:text-white" />
                   </Link>
                 </div>
-                <a
+                <LiquidGlassButton
+                  as="a"
                   href="#projects"
-                  className="btn-primary inline-flex items-center px-6 py-3 rounded-lg font-semibold text-lg transition-all duration-300 hover:transform hover:scale-105"
-                  style={{
-                    backgroundColor: '#4f46e5',
-                    color: '#ffffff',
-                    textDecoration: 'none',
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#4338ca';
-                    e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#4f46e5';
-                    e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+                  className="inline-flex items-center px-6 py-3 font-semibold text-lg text-decoration-none"
+                  textVariant="accent"
+                  config={{
+                    opacity: 0.25,
+                    blur: 24,
+                    saturation: 140,
+                    brightness: 112,
+                    shadowIntensity: 0.12
                   }}
                 >
                   Experience the Vision
-                </a>
+                </LiquidGlassButton>
               </div>
-            </div>
+            </LiquidGlassCard>
           </div>
         </div>
       </div>

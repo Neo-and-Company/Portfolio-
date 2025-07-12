@@ -5,10 +5,13 @@ import ProfessionalSummary from '@/components/sections/ProfessionalSummary';
 import ProjectShowcaseGrid from '@/components/sections/ProjectShowcaseGrid';
 import ResumeDownload from '@/components/sections/ResumeDownload';
 import ContactSection from '@/components/sections/ContactSection';
+import { LiquidGlassCard, LiquidGlassText } from '@/components/ui/LiquidGlass';
 
 export default function Home() {
   return (
     <div className="flex flex-col">
+
+
       <AboutMe /> {/* Hero Section */}
       <CareerRoadmap /> {/* Career Journey Timeline */}
       <ProfessionalSummary />
