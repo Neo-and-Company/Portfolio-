@@ -118,61 +118,16 @@ const Header = () => {
     };
   };
 
-  // Mirror reflection styles for Apple-style dock reflection
-  const getReflectionStyles = (baseOpacity = 0.8, maxOpacity = 0.95) => {
-    const scrollProgress = Math.min(scrollY / 200, 1);
-    const opacity = baseOpacity + (maxOpacity - baseOpacity) * scrollProgress;
-    const blur = 20 + scrollProgress * 10;
-    const reflectionOpacity = (0.25 + scrollProgress * 0.05); // 25-30% opacity for reflection
-
-    return {
-      background: `rgba(255, 255, 255, ${opacity * reflectionOpacity})`,
-      backdropFilter: `blur(${blur * 0.8}px) saturate(150%)`, // Slightly less blur for reflection
-      WebkitBackdropFilter: `blur(${blur * 0.8}px) saturate(150%)`,
-      borderRadius: '50px',
-      border: `1px solid rgba(255, 255, 255, ${(0.2 + scrollProgress * 0.3) * 0.5})`,
-      boxShadow: 'none', // No shadow on reflection
-      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-      transform: 'scaleY(-1)', // Flip vertically for mirror effect
-      maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-      WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-    };
-  };
-
-  // Logo reflection styles
-  const getLogoReflectionStyles = () => {
-    const scrollProgress = Math.min(scrollY / 200, 1);
-    const opacity = 0.8 + scrollProgress * 0.15;
-    const blur = 20 + scrollProgress * 10;
-    const reflectionOpacity = (0.2 + scrollProgress * 0.05); // 20-25% opacity for logo reflection
-
-    return {
-      background: `rgba(255, 255, 255, ${opacity * reflectionOpacity})`,
-      backdropFilter: `blur(${blur * 0.8}px) saturate(150%)`,
-      WebkitBackdropFilter: `blur(${blur * 0.8}px) saturate(150%)`,
-      borderRadius: '50%',
-      border: `1px solid rgba(255, 255, 255, ${(0.2 + scrollProgress * 0.3) * 0.4})`,
-      boxShadow: 'none',
-      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-      transform: 'scaleY(-1)',
-      maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%)',
-      WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%)',
-    };
-  };
-
   return (
     <>
-      {/* Apple-Style Island Navigation - Enhanced Glassmorphism with Mirror Reflection */}
+      {/* Apple-Style Island Navigation - Enhanced Glassmorphism */}
       <header className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50">
-        {/* Main Navigation */}
         <nav
           style={{
             ...getGlassmorphismStyles(0.75, 0.95),
             padding: '14px 36px',
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
             willChange: 'transform, opacity, backdrop-filter',
-            position: 'relative',
-            zIndex: 2,
           }}
           className="hidden md:flex items-center space-x-2"
         >
@@ -231,51 +186,6 @@ const Header = () => {
           })}
         </nav>
 
-        {/* Mirror Reflection - Apple Dock Style */}
-        <div
-          style={{
-            ...getReflectionStyles(0.75, 0.95),
-            padding: '14px 36px',
-            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-            willChange: 'transform, opacity, backdrop-filter',
-            position: 'absolute',
-            top: 'calc(100% + 3px)', // 3px gap for floating effect
-            left: '0',
-            right: '0',
-            zIndex: 1,
-            pointerEvents: 'none', // Disable interactions with reflection
-          }}
-          className="hidden md:flex items-center space-x-2"
-        >
-          {navItems.map((item) => {
-            const isActive = (item.href === '/' && activeSection === 'home') ||
-                           (item.href.includes('#') && activeSection === item.href.replace('#', ''));
-
-            return (
-              <div
-                key={`reflection-${item.label}`}
-                style={{
-                  padding: '14px 22px',
-                  borderRadius: '28px',
-                  fontSize: '16px',
-                  fontWeight: '500',
-                  textDecoration: 'none',
-                  backgroundColor: isActive
-                    ? 'rgba(0, 0, 0, 0.05)' // Reduced opacity for reflection
-                    : 'transparent',
-                  color: isActive ? 'rgba(29, 29, 31, 0.6)' : 'rgba(110, 110, 115, 0.6)', // Reduced opacity
-                  position: 'relative',
-                  overflow: 'hidden',
-                  backdropFilter: isActive ? 'blur(5px)' : 'none', // Reduced blur for reflection
-                  border: isActive ? '1px solid rgba(0, 0, 0, 0.02)' : '1px solid transparent',
-                }}
-              >
-                {item.label}
-              </div>
-            );
-          })}
-        </div>
-
         {/* Mobile Island Menu - Enhanced Glassmorphism */}
         <div className="md:hidden">
           <button
@@ -307,30 +217,6 @@ const Header = () => {
             <Menu size={16} />
             Menu
           </button>
-
-          {/* Mobile Menu Button Reflection */}
-          <div
-            style={{
-              ...getReflectionStyles(0.8, 0.95),
-              padding: '14px 22px',
-              fontSize: '15px',
-              fontWeight: '500',
-              color: 'rgba(29, 29, 31, 0.4)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-              position: 'absolute',
-              top: 'calc(100% + 3px)',
-              left: '0',
-              right: '0',
-              zIndex: 1,
-              pointerEvents: 'none',
-            }}
-          >
-            <Menu size={16} style={{ opacity: 0.4 }} />
-            <span style={{ opacity: 0.4 }}>Menu</span>
-          </div>
 
           {/* Mobile Menu Dropdown - Enhanced Glassmorphism */}
           {isMobileMenuOpen && (
@@ -432,33 +318,6 @@ const Header = () => {
             color: '#1d1d1f',
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
             userSelect: 'none'
-          }}
-        >
-          G.
-        </span>
-      </div>
-
-      {/* Logo Reflection - Apple Dock Style */}
-      <div
-        className="fixed top-[calc(2rem+68px+4px)] left-8 z-30 pointer-events-none"
-        style={{
-          ...getLogoReflectionStyles(),
-          width: '68px',
-          height: '68px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          willChange: 'transform, opacity, backdrop-filter',
-        }}
-      >
-        <span
-          style={{
-            fontSize: '24px',
-            fontWeight: '700',
-            color: 'rgba(29, 29, 31, 0.4)', // Reduced opacity for reflection
-            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-            userSelect: 'none',
-            transform: 'scaleY(-1)', // Counter the parent transform to keep text readable
           }}
         >
           G.
